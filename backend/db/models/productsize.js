@@ -1,13 +1,13 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class productSize extends Model {
+  class ProductSize extends Model {
     static associate({ Size, Product }) {
       this.belongsTo(Size, { foreignKey: 'sizeId' });
-      this.belongsTo(Product, { foreignKey: 'productId' });
+      this.belongsTo(Product, { foreignKey: 'productSizeId' });
     }
   }
-  productSize.init(
+  ProductSize.init(
     {
       productId: {
         allowNull: false,
@@ -31,8 +31,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'productSize',
+      modelName: 'ProductSize',
     }
   );
-  return productSize;
+  return ProductSize;
 };
