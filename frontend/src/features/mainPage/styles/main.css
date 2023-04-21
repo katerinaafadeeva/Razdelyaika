@@ -1,0 +1,28 @@
+.full-screen {
+  position: relative;
+  min-height: 95vh;
+  display: flex;
+  flex-direction: column;
+  color: aliceblue;
+}
+
+.full-screen__body {
+  background-color: #309959;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-start;
+  /*align-items: center;*/
+  flex-direction: column;
+  padding: 50px 15px;
+  text-transform: uppercase;
+}
+
+.tc__y {
+  color: #f4f680;
+}
+
+.full-screen__body p {
+  font-size: 64px;
+}
