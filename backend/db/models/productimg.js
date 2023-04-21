@@ -1,31 +1,30 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class eventPhoto extends Model {
-    static associate({Event}) {
-      this.belongsTo(Event, { foreignKey: 'eventId' });
+  class ProductImg extends Model {
+    static associate({ Product }) {
+      this.belongsTo(Product, { foreignKey: 'productId' });
     }
   }
-  eventPhoto.init(
+  ProductImg.init(
     {
-      eventId: {
+      productId: {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: 'Events',
+          model: 'Products',
           key: 'id',
         },
-        onDelete: 'CASCADE',
       },
-      file: {
+      productImg: {
         allowNull: false,
         type: DataTypes.TEXT,
       },
     },
     {
       sequelize,
-      modelName: 'eventPhoto',
+      modelName: 'ProductImg',
     }
   );
-  return eventPhoto;
+  return ProductImg;
 };
