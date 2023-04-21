@@ -9,7 +9,7 @@ import SignUp from '../features/auth/SignUp';
 import EcoTaxi from '../features/taxi/EcoTaxi';
 import EventList from '../features/events/EventList';
 import ContainersList from '../features/containers/ContainersList';
-import { getProducts } from './api';
+import { getProducts } from '../features/shop/productsSlice';
 import * as api from './api';
 import ProductsList from '../features/shop/ProductsList';
 import { getEvent } from '../features/events/eventSlice';
@@ -22,6 +22,10 @@ function App(): JSX.Element {
   useEffect(() => {
     // api.getProducts().then((data) => console.log(data));
     dispatch(getEvent());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getProducts());
   }, [dispatch]);
 
   return (
