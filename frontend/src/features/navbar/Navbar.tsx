@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/navbar.css';
 
 function Navbar(): JSX.Element {
   return (
@@ -8,7 +9,7 @@ function Navbar(): JSX.Element {
           navbarOpen: false
         }
       "
-      className="flex w-full items-center bg-white"
+      className="flex w-full items-center navbar"
     >
       <div className="container mx-auto">
         <div className="relative -mx-4 flex items-center justify-between">

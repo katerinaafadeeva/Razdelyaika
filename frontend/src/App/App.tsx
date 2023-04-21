@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Navbar from '../features/navbar/Navbar';
 
@@ -9,7 +9,9 @@ function App(): JSX.Element {
 
   return (
     <div className="App">
-      <Navbar />
+      <Routes>
+        <Route path="/" element={<Navbar />}></Route>
+      </Routes>
     </div>
   );
 }
