@@ -29,6 +29,27 @@
   margin-left: 5vw;
 }
 
+.cst__btn {
+  font-family: 'Raleway', Arial, sans-serif;
+  font-weight: 700;
+  border-width: 1px;
+
+  border-radius: 4px;
+  position: absolute;
+
+  width: 240px;
+  height: 52px;
+  margin-left: 5vw;
+  top: 53vh;
+
+  border-color: transparent;
+  font-size: 18px;
+  color: #2f6099;
+  background: #a5d3f4;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out;
+}
+
 .text__main_p:first-child {
   margin-top: 18vh;
 }

@@ -11,6 +11,9 @@ function MainPage(): JSX.Element {
             <span className="text__main">Разделяй</span> мусор
           </p>
           <p className="text__main_p"> уже сегодня</p>
+          <a href="/containers">
+            <button className="cst__btn">Правила сортировки</button>
+          </a>
           <ImgGroup />
         </div>
       </div>
