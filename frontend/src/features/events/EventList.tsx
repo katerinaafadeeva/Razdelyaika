@@ -1,7 +1,10 @@
 import React from 'react';
 import EventCard from './EventCard';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 function EventList(): JSX.Element {
+  const { events } = useSelector((store: RootState) => store.eventState);
   return (
     <div>
       <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20">
@@ -21,8 +24,9 @@ function EventList(): JSX.Element {
             </div>
           </div>
           <div className="-mx-4 flex flex-wrap">
-            {/*тут будет мап*/}
-            <EventCard />
+            {events?.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
           </div>
         </div>
       </section>
