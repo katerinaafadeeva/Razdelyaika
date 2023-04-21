@@ -1,8 +1,10 @@
 .navbar {
   background-color: #309959;
+  height: 70px;
 }
 #navbarCollapse {
   background-color: #309959;
+  height: 70px;
 }
 
 .navitem {

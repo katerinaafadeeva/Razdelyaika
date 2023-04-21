@@ -6,6 +6,10 @@ import Navbar from '../features/navbar/Navbar';
 import MainPage from '../features/mainPage/MainPage';
 import SignIn from '../features/auth/SignIn';
 import SignUp from '../features/auth/SignUp';
+import ProductsList from '../features/products/ProductsList';
+import EcoTaxi from '../features/taxi/EcoTaxi';
+import EventList from '../features/events/EventList';
+import ContainersList from '../features/containers/ContainersList';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -17,6 +21,10 @@ function App(): JSX.Element {
           <Route index element={<MainPage />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/shop" element={<ProductsList />} />
+          <Route path="/taxi" element={<EcoTaxi />} />
+          <Route path="/events" element={<EventList />} />
+          <Route path="/containers" element={<ContainersList />} />
         </Route>
       </Routes>
     </div>
