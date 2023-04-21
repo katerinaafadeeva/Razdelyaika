@@ -85,26 +85,34 @@ function Navbar(): JSX.Element {
                   <ul className="block lg:flex">
                     <li>
                       <NavLink
-                        to="/"
+                        to="/taxi"
                         className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
                       >
-                        Home
+                        Эко-такси
                       </NavLink>
                     </li>
                     <li>
                       <NavLink
-                        to="javascript:void(0)"
+                        to="/events"
                         className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
                       >
-                        alalal
+                        Мероприятия
                       </NavLink>
                     </li>
                     <li>
                       <NavLink
-                        to="javascript:void(0)"
+                        to="/shop"
                         className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
                       >
-                        lalala
+                        Магазин
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/containers"
+                        className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
+                      >
+                        Контейнеры
                       </NavLink>
                     </li>
                   </ul>
