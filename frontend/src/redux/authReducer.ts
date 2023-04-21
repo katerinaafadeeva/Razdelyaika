@@ -36,11 +36,6 @@ const authReducer = (state: State = initialState, action: Action): State => {
         ...state,
         auth: action.payload,
       };
-    case 'UPDATE_SCORE':
-      return {
-        ...state,
-        auth: action.payload,
-      };
     default:
       return state;
   }

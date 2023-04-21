@@ -5,18 +5,12 @@ import './App.css';
 import Navbar from '../features/navbar/Navbar';
 
 function App(): JSX.Element {
-
   const dispatch = useDispatch();
 
   return (
-    <Routes>
-      
-      <div className="App">
-        <h1>Razgildyaika_project_presetns</h1>
-             <Navbar />
-      </div>
-    </Routes>
-
+    <div className="App">
+      <Navbar />
+    </div>
   );
 }
 
