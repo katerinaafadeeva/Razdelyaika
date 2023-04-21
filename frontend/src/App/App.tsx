@@ -14,6 +14,7 @@ import * as api from './api';
 import ProductsList from '../features/shop/ProductsList';
 import { getEvent } from '../features/events/eventSlice';
 import { useAppDispatch } from '../store';
+import EventItemDiscription from '../features/events/EventItemDiscription';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -33,6 +34,7 @@ function App(): JSX.Element {
           <Route path="/shop" element={<ProductsList />} />
           <Route path="/taxi" element={<EcoTaxi />} />
           <Route path="/events" element={<EventList />} />
+          <Route path="/events/:eventId" element={<EventItemDiscription />} />
           <Route path="/containers" element={<ContainersList />} />
         </Route>
       </Routes>
