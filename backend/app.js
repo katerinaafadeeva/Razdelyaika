@@ -4,7 +4,7 @@ const serverConfig = require('./config/serverConfig');
 
 const app = express();
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 // const apiRouter = require('./api/api.routes');
 const authRouter = require('./routes/auth.routes');
