@@ -11,3 +11,6 @@ export const checkUser = (): Promise<User> =>
 export const getProducts = (): Promise<Product[]> => fetch('/api/shop').then((res) => res.json());
 
 export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
+
+export const getParamEvent = (): Promise<Event> =>
+  fetch('/api/events/:id').then((res) => res.json());

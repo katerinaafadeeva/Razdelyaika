@@ -13,7 +13,6 @@ router.get('/shop', async (req, res) => {
   }
 });
 
-
 // роутер для добавления фоточек
 // router.post('/photo', async (req, res) => {
 //   console.log(req.files.foo);
@@ -44,5 +43,15 @@ router.get('/events', async (req, res) => {
   }
 });
 
+router.get('/events/:eventId', async (req, res) => {
+  const { eventId } = req.params;
+  try {
+    const event = await Event.findOne({ raw: true, where: { id: eventId } });
+    // console.log(event, '----------');
+    res.json(event);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
 
 module.exports = router;

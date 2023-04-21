@@ -6,3 +6,5 @@ export type Event = {
   eventDate: string;
   isActive: boolean;
 };
+
+export type EventId = Event['id'];
