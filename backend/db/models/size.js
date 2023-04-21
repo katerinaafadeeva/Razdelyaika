@@ -2,9 +2,11 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Size extends Model {
+
     static associate({ productSize }) {
       this.hasMany(productSize, { foreignKey: 'sizeId' });
     }
+
   }
   Size.init(
     {

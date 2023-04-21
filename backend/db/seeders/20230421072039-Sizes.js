@@ -32,6 +32,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.bulkDelete('Sizes', null, {});
+    await queryInterface.bulkDelete('Sizes');
   },
 };
