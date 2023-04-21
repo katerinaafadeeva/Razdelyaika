@@ -12,13 +12,16 @@ import ContainersList from '../features/containers/ContainersList';
 import { getProducts } from './api';
 import * as api from './api';
 import ProductsList from '../features/shop/ProductsList';
+import { getEvent } from '../features/events/eventSlice';
+import { useAppDispatch } from '../store';
 
 function App(): JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    api.getProducts().then((data) => console.log(data));
-  }, []);
+    // api.getProducts().then((data) => console.log(data));
+    dispatch(getEvent());
+  }, [dispatch]);
 
   return (
     <div className="App">
