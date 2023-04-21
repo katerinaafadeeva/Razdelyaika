@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   class ProductReview extends Model {
     static associate({ Product, User }) {
       this.belongsTo(User, { foreignKey: 'userId' });
-      this.belongsTo(Product, { foreignKey: 'productId' });
+      this.belongsTo(Product, { foreignKey: 'productRevId' });
     }
   }
   ProductReview.init(
