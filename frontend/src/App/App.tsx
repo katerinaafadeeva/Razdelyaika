@@ -3,12 +3,9 @@ import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import SignIn from '../features/auth/SignIn';
 import SignUp from '../features/auth/SignUp';
-
 import './App.css';
 import Navbar from '../features/navbar/Navbar';
 import MainPage from '../features/mainPage/MainPage';
-import SignIn from '../features/auth/SignIn';
-import SignUp from '../features/auth/SignUp';
 import EcoTaxi from '../features/taxi/EcoTaxi';
 import EventList from '../features/events/EventList';
 import ContainersList from '../features/containers/ContainersList';
