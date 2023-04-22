@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import store, { RootState } from '../../store';
+import FormUpdateProduct from './FormUpdateProduct';
 
 function ProductParams(): JSX.Element {
   const { products } = useSelector((store: RootState) => store.productsState);
@@ -27,6 +28,7 @@ function ProductParams(): JSX.Element {
                   {product.productDescript}
                 </p>
               </div>
+              <FormUpdateProduct />
             </div>
           </div>
         </div>
