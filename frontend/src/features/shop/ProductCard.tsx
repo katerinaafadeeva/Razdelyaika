@@ -25,6 +25,14 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
           >
             Подробнее
           </Link>
+          <button
+          onClick={() => dispatch(())}
+       
+          type="button"
+        >
+         
+          Удалить запись
+        </button>
         </div>
       </div>
     </div>
