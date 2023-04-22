@@ -78,4 +78,20 @@ router.get('/shop/:productId', async (req, res) => {
     res.json({ message: error.message });
   }
 });
+
+// add product route:
+
+router.post('/shop', async (req, res) => {
+  try {
+    const { productName, productPrice, productDescript } = req.body;
+    const newProduct = await Product.create({
+      productName,
+      productPrice,
+      productDescript,
+    });
+    res.json(newProduct);
+  } catch ({ message }) {
+    res.json(message);
+  }
+});
 module.exports = router;
