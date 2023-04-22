@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { State } from './types/State';
 import * as api from '../../App/api';
-import { productId } from './types/Products';
+// import { productId } from './types/Products';
 
 const initialState: State = {
   products: [],
@@ -26,6 +26,14 @@ export const addProduct = createAsyncThunk(
   }) => api.addProduct(newProduct)
 );
 
+// added remove fn :
+
+export const removeProduct = createAsyncThunk(
+  '/shop/removeProduct',
+  (productId: number) => api.removeProduct(productId)
+);
+
+// slicers:
 const productsSlice = createSlice({
   name: 'products',
   initialState,
@@ -39,6 +47,17 @@ const productsSlice = createSlice({
         state.products = [...state.products, action.payload];
       })
       .addCase(addProduct.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(removeProduct.fulfilled, (state, action) => {
+        if (Number.isNaN(+action.payload)) {
+          state.error = `${action.payload}`;
+        }
+        state.products = state.products.filter(
+          (product) => product.id !== Number(action.payload)
+        );
+      })
+      .addCase(removeProduct.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },

@@ -11,8 +11,13 @@ export const checkUser = (): Promise<User> =>
 export const getProducts = async (): Promise<Product[]> =>
   fetch('/api/shop').then((res) => res.json());
 
+
 //Мероприятия
 export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
+
+export const getEvents = (): Promise<Event[]> =>
+  fetch('/api/events').then((res) => res.json());
+
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
@@ -31,6 +36,7 @@ export const addNewEvent = async (newEvent: {
   return res.json();
 };
 
+
 export const removeEvent = async (eventId: number): Promise<number> => {
   const res = await fetch(`/api/events/${eventId}`, {
     method: 'DELETE',
@@ -38,13 +44,16 @@ export const removeEvent = async (eventId: number): Promise<number> => {
   return res.json();
 };
 
+
 export const getParamEvent = async (): Promise<Event> =>
   fetch('/api/events/:id').then((res) => res.json());
 
 export const getParamProducts = async (): Promise<Product> =>
   fetch('/api/shop/:id').then((res) => res.json());
 
-// api на добавление товара :
+
+// api add product :
+
 export const addProduct = async (newProduct: {
   productName: string;
   productPrice: number;
@@ -59,3 +68,12 @@ export const addProduct = async (newProduct: {
   });
   return res.json();
 };
+
+// api for removing products:
+
+export async function removeProduct(productId: number): Promise<number> {
+  const res = await fetch(`/api/shop/${productId}`, {
+    method: 'DELETE',
+  });
+  return res.json();
+}

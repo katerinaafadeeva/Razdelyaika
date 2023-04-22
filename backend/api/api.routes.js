@@ -94,6 +94,21 @@ router.post('/shop', async (req, res) => {
   }
 });
 
+// remove product route:
+
+router.delete('/shop/:productId', async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const product = await Product.destroy({ where: { id: Number(productId) } });
+    if (product) {
+      res.json(productId);
+    }
+    res.end();
+  } catch ({ message }) {
+    res.json(message);
+  }
+});
+
 router.post('/events', async (req, res) => {
   const { eventName, eventDescription, eventAddress, eventDate } = req.body;
   console.log(eventName, eventDescription, eventAddress, eventDate);
@@ -106,7 +121,6 @@ router.post('/events', async (req, res) => {
       isActive: true,
     });
 
-    // console.log(event, '-----------');
     res.json(event);
   } catch (error) {
     res.json({ message: error.message });
