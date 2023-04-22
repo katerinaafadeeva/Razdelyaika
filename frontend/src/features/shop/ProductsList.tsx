@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import ProductCard from './ProductCard';
+import { Outlet } from 'react-router-dom';
 
 function ProductsList(): JSX.Element {
   const { products } = useSelector((store: RootState) => store.productsState);
