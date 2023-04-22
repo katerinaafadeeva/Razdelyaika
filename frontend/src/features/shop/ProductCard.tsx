@@ -1,22 +1,17 @@
 import React from 'react';
 import { Product } from './types/Products';
 import { Link } from 'react-router-dom';
-import del from '../images/delete.png';
-import { removeProduct } from '../../App/api';
+// import del from '../images/delete.png';
+
 import { RootState, useAppDispatch } from '../../store';
-import { useSelector } from 'react-redux';
-import { selectProduct } from '../../features/shop/productsSlice';
+// import { useSelector } from 'react-redux';
+import { removeProduct } from './productsSlice';
 
 function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
-  const { selectedProduct } = useSelector(
-    (store: RootState) => store.productsState
-  );
 
   const handleRemoveProduct = (): void => {
-    selectedProduct === product.id
-      ? dispatch(selectProduct(0))
-      : dispatch(selectProduct(product.id));
+    dispatch(removeProduct(product.id));
   };
 
   return (
@@ -41,11 +36,8 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
           >
             Подробнее
           </Link>
-          <button
-            onClick={() => dispatch(handleRemoveProduct(selectProduct))}
-            type="button"
-          >
-            <img src={del} alt="delete" />
+          <button onClick={handleRemoveProduct} type="button">
+            {/* <img src={del} alt="delete" /> */}
             Удалить запись
           </button>
         </div>
