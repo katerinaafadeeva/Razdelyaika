@@ -11,6 +11,8 @@ export const getProducts = createAsyncThunk('shop/getProducts', () =>
   api.getProducts()
 );
 
+export const getParamProducts = createAsyncThunk('shop/getProduct/:id', () => api.getParamProducts);
+
 const productsSlice = createSlice({
   name: 'products',
   initialState,

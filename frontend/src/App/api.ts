@@ -16,3 +16,6 @@ export const getEvents = (): Promise<Event[]> =>
 
 export const getParamEvent = (): Promise<Event> =>
   fetch('/api/events/:id').then((res) => res.json());
+
+export const getParamProducts = (): Promise<Product> =>
+  fetch('/api/shop/:id').then((res) => res.json());
