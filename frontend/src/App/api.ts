@@ -8,14 +8,30 @@ export const checkUser = (): Promise<User> =>
     credentials: 'include',
   }).then((res) => res.json());
 
-export const getProducts = (): Promise<Product[]> =>
+export const getProducts = async (): Promise<Product[]> =>
   fetch('/api/shop').then((res) => res.json());
 
-export const getEvents = (): Promise<Event[]> =>
+export const getEvents = async (): Promise<Event[]> =>
   fetch('/api/events').then((res) => res.json());
 
-export const getParamEvent = (): Promise<Event> =>
+export const getParamEvent = async (): Promise<Event> =>
   fetch('/api/events/:id').then((res) => res.json());
 
-export const getParamProducts = (): Promise<Product> =>
+export const getParamProducts = async (): Promise<Product> =>
   fetch('/api/shop/:id').then((res) => res.json());
+
+  // api на добавление товара :
+export const addProduct = async (newProduct: {
+  productName: string;
+  productPrice: number;
+  productDescript: string;
+}): Promise<Product> => {
+  const res = await fetch('/api/shop', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newProduct),
+  });
+  return res.json();
+};
