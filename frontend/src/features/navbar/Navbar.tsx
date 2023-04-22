@@ -5,7 +5,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 function Navbar(): JSX.Element {
   return (
     <>
-      <header
+      <div
         x-data="
         {
           navbarOpen: false
@@ -135,7 +135,7 @@ function Navbar(): JSX.Element {
             </div>
           </div>
         </div>
-      </header>
+      </div>
       <Outlet />
     </>
   );

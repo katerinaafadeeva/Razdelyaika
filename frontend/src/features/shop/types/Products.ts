@@ -3,4 +3,6 @@ export type Product = {
   productName: string;
   productDescript: string;
   productPrice: number;
+  [key: string]: any;
 };
+

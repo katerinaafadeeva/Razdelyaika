@@ -7,7 +7,7 @@ function EventCard({ event }: { event: Event }): JSX.Element {
       <div className="mx-auto mb-10 max-w-[370px]">
         <div className="mb-8 overflow-hidden rounded">
           <img
-            src="https://www.meme-arsenal.com/memes/94b5292a7f10c957c8611169f07ff7a4.jpg"
+            src={`${event['eventPhotos.file']}`}
             alt="image"
             className="w-full"
           />
@@ -18,8 +18,9 @@ function EventCard({ event }: { event: Event }): JSX.Element {
           </span>
           <h3>
             <a
-              href="javascript:void(0)"
-              className="text-dark hover:text-primary mb-4 inline-block text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl">
+              href={`/events/${event.id}`}
+              className="text-dark hover:text-primary mb-4 inline-block text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
+            >
               {event.eventName}
             </a>
           </h3>
