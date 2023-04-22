@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { State } from './types/State';
 // import { RootState, useAppDispatch } from '../../store';
-import * as api from './types/api';
+import * as api from '../../App/api';
 
 const initialState: State = {
   auth: undefined,
