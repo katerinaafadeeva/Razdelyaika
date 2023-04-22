@@ -1,27 +1,41 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../store';
-import { Product } from './productsSlice';
+import { addProduct } from './productsSlice';
 
 function FormAddProduct(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [productName, setProductName] = useState('');
-  const [productPrice, setProductPrice] = useState('');
-  const [productDescript, setproductDescript] = useState('');
+  const [newproductName, setProductName] = useState('');
+  const [newproductPrice, setProductPrice] = useState(0);
+  const [newproductDescript, setproductDescript] = useState('');
 
-  const addProduct = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleAddProduct = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     dispatch(
       addProduct({
-        productName: productName,
-        productPrice: productPrice,
-        productDescript: productDescript,
+        productName: newproductName,
+        productPrice: newproductPrice,
+        productDescript: newproductDescript,
       })
     );
   };
   return (
-    <form onSubmit={}>
-      <input type="text" value={} onChange={(e) => e.target.value} />
-      <button type="submit">add product</button>
+    <form onSubmit={handleAddProduct}>
+      <input
+        type="text"
+        value={newproductName}
+        onChange={(e) => setProductName(e.target.value)}
+      />
+      <input
+        type="text"
+        value={newproductPrice}
+        onChange={(e) => setProductPrice(Number(e.target.value))}
+      />
+      <input
+        type="text"
+        value={newproductDescript}
+        onChange={(e) => setproductDescript(e.target.value)}
+      />
+      <button type="submit">добавить продукт</button>
     </form>
   );
 }

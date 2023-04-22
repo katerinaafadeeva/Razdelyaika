@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import ProductCard from './ProductCard';
 import { Outlet } from 'react-router-dom';
+import FormAddProduct from './FormAddProduct';
 
 function ProductsList(): JSX.Element {
   const { products } = useSelector((store: RootState) => store.productsState);
@@ -16,6 +17,7 @@ function ProductsList(): JSX.Element {
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
+          <FormAddProduct />
         </div>
       </section>
       <Outlet />
