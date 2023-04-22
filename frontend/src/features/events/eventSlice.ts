@@ -9,6 +9,8 @@ const initialState: State = {
 
 export const getEvent = createAsyncThunk('events/getEvent', () => api.getEvents());
 
+export const getParamEvents = createAsyncThunk('events/getEvent/:id', () => api.getParamEvent);
+
 const eventsSlice = createSlice({
   name: 'events',
   initialState,

@@ -9,11 +9,12 @@ import SignUp from '../features/auth/SignUp';
 import EcoTaxi from '../features/taxi/EcoTaxi';
 import EventList from '../features/events/EventList';
 import ContainersList from '../features/containers/ContainersList';
-import { getProducts } from './api';
+import { getProducts } from '../features/shop/productsSlice';
 import * as api from './api';
 import ProductsList from '../features/shop/ProductsList';
 import { getEvent } from '../features/events/eventSlice';
 import { useAppDispatch } from '../store';
+import EventItemDiscription from '../features/events/EventItemDiscription';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -21,6 +22,10 @@ function App(): JSX.Element {
   useEffect(() => {
     // api.getProducts().then((data) => console.log(data));
     dispatch(getEvent());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getProducts());
   }, [dispatch]);
 
   return (
@@ -33,6 +38,7 @@ function App(): JSX.Element {
           <Route path="/shop" element={<ProductsList />} />
           <Route path="/taxi" element={<EcoTaxi />} />
           <Route path="/events" element={<EventList />} />
+          <Route path={`/events/:eventId`} element={<EventItemDiscription />} />
           <Route path="/containers" element={<ContainersList />} />
         </Route>
       </Routes>
