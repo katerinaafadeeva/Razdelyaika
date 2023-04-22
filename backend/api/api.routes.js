@@ -154,4 +154,41 @@ router.delete('/events/:eventId', async (req, res) => {
   }
 });
 
+// update products router:
+
+// router.put('/shop/:productId', async (req, res) => {
+//   try {
+//     const { productId } = req.params;
+//     const { productName, productPrice, productDescript } = req.body;
+//     const product = await Product.findOne({ where: { id: productId } });
+
+//     (product.productName = productName),
+//       (product.productPrice = productPrice),
+//       (product.productDescript = productDescript);
+//     product.save();
+//     res.json(product);
+//   } catch ({ message }) {
+//     res.json();
+//   }
+// });
+
+router.put('/shop/:productId', async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const { productName, productDescript, productPrice } = req.body;
+    const product = await Product.findOne({ where: { id: productId } });
+    product.productName = productName;
+    product.productDescript = productDescript;
+    product.productPrice = productPrice;
+    product.save();
+    // const result = await Education.destroy({ where: { user_id: userId } });
+    // const newEducation = await Education.create({
+    //   user_id: userId,
+    //   educationType_id: Number(education),
+    // });
+    res.json(product);
+  } catch ({ message }) {
+    res.json();
+  }
+});
 module.exports = router;
