@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../store';
 import { addProduct } from './productsSlice';
+import Uploader from '../uploader/Uploader';
 
 function FormAddProduct(): JSX.Element {
   const dispatch = useAppDispatch();
   const [newproductName, setProductName] = useState('');
   const [newproductPrice, setProductPrice] = useState(0);
   const [newproductDescript, setproductDescript] = useState('');
+  const [newproductImg, setProductImg] = useState('');
 
   const handleAddProduct = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -61,6 +63,10 @@ function FormAddProduct(): JSX.Element {
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               value={newproductDescript}
               onChange={(e) => setproductDescript(e.target.value)}
+            />
+            <Uploader
+              newproductImg={newproductImg}
+              setProductImg={setProductImg}
             />
           </div>
         </div>

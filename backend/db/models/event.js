@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.TEXT,
       },
+      detailsLink: {
+        type: DataTypes.TEXT,
+      },
       isActive: {
         allowNull: false,
         type: DataTypes.BOOLEAN,
