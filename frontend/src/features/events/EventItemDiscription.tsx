@@ -629,12 +629,6 @@ function EventItemDiscription(): JSX.Element {
                 brand. Secure a consistent brand image with a domain name that
                 matches your business.
               </p>
-              <a
-                href="javascript:void(0)"
-                className="bg-primary inline-flex items-center justify-center rounded-lg py-4 px-10 text-center text-base font-normal text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
-              >
-                Get Started
-              </a>
             </div>
           </div>
         </div>

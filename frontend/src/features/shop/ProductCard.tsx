@@ -19,10 +19,10 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
             {product.productDescript}
           </p>
           <a
-            href="#"
+            href={`/shop/${product.id}`}
             className="text-body-color hover:border-primary hover:bg-primary inline-block rounded-full border border-[#E5E7EB] py-2 px-7 text-base font-medium transition hover:text-white"
           >
-            View Details
+            Подробнее
           </a>
         </div>
       </div>
