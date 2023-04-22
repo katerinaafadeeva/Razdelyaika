@@ -75,7 +75,14 @@ const productsSlice = createSlice({
       })
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.products = state.products.map((product) =>
-          product.id === action.payload.id ? action.payload : product
+          product.id === action.payload.id
+            ? {
+                ...product,
+                productName: action.payload.productName,
+                productDescript: action.payload.productDescript,
+                productPrice: action.payload.productPrice,
+              }
+            : product
         );
       })
       .addCase(updateProduct.rejected, (state, action) => {
