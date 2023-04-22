@@ -4,7 +4,6 @@ const { User } = require('../db/models');
 
 router.post('/signin', async (req, res) => {
   const { email, password } = req.body;
-
   try {
     if (email || password) {
       const user = await User.findOne({ where: { email } });
@@ -15,7 +14,7 @@ router.post('/signin', async (req, res) => {
           email: user.email,
         };
         req.session.userId = newUser.id;
-        res.status(201).json(newUser);
+        res.status(201).json({ user: newUser, message: 'ok' });
       } else {
         res.status(403).json({ message: 'Ваш email пароль не соответствуют' });
       }
@@ -28,19 +27,19 @@ router.post('/signin', async (req, res) => {
 });
 
 router.post('/signup', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { userName, email, password } = req.body;
+  // console.log(email);
   try {
-    if (name || email || password) {
+    if (userName || email || password) {
       const user = await User.findOne({ where: { email } });
       if (!user) {
         const hash = await bcrypt.hash(password, 10);
-        const newUser = await User.create({ name, email, password: hash });
-        // newUser = {
-        //   id: newUser.id,
-        //   name: newUser.name,
-        //   email: newUser.email
-        // };
-        console.log('newUser', newUser);
+        let newUser = await User.create({ userName, email, password: hash });
+        newUser = {
+          id: newUser.id,
+          userName: newUser.userName,
+          email: newUser.email,
+        };
         req.session.userId = newUser.id;
         res.status(201).json(newUser);
       } else {

@@ -2,9 +2,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-//import styles from '../films/styles/films.module.scss';
-// import stateContext from '../../context';
+// import { RootState } from '../../redux/store';
+import { State } from './types/State';
+import { RootState, useAppDispatch } from '../../store';
 
 function SignIn(): JSX.Element {
   const [email, setEmail] = useState('');

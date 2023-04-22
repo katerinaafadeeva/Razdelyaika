@@ -43,8 +43,7 @@ function EventItemDiscription(): JSX.Element {
                       height="106"
                       viewBox="0 0 134 106"
                       fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                      xmlns="http://www.w3.org/2000/svg">
                       <circle
                         cx="1.66667"
                         cy="104"
@@ -613,21 +612,18 @@ function EventItemDiscription(): JSX.Element {
           </div>
           <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
             <div className="mt-10 lg:mt-0">
-              <span className="text-primary mb-2 block text-lg font-semibold">
-                Why Choose Us
-              </span>
+              <span className="text-primary mb-2 block text-lg font-semibold">Why Choose Us</span>
               <h2 className="text-dark mb-8 text-3xl font-bold sm:text-4xl">
                 Make your customers happy by giving services.
               </h2>
               <p className="text-body-color mb-8 text-base">
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
-                The point of using Lorem Ipsum is that it has a more-or-less.
+                It is a long established fact that a reader will be distracted by the readable
+                content of a page when looking at its layout. The point of using Lorem Ipsum is that
+                it has a more-or-less.
               </p>
               <p className="text-body-color mb-12 text-base">
-                A domain name is one of the first steps to establishing your
-                brand. Secure a consistent brand image with a domain name that
-                matches your business.
+                A domain name is one of the first steps to establishing your brand. Secure a
+                consistent brand image with a domain name that matches your business.
               </p>
             </div>
           </div>
