@@ -1,3 +1,4 @@
+
 const router = require('express').Router();
 const { Product, Event, ProductImg, eventPhoto } = require('../db/models');
 const path = require('path');
@@ -93,4 +94,24 @@ router.post('/shop', async (req, res) => {
     res.json(message);
   }
 });
+
+router.post('/events', async (req, res) => {
+  const { eventName, eventDescription, eventAddress, eventDate } = req.body;
+  console.log(eventName, eventDescription, eventAddress, eventDate);
+  try {
+    const event = await Event.create({
+      eventName,
+      eventDescription,
+      eventAddress,
+      eventDate,
+      isActive: true,
+    });
+
+    // console.log(event, '-----------');
+    res.json(event);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
 module.exports = router;
