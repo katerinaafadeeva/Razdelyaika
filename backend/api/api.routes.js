@@ -10,7 +10,6 @@ router.get('/shop', async (req, res) => {
       include: [{ model: ProductImg }],
       raw: true,
     });
-    console.log('aaa', products);
     res.json(products);
   } catch (error) {
     res.json({ message: error.message });
