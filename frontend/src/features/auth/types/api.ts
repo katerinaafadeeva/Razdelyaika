@@ -1,4 +1,4 @@
-import { User } from '../types/User';
+import { User } from './User';
 
 export const checkUser = (): Promise<User> =>
   fetch('/auth/checkUser', {
