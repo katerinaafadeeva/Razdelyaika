@@ -25,8 +25,12 @@ function App(): JSX.Element {
   //   }, [dispatch]);
 
   return (
-    <form method="post" action="/api/photo" encType="multipart/form-data">
-      <input type="file" name="foo" />
+    <form
+      method="post"
+      action="http://localhost:4000/api/photo"
+      encType="multipart/form-data"
+    >
+      <input type="file" name="file" multiple />
       <input type="submit" />
     </form>
   );

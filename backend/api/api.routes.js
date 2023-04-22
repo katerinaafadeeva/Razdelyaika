@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Product, Event } = require('../db/models');
+const path = require('path');
 
 // product get:
 
@@ -13,26 +14,29 @@ router.get('/shop', async (req, res) => {
   }
 });
 
-
-// роутер для добавления фоточек
-// router.post('/photo', async (req, res) => {
-//   console.log(req.files.foo);
-//   if (!req.files || Object.keys(req.files).length === 0) {
-//     return res.status(400).send('No files were uploaded.');
-//   }
-
-//   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-//   const sampleFile = req.files.foo;
-//   const uploadPath = `${__dirname}/photos/${sampleFile.name}`;
-//   console.log(uploadPath);
-//   // Use the mv() method to place the file somewhere on your server
-//   sampleFile.mv(uploadPath, (err) => {
-//     if (err) {
-//       return res.status(500).send(err);
-//     }
-//     res.send('File uploaded!');
-//   });
-// });
+// роутер для добавления фото на backend
+router.post('/photo', async (req, res) => {
+  // console.log('req', req.files);
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  const sampleFiles = req.files.file;
+  const uploadPathes = sampleFiles.map((sampleFile) =>
+    path.join(__dirname, 'photos', `${sampleFile.name}`)
+  );
+  // Use the mv() method to place the file somewhere on your server
+  uploadPathes.forEach((uploadPath, index) => {
+    sampleFiles[index].mv(uploadPath, (err) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      res.redirect('http://localhost:3000/taxi');
+      res.end();
+      // res.send('File uploaded!');
+    });
+  });
+});
 
 router.get('/events', async (req, res) => {
   try {
@@ -43,6 +47,5 @@ router.get('/events', async (req, res) => {
     res.json({ message: error.message });
   }
 });
-
 
 module.exports = router;
