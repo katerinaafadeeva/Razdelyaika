@@ -2,7 +2,14 @@ import React from 'react';
 import { Event } from './types/Event';
 import { Link } from 'react-router-dom';
 
+import { useAppDispatch } from '../../store';
+import { removeEvent } from './eventSlice';
+
 function EventCard({ event }: { event: Event }): JSX.Element {
+  const dispatch = useAppDispatch();
+  const onHandleClickDel = (): void => {
+    dispatch(removeEvent(event.id));
+  };
   return (
     <div className="w-full px-4 md:w-1/2 lg:w-1/3">
       <div className="mx-auto mb-10 max-w-[370px]">
@@ -21,6 +28,9 @@ function EventCard({ event }: { event: Event }): JSX.Element {
             </Link>
           </h3>
           <p className="text-body-color text-base">{event.eventAddress}</p>
+          <button type="button" onClick={onHandleClickDel}>
+            DELETE
+          </button>
         </div>
       </div>
     </div>

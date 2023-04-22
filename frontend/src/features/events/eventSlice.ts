@@ -14,6 +14,10 @@ export const addEvent = createAsyncThunk('events/addEvent', (newEvent: EventAdd)
   api.addNewEvent(newEvent)
 );
 
+export const removeEvent = createAsyncThunk('events/removeEvent', (eventId: number) =>
+  api.removeEvent(eventId)
+);
+
 const eventsSlice = createSlice({
   name: 'events',
   initialState,
@@ -30,6 +34,15 @@ const eventsSlice = createSlice({
         state.events = [...state.events, action.payload];
       })
       .addCase(addEvent.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(removeEvent.fulfilled, (state, action) => {
+        if (Number.isNaN(+action.payload)) {
+          state.error = `${action.payload}`;
+        }
+        state.events = state.events.filter((event) => event.id !== Number(action.payload));
+      })
+      .addCase(removeEvent.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },

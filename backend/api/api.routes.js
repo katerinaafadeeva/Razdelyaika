@@ -127,4 +127,17 @@ router.post('/events', async (req, res) => {
   }
 });
 
+router.delete('/events/:eventId', async (req, res) => {
+  const { eventId } = req.params;
+  console.log(eventId);
+  try {
+    const delEvent = await Event.destroy({ where: { id: Number(eventId) } });
+
+    // console.log(delEvent, '-----------');
+    res.json(delEvent);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
 module.exports = router;
