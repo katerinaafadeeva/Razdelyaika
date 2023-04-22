@@ -5,6 +5,7 @@ export type Event = {
   eventAddress: string;
   eventDate: string;
   isActive: boolean;
+  [key: string]: any;
 };
 
 export type EventId = Event['id'];
