@@ -9,3 +9,10 @@ export type Event = {
 };
 
 export type EventId = Event['id'];
+
+export type EventAdd = {
+  eventName: string;
+  eventDescription: string;
+  eventAddress: string;
+  eventDate: string;
+};

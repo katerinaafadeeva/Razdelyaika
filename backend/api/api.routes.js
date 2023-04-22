@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { Product, Event, ProductImg, eventPhoto } = require('../db/models');
 const path = require('path');
 
-
 // all products get:
 
 router.get('/shop', async (req, res) => {
@@ -42,7 +41,6 @@ router.post('/photo', async (req, res) => {
   });
 });
 
-
 router.get('/events', async (req, res) => {
   try {
     const events = await Event.findAll({
@@ -57,11 +55,19 @@ router.get('/events', async (req, res) => {
   }
 });
 
-router.get('/events/:eventId', async (req, res) => {
-  const { eventId } = req.params;
+router.post('/events', async (req, res) => {
+  const { eventName, eventDescription, eventAddress, eventDate } = req.body;
+  console.log(eventName, eventDescription, eventAddress, eventDate);
   try {
-    const event = await Event.findOne({ raw: true, where: { id: eventId } });
-    // console.log(event, '----------');
+    const event = await Event.create({
+      eventName,
+      eventDescription,
+      eventAddress,
+      eventDate,
+      isActive: true,
+    });
+
+    // console.log(event, '-----------');
     res.json(event);
   } catch (error) {
     res.json({ message: error.message });
