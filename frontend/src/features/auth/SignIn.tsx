@@ -3,41 +3,30 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // import { RootState } from '../../redux/store';
-import { State } from './types/State';
+// import { State } from './types/State';
 import { RootState, useAppDispatch } from '../../store';
+import { loginUser } from './userSlice';
 
 function SignIn(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // const { dispatch } = useContext(stateContext);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { message, auth } = useSelector((store: RootState) => store.auth);
+  const dispatch = useAppDispatch();
+  const { user, error } = useSelector((store: RootState) => store.auth);
+  console.log(error);
+  
 
-  const onHandleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>,
-  ): Promise<void> => {
+  const autorization = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const res = await fetch('/auth/signin', {
-      method: 'post',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await res.json();
-    dispatch({ type: 'SIGN_IN', payload: data });
-    // navigate('/');
+    dispatch(loginUser({ email, password }));
   };
-  useEffect(() => {
-    if (auth) {
-      navigate('/');
-    }
-  }, [auth]);
-
+  if ('id' in user) {
+    navigate('/');
+  }
   return (
     <div className="d-flex justify-content-center mt-5">
-      <form onSubmit={onHandleSubmit} style={{ width: '700px' }}>
+      <form onSubmit={autorization} className="formlog">
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Электронная почта
@@ -69,8 +58,8 @@ function SignIn(): JSX.Element {
         <button type="submit" className="btn btn-primary">
           Авторизироваться
         </button>
+        {error && <h1>{error}</h1>}
       </form>
-      <h1>{message}</h1>
     </div>
   );
 }

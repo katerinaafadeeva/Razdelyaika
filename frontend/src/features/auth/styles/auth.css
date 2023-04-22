@@ -1,0 +1,19 @@
+.RegaBlock {
+  background-color: #309959;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.registr {
+  display: flex;
+  justify-content: center;
+}
+.formreg {
+  background-color: #309959;
+}
+.btn {
+  background-color: #309959;
+}
+.formlog {
+  background-color: yellowgreen;
+  margin-top: 5%;
+}

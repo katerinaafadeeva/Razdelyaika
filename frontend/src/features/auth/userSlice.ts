@@ -1,30 +1,61 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { State } from './types/State';
+import { State, User } from './types/types';
 // import { RootState, useAppDispatch } from '../../store';
 import * as api from '../../App/api';
 
 const initialState: State = {
-  auth: undefined,
-  message: '',
+  user: {},
+  error: undefined,
 };
-export const checkUser = createAsyncThunk('json/checkUser', () =>
-  api.checkUser(),
+export const registrationUser = createAsyncThunk(
+  'auth/registration',
+  (action: User) => api.registration(action),
 );
+export const loginUser = createAsyncThunk('auth/signin', (action: User) =>
+  api.login(action),
+);
+export const verificationUser = createAsyncThunk('auth/verification', () =>
+  api.session(),
+);
+export const logoutUser = createAsyncThunk('auth/logout', () => api.logout());
 
-const userSlice = createSlice({
-  name: 'user',
+const authSlice = createSlice({
+  name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    add: (state) => {
+      state.user = { ...state.user, name: 'MMMK' };
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(checkUser.fulfilled, (state, action) => {
-      state.auth = action.payload;
-      // console.log(state);
-    });
-    // builder.addCase(checkUser.rejected, (state, action) => {
-    //   state.message = action.payload.message;
-    // });
-    // builder.addCase();
+    builder
+      .addCase(registrationUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(registrationUser.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(verificationUser.fulfilled, (state, action) => {
+        console.log(action);
+        state.user = action.payload;
+      })
+      .addCase(verificationUser.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.user = {};
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.error = action.error.message;
+      });
   },
 });
 
-export default userSlice.reducer;
+export const { add } = authSlice.actions;
+export default authSlice.reducer;
