@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import store, { RootState } from '../../store';
+import RemoveEventBtn from './RemoveEventBtn';
 
 function EventItemDiscription(): JSX.Element {
   const { events } = useSelector((store: RootState) => store.eventState);

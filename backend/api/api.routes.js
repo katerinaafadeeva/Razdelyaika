@@ -1,4 +1,3 @@
-
 const router = require('express').Router();
 const { Product, Event, ProductImg, eventPhoto } = require('../db/models');
 const path = require('path');
@@ -109,6 +108,19 @@ router.post('/events', async (req, res) => {
 
     // console.log(event, '-----------');
     res.json(event);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
+router.delete('/events/:eventId', async (req, res) => {
+  const { eventId } = req.params;
+  console.log(eventId);
+  try {
+    const delEvent = await Event.destroy({ where: { id: Number(eventId) } });
+
+    // console.log(delEvent, '-----------');
+    res.json(delEvent);
   } catch (error) {
     res.json({ message: error.message });
   }
