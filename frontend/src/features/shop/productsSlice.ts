@@ -37,8 +37,13 @@ export const removeProduct = createAsyncThunk(
 // added update fn:
 
 export const updateProduct = createAsyncThunk(
-  'education/updateProduct',
-  (product: Product) => api.updateProduct(product)
+  '/shop/updateProduct',
+  (updatedProduct: {
+    id: number;
+    productName: string;
+    productPrice: number;
+    productDescript: string;
+  }) => api.updatedProduct(updatedProduct)
 );
 
 // slicers:

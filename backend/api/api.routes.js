@@ -140,4 +140,21 @@ router.delete('/events/:eventId', async (req, res) => {
   }
 });
 
+// update products router:
+
+router.put('/shop/:productId', async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const { productName, productPrice, productDescript } = req.body;
+    const product = await Product.findOne({ where: { id: productId } });
+
+    product.productName,
+    product.productPrice,
+    product.productDescript=,
+    product.save();
+    res.json(product);
+  } catch ({ message }) {
+    res.json();
+  }
+});
 module.exports = router;

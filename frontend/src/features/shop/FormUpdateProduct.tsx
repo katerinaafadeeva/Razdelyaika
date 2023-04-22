@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../store';
 
+import { useParams } from 'react-router-dom';
+import { updateProduct } from './productsSlice';
+
 const FormUpdateProduct = (): JSX.Element => {
   const dispatch = useAppDispatch();
+
+  const { productId } = useParams();
   const [updproductName, setUpdProductName] = useState('');
   const [updproductPrice, setUpdProductPrice] = useState(0);
   const [updproductDescript, setUpdproductDescript] = useState('');
@@ -11,6 +16,7 @@ const FormUpdateProduct = (): JSX.Element => {
     e.preventDefault();
     dispatch(
       updateProduct({
+        id: Number(productId),
         productName: updproductName,
         productPrice: updproductPrice,
         productDescript: updproductDescript,

@@ -1,5 +1,5 @@
 import { User } from '../../src/features/auth/types/User';
-import { Product } from '../features/shop/types/Products';
+import { Product, productId } from '../features/shop/types/Products';
 import { Event, EventAdd } from '../features/events/types/Event';
 
 export const checkUser = (): Promise<User> =>
@@ -75,17 +75,18 @@ export async function removeProduct(productId: number): Promise<number> {
 
 // api for updating the product:
 
-// need selected fileds for updating several inputs!
-
-export async function updateProduct(product: Product): Promise<Product> {
-  const res = await fetch(`/api/shop/${product.id}`, {
+export const updatedProduct = async (updatedProduct: {
+  id: productId;
+  productName: string;
+  productPrice: number;
+  productDescript: string;
+}): Promise<Product> => {
+  const res = await fetch(`/api/shop/${updatedProduct.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      // product: product.productDescript,
-    }),
+    body: JSON.stringify(updatedProduct),
   });
   return res.json();
-}
+};
