@@ -1,5 +1,6 @@
 import React from 'react';
 import { Product } from './types/Products';
+import { Link } from 'react-router-dom';
 
 function ProductCard({ product }: { product: Product }): JSX.Element {
   return (
@@ -18,12 +19,12 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
           <p className="text-body-color mb-7 text-base leading-relaxed">
             {product.productDescript}
           </p>
-          <a
-            href="#"
+          <Link
+            to={`/shop/${product.id}`}
             className="text-body-color hover:border-primary hover:bg-primary inline-block rounded-full border border-[#E5E7EB] py-2 px-7 text-base font-medium transition hover:text-white"
           >
-            View Details
-          </a>
+            Подробнее
+          </Link>
         </div>
       </div>
     </div>

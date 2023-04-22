@@ -1,3 +1,4 @@
+
 const router = require('express').Router();
 const { Product, Event, ProductImg, eventPhoto } = require('../db/models');
 const path = require('path');
@@ -10,7 +11,6 @@ router.get('/shop', async (req, res) => {
       include: [{ model: ProductImg }],
       raw: true,
     });
-    console.log('aaa', products);
     res.json(products);
   } catch (error) {
     res.json({ message: error.message });
@@ -48,10 +48,50 @@ router.get('/events', async (req, res) => {
       raw: true,
     });
 
-    console.log(events, '-----------');
     res.json(events);
   } catch (error) {
     res.json({ message: error.message });
+  }
+});
+
+router.get('/events/:eventId', async (req, res) => {
+  const { eventId } = req.params;
+  try {
+    const event = await Event.findOne({ raw: true, where: { id: eventId } });
+
+    res.json(event);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
+router.get('/shop/:productId', async (req, res) => {
+  const { productId } = req.params;
+  try {
+    const product = await Product.findOne({
+      raw: true,
+      where: { id: productId },
+    });
+
+    res.json(product);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
+// add product route:
+
+router.post('/shop', async (req, res) => {
+  try {
+    const { productName, productPrice, productDescript } = req.body;
+    const newProduct = await Product.create({
+      productName,
+      productPrice,
+      productDescript,
+    });
+    res.json(newProduct);
+  } catch ({ message }) {
+    res.json(message);
   }
 });
 
