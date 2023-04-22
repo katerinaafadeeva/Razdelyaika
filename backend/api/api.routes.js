@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { Product, Event, ProductImg, eventPhoto } = require('../db/models');
 const path = require('path');
 
-
 // all products get:
 
 router.get('/shop', async (req, res) => {
@@ -11,7 +10,6 @@ router.get('/shop', async (req, res) => {
       include: [{ model: ProductImg }],
       raw: true,
     });
-    console.log('aaa', products);
     res.json(products);
   } catch (error) {
     res.json({ message: error.message });
@@ -41,7 +39,6 @@ router.post('/photo', async (req, res) => {
     });
   });
 });
-
 
 router.get('/events', async (req, res) => {
   try {
