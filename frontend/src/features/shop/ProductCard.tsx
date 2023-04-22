@@ -1,8 +1,19 @@
 import React from 'react';
 import { Product } from './types/Products';
 import { Link } from 'react-router-dom';
+// import del from '../images/delete.png';
+
+import { RootState, useAppDispatch } from '../../store';
+// import { useSelector } from 'react-redux';
+import { removeProduct } from './productsSlice';
 
 function ProductCard({ product }: { product: Product }): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const handleRemoveProduct = (): void => {
+    dispatch(removeProduct(product.id));
+  };
+
   return (
     <div className="w-full px-4 md:w-1/2 xl:w-1/3">
       <div className="mb-10 overflow-hidden rounded-lg bg-white">
@@ -25,6 +36,10 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
           >
             Подробнее
           </Link>
+          <button onClick={handleRemoveProduct} type="button">
+            {/* <img src={del} alt="delete" /> */}
+            Удалить запись
+          </button>
         </div>
       </div>
     </div>
