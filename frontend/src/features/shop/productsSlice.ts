@@ -36,10 +36,10 @@ const productsSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(addProduct.fulfilled, (state, action) => {
-        state.products = action.payload;
+        state.products = [...state.products, action.payload];
       })
       .addCase(addProduct.rejected, (state, action) => {
-        state.products = action.error.message;
+        state.error = action.error.message;
       });
   },
 });
