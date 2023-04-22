@@ -1,53 +1,57 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 //import styles from '../films/styles/films.module.scss';
 // import stateContext from '../../context';
+import './styles/auth.css';
+import { useAppDispatch, RootState } from '../../store';
+import { registrationUser } from './userSlice';
+import { State, User } from './types/types';
 
 function SignUp(): JSX.Element {
-  const [name, setName] = useState('');
+  const [userName, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const { dispatch } = useContext(stateContext);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [password2, setPassword2] = useState('');
+  // const [id, setId] = useState(Number(''));
+  // const [isAdmin, setisAdmin] = useSelector(true);
 
-  const onHandleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>,
-  ): Promise<void> => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { user, error } = useSelector((store: RootState) => store.auth);
+  const registr = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const res = await fetch('/auth/signup', {
-      method: 'post',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify({ name, email, password }),
-    });
-    const data = await res.json();
-    dispatch({ type: 'SIGN_UP', payload: data });
-    navigate('/');
+    dispatch(registrationUser({ userName, email, password, password2 }));
   };
 
+  if ('id' in user) {
+    navigate('/');
+  }
+
   return (
-    <div className="d-flex justify-content-center mt-5">
-      <form onSubmit={onHandleSubmit} style={{ width: '700px' }}>
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">
-            Имя
+    <div className="-mx-4 flex flex-wrap registr">
+      <form onSubmit={registr} className="formreg">
+        <div className="w-full px-4 md:w-1/2 lg:w-1/3">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-slate-700"
+          >
+            Name
           </label>
           <input
             type="text"
             className="form-control"
             aria-describedby="emailHelp"
-            value={name}
+            value={userName}
             onChange={(e) => setName(e.target.value)}
             id="title"
+            placeholder="Name"
           />
         </div>
-        <div className="mb-3">
+        <div className="w-full px-4 md:w-1/2 lg:w-1/3w-full px-4 md:w-1/2 lg:w-1/3">
           <label htmlFor="email" className="form-label">
-            Электронная почта
+            Email
           </label>
           <input
             type="email"
@@ -56,9 +60,10 @@ function SignUp(): JSX.Element {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             id="email"
+            placeholder="Email"
           />
         </div>
-        <div className="mb-3">
+        <div className="w-full px-4 md:w-1/2 lg:w-1/3">
           <label htmlFor="password" className="form-label">
             Пароль
           </label>
@@ -68,11 +73,29 @@ function SignUp(): JSX.Element {
             onChange={(e) => setPassword(e.target.value)}
             id="password"
             type="password"
+            placeholder="password"
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <div className="w-full px-4 md:w-1/2 lg:w-1/3">
+          <label htmlFor="password" className="form-label">
+            Повторить пароль
+          </label>
+          <input
+            className="form-control"
+            value={password2}
+            onChange={(e) => setPassword2(e.target.value)}
+            id="password2"
+            type="password"
+            placeholder="repeat password"
+          />
+        </div>
+        <button
+          type="submit"
+          className="btnAutorization bg-secondary inline-flex items-center justify-center rounded-full py-4 px-10 text-center text-base font-normal text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+        >
           Авторизироваться
         </button>
+        {error && <h1>{error}</h1>}
       </form>
     </div>
   );

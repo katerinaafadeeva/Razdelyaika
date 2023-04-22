@@ -10,12 +10,12 @@ module.exports = {
           userName: 'Дмитрий',
           email: 'hitriy_dmitriy@gmail.com',
           password: await bcrypt.hash('Podbirayka', 10),
-          isAdmin: true,
+          // isAdmin: true,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
       ],
-      {}
+      {},
     );
   },
 

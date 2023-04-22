@@ -2,8 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import eventsSlice from './features/events/eventSlice';
 import productsSlice from './features/shop/productsSlice';
-import authSlice from './features/auth/userSlice';
 
+import authSlice from './features/auth/userSlice';
 
 // Слайсы - это отдельные модули нашего приложения. У каждого слайса - свой редьюсер:
 
@@ -20,4 +20,3 @@ export const useAppDispatch: () => AppDispatch = useDispatch;
 export type RootState = ReturnType<typeof store.getState>;
 
 export default store;
-
