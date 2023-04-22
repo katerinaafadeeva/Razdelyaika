@@ -2,22 +2,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Purchases', {
+    await queryInterface.createTable('ProductSizes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      userId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Users',
-          key: 'id',
-        },
-      },
-      productId: {
+      productSizeId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
@@ -25,9 +17,16 @@ module.exports = {
           key: 'id',
         },
       },
-      purchaseStatus: {
+      sizeId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Sizes',
+          key: 'id',
+        },
+      },
+      avaliability: {
         allowNull: false,
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +39,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Purchases');
+    await queryInterface.dropTable('ProductSizes');
   },
 };

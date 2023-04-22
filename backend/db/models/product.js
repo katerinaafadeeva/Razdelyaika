@@ -2,11 +2,11 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
-    static associate(Size, productReview, Cart, Purchase) {
-      this.hasMany(Size, { foreignKey: 'productId' });
-      this.hasMany(productReview, { foreignKey: 'productId' });
-      this.belongsTo(Cart, { foreignKey: 'productId' });
-      this.belongsTo(Purchase, { foreignKey: 'productId' });
+    static associate({ ProductImg, ProductSize, ProductReview, AddedProduct }) {
+      this.hasMany(ProductImg, { foreignKey: 'productImgId' });
+      this.hasMany(ProductSize, { foreignKey: 'productSizeId' });
+      this.hasMany(ProductReview, { foreignKey: 'productRevId' });
+      this.hasMany(AddedProduct, { foreignKey: 'productId' });
     }
   }
   Product.init(
@@ -16,10 +16,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
       },
       productDescript: {
-        allowNull: false,
-        type: DataTypes.TEXT,
-      },
-      productImg: {
         allowNull: false,
         type: DataTypes.TEXT,
       },

@@ -2,27 +2,15 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Size extends Model {
-    static associate(Product) {
-      this.belongsTo(Product, { foreignKey: 'productId' });
+    static associate({ ProductSize }) {
+      this.hasMany(ProductSize, { foreignKey: 'sizeId' });
     }
   }
   Size.init(
     {
-      productId: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
-        references: {
-          model: 'Products',
-          key: 'id',
-        },
-      },
       sizeText: {
         allowNull: false,
         type: DataTypes.TEXT,
-      },
-      avaliability: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
       },
     },
     {
