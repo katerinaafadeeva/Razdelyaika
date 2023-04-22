@@ -25,6 +25,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT,
       },
+      detailsLink: {
+        type: Sequelize.TEXT,
+      },
       isActive: {
         allowNull: false,
         type: Sequelize.BOOLEAN,

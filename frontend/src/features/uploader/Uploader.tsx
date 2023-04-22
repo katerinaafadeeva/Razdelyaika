@@ -11,7 +11,13 @@ import React from 'react';
 // import UsersTable from '../features/user/components/UsersTable';
 // import { loadUsers } from '../features/user/usersSlice';
 
-function App(): JSX.Element {
+function App({
+  newproductImg,
+  setProductImg,
+}: {
+  newproductImg: any;
+  setProductImg: (value: any) => void;
+}): JSX.Element {
   //   const dispatch = useAppDispatch();
   //   const { error } = useSelector((store: RootState) => store.education);
 
@@ -30,8 +36,14 @@ function App(): JSX.Element {
       action="http://localhost:4000/api/photo"
       encType="multipart/form-data"
     >
-      <input type="file" name="file" multiple />
-      <input type="submit" />
+      <input
+        type="file"
+        name="file"
+        multiple
+        value={newproductImg}
+        // onChange={(e) => setProductImg(e.target.value)}
+      />
+      <button type="submit">Добавить файлы</button>
     </form>
   );
 }

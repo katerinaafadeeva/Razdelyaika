@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import GeneralModal from '../modals/GeneralModal';
-import Uploader from '../uploader/Uploader';
 
 function EcoTaxi(): JSX.Element {
   const [showModal, setShowModal] = useState(false);
@@ -12,7 +11,7 @@ function EcoTaxi(): JSX.Element {
   return (
     <>
       <div>EcoTaxi</div>
-      <Uploader />
+
       <button type="button" onClick={showModalWindow}>
         Это кнопка Show Modal Window
       </button>
