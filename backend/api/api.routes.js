@@ -67,33 +67,6 @@ router.get('/events', async (req, res) => {
   }
 });
 
-//router.get('/events/:eventId', async (req, res) => {
-//  const { eventId } = req.params;
-//  try {
-//    const event = await Event.findOne({ raw: true, where: { id: eventId } });
-
-//    res.json(event);
-//  } catch (error) {
-//    res.json({ message: error.message });
-//  }
-//});
-
-//router.get('/shop/:productId', async (req, res) => {
-//  const { productId } = req.params;
-//  try {
-//    const product = await Product.findOne({
-//      raw: true,
-//      where: { id: productId },
-//    });
-
-//    res.json(product);
-//  } catch (error) {
-//    res.json({ message: error.message });
-//  }
-//});
-
-// add product route:
-
 router.post('/shop', async (req, res) => {
   try {
     const { productName, productPrice, productDescript } = req.body;
@@ -151,11 +124,31 @@ router.delete('/events/:eventId', async (req, res) => {
     if (delEvent > 0) {
       res.json(eventId);
     } else {
-      res.json('yt elfktyj');
+      res.json('Ответ потерялся :{');
     }
 
     //  console.log(delEvent, '-----------');
     // res.json(delEvent);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
+router.put('/events/:eventId', async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    const { eventName, eventDescription, eventAddress, eventDate, isActive } = req.body;
+
+    const eventEdit = await Event.findOne({ where: { id: eventId } });
+    console.log(eventEdit, '2');
+    eventEdit.eventName = eventName;
+    eventEdit.eventDescription = eventDescription;
+    eventEdit.eventAddress = eventAddress;
+    eventEdit.eventDate = eventDate;
+    eventEdit.isActive = isActive;
+    eventEdit.save();
+    console.log(eventEdit, '1');
+    res.json(eventEdit);
   } catch (error) {
     res.json({ message: error.message });
   }
@@ -174,8 +167,8 @@ router.put('/shop/:productId', async (req, res) => {
     product.save();
 
     res.json(product);
-  } catch ({ message }) {
-    res.json();
+  } catch (error) {
+    res.json({ message: error.message });
   }
 });
 module.exports = router;

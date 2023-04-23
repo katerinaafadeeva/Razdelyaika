@@ -1,5 +1,5 @@
 import { Product, productId } from '../features/shop/types/Products';
-import { Event, EventAdd } from '../features/events/types/Event';
+import { Event, EventAdd, EventId, EventUpd } from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
 
 // export const checkUser = (): Promise<User> =>
@@ -76,13 +76,30 @@ export const addNewEvent = async (newEvent: {
 };
 
 export const removeEvent = async (eventId: number): Promise<number> => {
-  console.log(eventId, '<--');
   const res = await fetch(`/api/events/${eventId}`, {
     method: 'DELETE',
   });
   const date = await res.json();
-  console.log(date);
+  //  console.log(date);
   return date;
+};
+
+export const updateEvent = async (updEvent: {
+  id: EventId;
+  eventName: string;
+  eventDescription: string;
+  eventAddress: string;
+  eventDate: string;
+  isActive: boolean;
+}): Promise<Event> => {
+  const res = await fetch(`/api/events/${updEvent.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updEvent),
+  });
+  return res.json();
 };
 
 export const getParamEvent = async (): Promise<Event> =>
