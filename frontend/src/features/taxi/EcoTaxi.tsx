@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import GeneralModal from '../modals/GeneralModal';
+import SvgBackground from './SvgBackground';
+import SvgGroup from './SvgGroup';
+import SvgMan from './SvgMan';
 
 function EcoTaxi(): JSX.Element {
   const [showModal, setShowModal] = useState(false);
@@ -9,13 +12,28 @@ function EcoTaxi(): JSX.Element {
   };
 
   return (
-    <>
-      <div>EcoTaxi</div>
+    // <>
+    //   <div>EcoTaxi</div>
 
-      <button type="button" onClick={showModalWindow}>
-        Это кнопка Show Modal Window
-      </button>
-      {showModal && <GeneralModal showModalWindow={showModalWindow} />}
+    //   <button type="button" onClick={showModalWindow}>
+    //     Это кнопка Show Modal Window
+    //   </button>
+    //   {showModal && <GeneralModal showModalWindow={showModalWindow} />}
+    // </>
+    <>
+      <div className="full-screen_taxi">
+        <div className="full-screen__body_taxi">
+          <p className="text__main_p">
+            <span className="text__main_taxi">не можешь прийти на акцию?</span>
+          </p>
+          <a href="https://xn--b1aduhfbab7a4a8e.xn--p1ai/call-eco-taxi">
+            <button className="cst__btn">вызвать эко-такси</button>
+          </a>
+          <SvgGroup />
+          <SvgBackground />
+          <SvgMan />
+        </div>
+      </div>
     </>
   );
 }
