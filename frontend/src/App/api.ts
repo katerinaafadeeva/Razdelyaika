@@ -1,6 +1,7 @@
 import { Product, productId } from '../features/shop/types/Products';
-import { Event, EventAdd } from '../features/events/types/Event';
+import { Event, EventAdd, EventId, EventUpd } from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
+
 
 export const registration = async (obj: User): Promise<User | Message> => {
   const res = await fetch('/auth/signup', {
@@ -57,8 +58,7 @@ export const getProducts = async (): Promise<Product[]> =>
 //Мероприятия
 // export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
 
-export const getEvents = (): Promise<Event[]> =>
-  fetch('/api/events').then((res) => res.json());
+export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
@@ -80,6 +80,26 @@ export const addNewEvent = async (newEvent: {
 export const removeEvent = async (eventId: number): Promise<number> => {
   const res = await fetch(`/api/events/${eventId}`, {
     method: 'DELETE',
+  });
+  const date = await res.json();
+  //  console.log(date);
+  return date;
+};
+
+export const updateEvent = async (updEvent: {
+  id: EventId;
+  eventName: string;
+  eventDescription: string;
+  eventAddress: string;
+  eventDate: string;
+  isActive: boolean;
+}): Promise<Event> => {
+  const res = await fetch(`/api/events/${updEvent.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updEvent),
   });
   return res.json();
 };
