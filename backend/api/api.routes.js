@@ -69,12 +69,24 @@ router.get('/events', async (req, res) => {
 
 router.post('/shop', async (req, res) => {
   try {
-    const { productName, productPrice, productDescript } = req.body;
+    const { productName, productPrice, productDescript, productImgs } =
+      req.body;
+    console.log('req.body', req.body);
     const newProduct = await Product.create({
       productName,
       productPrice,
       productDescript,
     });
+    if (newProduct) {
+      await Promise.all(
+        Object.values(productImgs).map(async (productImg) => {
+          await ProductImg.create({
+            productImgId: newProduct.id,
+            productImg: productImg.name,
+          });
+        })
+      );
+    }
     res.json(newProduct);
   } catch ({ message }) {
     res.json(message);

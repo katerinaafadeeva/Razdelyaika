@@ -20,7 +20,10 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
         <img src={`${product['ProductImgs.productImg']}`} alt="image" className="w-full" />
         <div className="p-8 text-center sm:p-9 md:p-7 xl:p-9">
           <h3>{product.productName}</h3>
-          <p className="text-body-color mb-7 text-base leading-relaxed">{product.productPrice}</p>
+          <p className="text-body-color mb-7 text-base leading-relaxed">
+            {product.productPrice}₽
+          </p>
+
           <p className="text-body-color mb-7 text-base leading-relaxed">
             {product.productDescript}
           </p>

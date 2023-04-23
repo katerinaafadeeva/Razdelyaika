@@ -1,7 +1,9 @@
+import { Imgs } from '../features/shop/types/Img';
 import { Product, productId } from '../features/shop/types/Products';
 import { Event, EventAdd, EventId, EventUpd } from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
 import { Comment } from '../features/events/comment/types/Comment';
+
 
 
 export const registration = async (obj: User): Promise<User | Message> => {
@@ -59,6 +61,7 @@ export const getProducts = async (): Promise<Product[]> =>
 // Events
 
 export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
+
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
@@ -129,8 +132,9 @@ export const getParamProducts = async (): Promise<Product> =>
 
 export const addProduct = async (newProduct: {
   productName: string;
-  productPrice: number;
+  productPrice: string;
   productDescript: string;
+  productImgs: Imgs;
 }): Promise<Product> => {
   const res = await fetch('/api/shop', {
     method: 'POST',
