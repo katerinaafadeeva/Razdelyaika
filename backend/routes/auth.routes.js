@@ -8,13 +8,7 @@ router.post('/signin', async (req, res) => {
     if (email && password) {
       const user = await User.findOne({ where: { email } });
       if (user && (await bcrypt.compare(password, user.password))) {
-        // const newUser = {
-        //   id: user.id,
-        //   email: user.email,
-        //   password: user.password,
-        // };
         req.session.userId = user.id;
-        // console.log(newUser);
         res.status(201).json({
           id: user.id,
           email: user.email,
@@ -79,18 +73,33 @@ router.get('/logout', async (req, res) => {
 router.get('/checkUser', async (req, res) => {
   try {
     const userSession = req.session.userId;
+    console.log(userSession);
     if (userSession) {
       const user = await User.findOne({
         where: { id: userSession },
         attributes: { exclude: ['password'] },
       });
       res.status(201).json(user);
-    } else {
-      res.end();
     }
+    //  else {
+    //   res.end();
+    // }
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 });
+
+// router.get('/verification', async (req, res) => {
+//   const userId = req.session.userId;
+//   if (userId) {
+//     const user = await User.findOne({
+//       where: { id: userId },
+//       attributes: { exclude: ['password'] },
+//     });
+//     res.status(200).json(user);
+//   } else {
+//     res.status(403).json({ message: 'no session' });
+//   }
+// });
 
 module.exports = router;

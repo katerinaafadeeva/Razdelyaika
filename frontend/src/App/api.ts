@@ -1,14 +1,6 @@
-
 import { Product, productId } from '../features/shop/types/Products';
 import { Event, EventAdd } from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
-
-
-// export const checkUser = (): Promise<User> =>
-//   fetch('/auth/checkUser', {
-//     method: 'GET',
-//     credentials: 'include',
-//   }).then((res) => res.json());
 
 export const registration = async (obj: User): Promise<User | Message> => {
   const res = await fetch('/auth/signup', {
@@ -26,21 +18,28 @@ export const registration = async (obj: User): Promise<User | Message> => {
 export const login = async (obj: User): Promise<User | Message> => {
   const res = await fetch('/auth/signin', {
     method: 'POST',
+    credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(obj),
   });
   return res.json();
 };
 export const session = async (): Promise<User | Message> => {
-  const res = await fetch('/auth/verification', {
+  const res = await fetch('/auth/checkUser', {
     credentials: 'include',
   });
+  console.log(123);
   if (!res.ok) {
     const { message } = await res.json();
+    console.log(message);
     throw message;
   }
+  // console.log(!res.ok);
+  // console.log(await res.json());
+
   return res.json();
 };
+
 export const logout = async (): Promise<Message> => {
   const res = await fetch('/auth/logout', {
     credentials: 'include',
