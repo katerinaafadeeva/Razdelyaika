@@ -1,6 +1,7 @@
 import { User } from '../../src/features/auth/types/User';
 import { Product } from '../features/shop/types/Products';
 import { Event, EventAdd } from '../features/events/types/Event';
+import { Imgs } from '../features/shop/types/Img';
 
 export const checkUser = (): Promise<User> =>
   fetch('/auth/checkUser', {
@@ -11,13 +12,12 @@ export const checkUser = (): Promise<User> =>
 export const getProducts = async (): Promise<Product[]> =>
   fetch('/api/shop').then((res) => res.json());
 
-
 //Мероприятия
-export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
-
 export const getEvents = (): Promise<Event[]> =>
   fetch('/api/events').then((res) => res.json());
 
+// export const getEvents = (): Promise<Event[]> =>
+//   fetch('/api/events').then((res) => res.json());
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
@@ -36,7 +36,6 @@ export const addNewEvent = async (newEvent: {
   return res.json();
 };
 
-
 export const removeEvent = async (eventId: number): Promise<number> => {
   const res = await fetch(`/api/events/${eventId}`, {
     method: 'DELETE',
@@ -44,20 +43,19 @@ export const removeEvent = async (eventId: number): Promise<number> => {
   return res.json();
 };
 
-
 export const getParamEvent = async (): Promise<Event> =>
   fetch('/api/events/:id').then((res) => res.json());
 
 export const getParamProducts = async (): Promise<Product> =>
   fetch('/api/shop/:id').then((res) => res.json());
 
-
 // api add product :
 
 export const addProduct = async (newProduct: {
   productName: string;
-  productPrice: number;
+  productPrice: string;
   productDescript: string;
+  productImgs: Imgs;
 }): Promise<Product> => {
   const res = await fetch('/api/shop', {
     method: 'POST',

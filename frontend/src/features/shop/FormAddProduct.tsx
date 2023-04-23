@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { useAppDispatch } from '../../store';
+import { RootState, useAppDispatch } from '../../store';
 import { addProduct } from './productsSlice';
 import Uploader from '../uploader/Uploader';
+import { useSelector } from 'react-redux';
+import './style.css';
 
 function FormAddProduct(): JSX.Element {
   const dispatch = useAppDispatch();
   const [newproductName, setProductName] = useState('');
-  const [newproductPrice, setProductPrice] = useState(0);
+  const [newproductPrice, setProductPrice] = useState('');
   const [newproductDescript, setproductDescript] = useState('');
-  const [newproductImg, setProductImg] = useState('');
+  const { imgs } = useSelector((store: RootState) => store.productsState);
 
   const handleAddProduct = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -17,9 +19,11 @@ function FormAddProduct(): JSX.Element {
         productName: newproductName,
         productPrice: newproductPrice,
         productDescript: newproductDescript,
+        productImgs: imgs,
       })
     );
   };
+
   return (
     <form onSubmit={handleAddProduct}>
       <div className="-mx-4 flex flex-wrap">
@@ -36,6 +40,7 @@ function FormAddProduct(): JSX.Element {
               placeholder="Наименование"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               value={newproductName}
+              required
               onChange={(e) => setProductName(e.target.value)}
             />
             <label
@@ -45,11 +50,12 @@ function FormAddProduct(): JSX.Element {
               Цена
             </label>
             <input
-              type="text"
-              placeholder="цена"
-              className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
-              value={newproductPrice}
-              onChange={(e) => setProductPrice(Number(e.target.value))}
+              type="number"
+              placeholder="Цена"
+              className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD] raz"
+              value={`${newproductPrice}`}
+              required
+              onChange={(e) => setProductPrice(e.target.value)}
             />
             <label
               htmlFor=""
@@ -64,10 +70,7 @@ function FormAddProduct(): JSX.Element {
               value={newproductDescript}
               onChange={(e) => setproductDescript(e.target.value)}
             />
-            <Uploader
-              newproductImg={newproductImg}
-              setProductImg={setProductImg}
-            />
+            <Uploader />
           </div>
         </div>
       </div>
