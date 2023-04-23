@@ -1,12 +1,12 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class eventReview extends Model {
+  class EventReview extends Model {
     static associate({ Event }) {
       this.belongsTo(Event, { foreignKey: 'eventId' });
     }
   }
-  eventReview.init(
+  EventReview.init(
     {
       eventId: {
         type: DataTypes.INTEGER,
@@ -28,8 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'eventReview',
+      modelName: 'EventReview',
     }
   );
-  return eventReview;
+  return EventReview;
 };

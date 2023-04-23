@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Product, Event, ProductImg, eventPhoto } = require('../db/models');
+const { Product, Event, ProductImg, eventPhoto, EventReview } = require('../db/models');
 const path = require('path');
 
 // all products get:
@@ -116,7 +116,6 @@ router.post('/events', async (req, res) => {
 
 router.delete('/events/:eventId', async (req, res) => {
   const { eventId } = req.params;
-  //  console.log(eventId);
   console.log(123);
   try {
     const delEvent = await Event.destroy({ where: { id: Number(eventId) } });
@@ -126,9 +125,6 @@ router.delete('/events/:eventId', async (req, res) => {
     } else {
       res.json('Ответ потерялся :{');
     }
-
-    //  console.log(delEvent, '-----------');
-    // res.json(delEvent);
   } catch (error) {
     res.json({ message: error.message });
   }
@@ -149,6 +145,27 @@ router.put('/events/:eventId', async (req, res) => {
     eventEdit.save();
     console.log(eventEdit, '1');
     res.json(eventEdit);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
+// Comments
+
+router.post('/comment', async (req, res) => {
+  const { eventId, eventRevText } = req.body;
+  console.log(eventId, eventRevText);
+
+  try {
+    const comment = await EventReview.create({
+      eventId,
+      eventRevText,
+      userId: req.session.userId,
+    });
+    console.log(req.session.userId);
+    if (comment) {
+      res.json(comment, '-----');
+    }
   } catch (error) {
     res.json({ message: error.message });
   }

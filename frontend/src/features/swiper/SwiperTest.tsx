@@ -9,32 +9,38 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import './styles/styles.css';
+import { RootState } from '../../store';
+import { useSelector } from 'react-redux';
+import EventCard from '../events/EventCard';
 function SwiperTest(): JSX.Element {
   const [swiperRef, setSwiperRef] = useState<any>(0);
-  const appendNumber = useRef(500);
-  const prependNumber = useRef(1);
+  //  const appendNumber = useRef(500);
+  //  const prependNumber = useRef(1);
+
+  const { events } = useSelector((store: RootState) => store.eventState);
 
   const [slides, setSlides] = useState(
     Array.from({ length: 500 }).map((_, index) => `Slide ${index + 1}`)
   );
 
-  const prepend = (): void => {
-    setSlides([
-      `Slide ${prependNumber.current - 2}`,
-      `Slide ${prependNumber.current - 1}`,
-      ...slides,
-    ]);
-    prependNumber.current = prependNumber.current - 2;
-    swiperRef.slideTo(swiperRef.activeIndex + 2, 0);
-  };
+  //  const prepend = (): void => {
+  //    setSlides([
+  //      `Slide ${prependNumber.current - 2}`,
+  //      `Slide ${prependNumber.current - 1}`,
+  //      ...slides,
+  //    ]);
+  //    prependNumber.current = prependNumber.current - 2;
+  //    swiperRef.slideTo(swiperRef.activeIndex + 2, 0);
+  //  };
 
-  const append = (): void => {
-    setSlides([...slides, 'Slide ' + ++appendNumber.current]);
-  };
+  //  const append = (): void => {
+  //    setSlides([...slides, 'Slide ' + ++appendNumber.current]);
+  //  };
 
-  const slideTo = (index: any): void => {
-    swiperRef.slideTo(index - 1, 0);
-  };
+  //  const slideTo = (index: any): void => {
+  //    swiperRef.slideTo(index - 1, 0);
+  //  };
+
   return (
     <>
       <Swiper
@@ -46,11 +52,12 @@ function SwiperTest(): JSX.Element {
         //   type: 'fraction',
         // }}
         navigation={true}
-        virtual
-      >
-        {slides.map((slideContent, index) => (
-          <SwiperSlide key={slideContent} virtualIndex={index}>
-            {slideContent}
+        virtual>
+        {/*slides*/}
+        {events.map((event, index) => (
+          <SwiperSlide key={event.id} virtualIndex={index}>
+            {/*{slideContent}*/}
+            <EventCard event={event} />
           </SwiperSlide>
         ))}
       </Swiper>

@@ -1,6 +1,7 @@
 import { Product, productId } from '../features/shop/types/Products';
 import { Event, EventAdd, EventId, EventUpd } from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
+import { Comment } from '../features/events/comment/types/Comment';
 
 
 export const registration = async (obj: User): Promise<User | Message> => {
@@ -55,8 +56,7 @@ export const logout = async (): Promise<Message> => {
 export const getProducts = async (): Promise<Product[]> =>
   fetch('/api/shop').then((res) => res.json());
 
-//Мероприятия
-// export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
+// Events
 
 export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
 
@@ -101,6 +101,21 @@ export const updateEvent = async (updEvent: {
     },
     body: JSON.stringify(updEvent),
   });
+  return res.json();
+};
+
+export const addComment = async (commit: {
+  eventId: EventId;
+  eventRevText: string;
+}): Promise<Comment> => {
+  const res = await fetch('/api/comment', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(commit),
+  });
+
   return res.json();
 };
 
