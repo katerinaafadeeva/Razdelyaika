@@ -86,9 +86,11 @@ function SignUp(): JSX.Element {
                     </svg>
                   </a>
                 </div>
-                <form>
+                <div>
                   <div className="mb-6">
-                    <h1>Registration</h1>
+                    <h1 className="mb-6 text-base text-[#adadad]">
+                      Registration
+                    </h1>
                   </div>
                   <div className="mb-6">
                     <input
@@ -139,9 +141,9 @@ function SignUp(): JSX.Element {
                       Sign In
                     </button>
                   </div>
-                </form>
+                </div>
                 <p className="mb-6 text-base text-[#adadad]">Connect With</p>
-                <ul className="-mx-2 mb-12 flex justify-between">
+                {/* <ul className="-mx-2 mb-12 flex justify-between">
                   <li className="w-full px-2">
                     <a
                       // href="javascript:void(0)"
@@ -199,7 +201,7 @@ function SignUp(): JSX.Element {
                       </svg>
                     </a>
                   </li>
-                </ul>
+                </ul> */}
                 {/* <a
                   href="javascript:void(0)"
                   className="mb-2 inline-block text-base text-[#adadad] hover:text-primary hover:underline"
