@@ -2,13 +2,15 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import store, { RootState } from '../../store';
+import FormUpdateProduct from './FormUpdateProduct';
+import './styles/shop.css';
 
 function ProductParams(): JSX.Element {
   const { products } = useSelector((store: RootState) => store.productsState);
   const { productId } = useParams();
   const [product] = products.filter((el) => el.id === Number(productId));
   return (
-    <section className="bg-[#F3F4F6] pt-20 pb-10 lg:pt-[120px] lg:pb-20">
+    <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20 paramshop">
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4 md:w-1/2 xl:w-1/3">
@@ -27,6 +29,7 @@ function ProductParams(): JSX.Element {
                   {product.productDescript}
                 </p>
               </div>
+              <FormUpdateProduct />
             </div>
           </div>
         </div>

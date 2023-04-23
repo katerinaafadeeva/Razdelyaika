@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import SignIn from '../features/auth/SignIn';
 import SignUp from '../features/auth/SignUp';
@@ -13,12 +13,14 @@ import { getProducts } from '../features/shop/productsSlice';
 import * as api from './api';
 import ProductsList from '../features/shop/ProductsList';
 import { getEvent } from '../features/events/eventSlice';
-import { useAppDispatch } from '../store';
+import { RootState, useAppDispatch } from '../store';
 import EventItemDiscription from '../features/events/EventItemDiscription';
 import ProductParams from '../features/shop/ProductParams';
+import { verificationUser } from '../features/auth/userSlice';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
+  const { user } = useSelector((store: RootState) => store.auth);
 
   useEffect(() => {
     // api.getProducts().then((data) => console.log(data));
@@ -28,6 +30,10 @@ function App(): JSX.Element {
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(verificationUser());
+  }, []);
 
   return (
     // <Routes>

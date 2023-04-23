@@ -16,3 +16,12 @@ export type EventAdd = {
   eventAddress: string;
   eventDate: string;
 };
+
+export type EventUpd = {
+  id: number;
+  eventName: string;
+  eventDescription: string;
+  eventAddress: string;
+  eventDate: string;
+  isActive: boolean;
+};

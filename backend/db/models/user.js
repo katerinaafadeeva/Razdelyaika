@@ -2,9 +2,9 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate({ eventReview, ProductReview, Order }) {
+    static associate({ EventReview, ProductReview, Order }) {
       this.hasOne(Order, { foreignKey: 'userId' });
-      this.hasMany(eventReview, { foreignKey: 'userId' });
+      this.hasMany(EventReview, { foreignKey: 'userId' });
       this.hasMany(ProductReview, { foreignKey: 'userId' });
     }
   }
@@ -23,10 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.TEXT,
       },
-      isAdmin: {
-        allowNull: false,
-        type: DataTypes.BOOLEAN,
-      },
+      // isAdmin: {
+      //   // allowNull: false,
+      //   type: DataTypes.BOOLEAN,
+      // },
     },
     {
       sequelize,

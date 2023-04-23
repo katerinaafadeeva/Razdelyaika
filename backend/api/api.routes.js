@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Product, Event, ProductImg, eventPhoto } = require('../db/models');
+const { Product, Event, ProductImg, eventPhoto, EventReview } = require('../db/models');
 const path = require('path');
 
 // all products get:
@@ -67,33 +67,6 @@ router.get('/events', async (req, res) => {
   }
 });
 
-router.get('/events/:eventId', async (req, res) => {
-  const { eventId } = req.params;
-  try {
-    const event = await Event.findOne({ raw: true, where: { id: eventId } });
-
-    res.json(event);
-  } catch (error) {
-    res.json({ message: error.message });
-  }
-});
-
-router.get('/shop/:productId', async (req, res) => {
-  const { productId } = req.params;
-  try {
-    const product = await Product.findOne({
-      raw: true,
-      where: { id: productId },
-    });
-
-    res.json(product);
-  } catch (error) {
-    res.json({ message: error.message });
-  }
-});
-
-// add product route:
-
 router.post('/shop', async (req, res) => {
   try {
     const { productName, productPrice, productDescript, productImgs } =
@@ -137,7 +110,7 @@ router.delete('/shop/:productId', async (req, res) => {
 
 router.post('/events', async (req, res) => {
   const { eventName, eventDescription, eventAddress, eventDate } = req.body;
-  console.log(eventName, eventDescription, eventAddress, eventDate);
+  //  console.log(eventName, eventDescription, eventAddress, eventDate);
   try {
     const event = await Event.create({
       eventName,
@@ -155,15 +128,76 @@ router.post('/events', async (req, res) => {
 
 router.delete('/events/:eventId', async (req, res) => {
   const { eventId } = req.params;
-  console.log(eventId);
+  console.log(123);
   try {
     const delEvent = await Event.destroy({ where: { id: Number(eventId) } });
-
-    // console.log(delEvent, '-----------');
-    res.json(delEvent);
+    console.log(delEvent, '----');
+    if (delEvent > 0) {
+      res.json(eventId);
+    } else {
+      res.json('Ответ потерялся :{');
+    }
   } catch (error) {
     res.json({ message: error.message });
   }
 });
 
+router.put('/events/:eventId', async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    const { eventName, eventDescription, eventAddress, eventDate, isActive } = req.body;
+
+    const eventEdit = await Event.findOne({ where: { id: eventId } });
+    console.log(eventEdit, '2');
+    eventEdit.eventName = eventName;
+    eventEdit.eventDescription = eventDescription;
+    eventEdit.eventAddress = eventAddress;
+    eventEdit.eventDate = eventDate;
+    eventEdit.isActive = isActive;
+    eventEdit.save();
+    console.log(eventEdit, '1');
+    res.json(eventEdit);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
+// Comments
+
+router.post('/comment', async (req, res) => {
+  const { eventId, eventRevText } = req.body;
+  console.log(eventId, eventRevText);
+
+  try {
+    const comment = await EventReview.create({
+      eventId,
+      eventRevText,
+      userId: req.session.userId,
+    });
+    console.log(req.session.userId);
+    if (comment) {
+      res.json(comment, '-----');
+    }
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
+// update products router:
+
+router.put('/shop/:productId', async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const { productName, productDescript, productPrice } = req.body;
+    const product = await Product.findOne({ where: { id: productId } });
+    product.productName = productName;
+    product.productDescript = productDescript;
+    product.productPrice = productPrice;
+    product.save();
+
+    res.json(product);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
 module.exports = router;

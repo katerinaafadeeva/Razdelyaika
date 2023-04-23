@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { Outlet } from 'react-router-dom';
 import AddEvent from './AddEvent';
+import SwiperTest from '../swiper/SwiperTest';
 
 function EventList(): JSX.Element {
   const { events } = useSelector((store: RootState) => store.eventState);
@@ -32,6 +33,7 @@ function EventList(): JSX.Element {
             </div>
           </div>
         </section>
+        <SwiperTest />
       </div>
       <AddEvent />
     </>

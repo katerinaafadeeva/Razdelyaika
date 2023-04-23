@@ -22,10 +22,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT,
       },
-      isAdmin: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN,
-      },
+      // isAdmin: {
+      //   allowNull: false,
+      //   type: Sequelize.BOOLEAN,
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
