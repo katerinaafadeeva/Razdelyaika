@@ -67,30 +67,30 @@ router.get('/events', async (req, res) => {
   }
 });
 
-router.get('/events/:eventId', async (req, res) => {
-  const { eventId } = req.params;
-  try {
-    const event = await Event.findOne({ raw: true, where: { id: eventId } });
+//router.get('/events/:eventId', async (req, res) => {
+//  const { eventId } = req.params;
+//  try {
+//    const event = await Event.findOne({ raw: true, where: { id: eventId } });
 
-    res.json(event);
-  } catch (error) {
-    res.json({ message: error.message });
-  }
-});
+//    res.json(event);
+//  } catch (error) {
+//    res.json({ message: error.message });
+//  }
+//});
 
-router.get('/shop/:productId', async (req, res) => {
-  const { productId } = req.params;
-  try {
-    const product = await Product.findOne({
-      raw: true,
-      where: { id: productId },
-    });
+//router.get('/shop/:productId', async (req, res) => {
+//  const { productId } = req.params;
+//  try {
+//    const product = await Product.findOne({
+//      raw: true,
+//      where: { id: productId },
+//    });
 
-    res.json(product);
-  } catch (error) {
-    res.json({ message: error.message });
-  }
-});
+//    res.json(product);
+//  } catch (error) {
+//    res.json({ message: error.message });
+//  }
+//});
 
 // add product route:
 
@@ -125,7 +125,7 @@ router.delete('/shop/:productId', async (req, res) => {
 
 router.post('/events', async (req, res) => {
   const { eventName, eventDescription, eventAddress, eventDate } = req.body;
-  console.log(eventName, eventDescription, eventAddress, eventDate);
+  //  console.log(eventName, eventDescription, eventAddress, eventDate);
   try {
     const event = await Event.create({
       eventName,
@@ -143,12 +143,19 @@ router.post('/events', async (req, res) => {
 
 router.delete('/events/:eventId', async (req, res) => {
   const { eventId } = req.params;
-  console.log(eventId);
+  //  console.log(eventId);
+  console.log(123);
   try {
     const delEvent = await Event.destroy({ where: { id: Number(eventId) } });
+    console.log(delEvent, '----');
+    if (delEvent > 0) {
+      res.json(eventId);
+    } else {
+      res.json('yt elfktyj');
+    }
 
-    // console.log(delEvent, '-----------');
-    res.json(delEvent);
+    //  console.log(delEvent, '-----------');
+    // res.json(delEvent);
   } catch (error) {
     res.json({ message: error.message });
   }

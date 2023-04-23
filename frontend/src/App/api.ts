@@ -1,8 +1,6 @@
-
 import { Product, productId } from '../features/shop/types/Products';
 import { Event, EventAdd } from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
-
 
 // export const checkUser = (): Promise<User> =>
 //   fetch('/auth/checkUser', {
@@ -58,8 +56,7 @@ export const getProducts = async (): Promise<Product[]> =>
 //Мероприятия
 // export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
 
-export const getEvents = (): Promise<Event[]> =>
-  fetch('/api/events').then((res) => res.json());
+export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
@@ -79,10 +76,13 @@ export const addNewEvent = async (newEvent: {
 };
 
 export const removeEvent = async (eventId: number): Promise<number> => {
+  console.log(eventId, '<--');
   const res = await fetch(`/api/events/${eventId}`, {
     method: 'DELETE',
   });
-  return res.json();
+  const date = await res.json();
+  console.log(date);
+  return date;
 };
 
 export const getParamEvent = async (): Promise<Event> =>

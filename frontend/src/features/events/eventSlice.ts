@@ -37,6 +37,7 @@ const eventsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(removeEvent.fulfilled, (state, action) => {
+        console.log(action.payload);
         if (Number.isNaN(+action.payload)) {
           state.error = `${action.payload}`;
         }
