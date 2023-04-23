@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import store, { RootState } from '../../store';
 import RemoveEventBtn from './RemoveEventBtn';
 import EventEdit from './EventEdit';
+import CommentList from './comment/CommentList';
 
 function EventItemDiscription(): JSX.Element {
   const { events } = useSelector((store: RootState) => store.eventState);
@@ -625,6 +626,7 @@ function EventItemDiscription(): JSX.Element {
         </div>
       </div>
       <EventEdit />
+      <CommentList />
     </section>
   );
 }

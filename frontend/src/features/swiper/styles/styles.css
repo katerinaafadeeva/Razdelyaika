@@ -60,3 +60,6 @@ body {
   margin: 0 10px;
   font-size: 13px;
 }
+.swiper-slide swiper-slide-visible swiper-slide-active {
+  width: 500px !important;
+}
