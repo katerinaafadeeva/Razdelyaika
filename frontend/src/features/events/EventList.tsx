@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { Outlet } from 'react-router-dom';
 import AddEvent from './AddEvent';
+import SwiperTest from '../swiper/SwiperTest';
 
 function EventList(): JSX.Element {
   const { events } = useSelector((store: RootState) => store.eventState);
@@ -15,7 +16,9 @@ function EventList(): JSX.Element {
             <div className="-mx-4 flex flex-wrap justify-center">
               <div className="w-full px-4">
                 <div className="mx-auto mb-[60px] max-w-[510px] text-center lg:mb-20">
-                  <span className="text-primary mb-2 block text-lg font-semibold">сейчас</span>
+                  <span className="text-primary mb-2 block text-lg font-semibold">
+                    сейчас
+                  </span>
                   <h2 className="text-dark mb-4 text-3xl font-bold sm:text-4xl md:text-[40px]">
                     Мероприятия Разделяйки
                   </h2>
@@ -32,6 +35,7 @@ function EventList(): JSX.Element {
             </div>
           </div>
         </section>
+        <SwiperTest />
       </div>
       <AddEvent />
     </>
