@@ -10,12 +10,10 @@ import { loginUser } from './userSlice';
 function SignIn(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const { dispatch } = useContext(stateContext);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user, error } = useSelector((store: RootState) => store.auth);
-  console.log(error);
-  
+  // console.log(error);
 
   const autorization = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -24,6 +22,7 @@ function SignIn(): JSX.Element {
   if ('id' in user) {
     navigate('/');
   }
+  console.log(error);
   return (
     <div className="d-flex justify-content-center mt-5">
       <form onSubmit={autorization} className="formlog">
@@ -35,8 +34,8 @@ function SignIn(): JSX.Element {
             type="email"
             className="form-control"
             aria-describedby="emailHelp"
-            value={email}
             onChange={(e) => setEmail(e.target.value)}
+            value={email}
             id="email"
           />
           <div id="emailHelp" className="form-text">
@@ -49,8 +48,8 @@ function SignIn(): JSX.Element {
           </label>
           <input
             className="form-control"
-            value={password}
             onChange={(e) => setPassword(e.target.value)}
+            value={password}
             id="password"
             type="password"
           />

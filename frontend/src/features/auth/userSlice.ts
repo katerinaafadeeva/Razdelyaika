@@ -14,7 +14,7 @@ export const registrationUser = createAsyncThunk(
 export const loginUser = createAsyncThunk('auth/signin', (action: User) =>
   api.login(action),
 );
-export const verificationUser = createAsyncThunk('auth/verification', () =>
+export const verificationUser = createAsyncThunk('auth/checkUser', () =>
   api.session(),
 );
 export const logoutUser = createAsyncThunk('auth/logout', () => api.logout());

@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './styles/navbar.css';
 import { NavLink, Outlet } from 'react-router-dom';
 import { RootState, useAppDispatch } from '../../store';
 import { useSelector } from 'react-redux';
 import { User } from '../auth/types/types';
-import { logoutUser, add } from '../auth/userSlice';
+import { logoutUser, verificationUser } from '../auth/userSlice';
 
 function Navbar(): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
   console.log(user);
+
+  useEffect(() => {
+    dispatch(verificationUser());
+  }, []);
+
   return (
     <>
       <div
@@ -89,104 +94,73 @@ function Navbar(): JSX.Element {
                   id="navbarCollapse"
                   className="absolute right-4 top-full w-full max-w-[250px] rounded-lg bg-white py-5 px-6 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none"
                 >
-                  {'id' in user ? (
-                    <ul className="block lg:flex">
-                      <li onClick={() => dispatch(add())}>
-                        <h1>{user.email}</h1>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/taxi"
-                          className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
-                        >
-                          Эко-такси
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/events"
-                          className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
-                        >
-                          Мероприятия
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/shop"
-                          className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
-                        >
-                          Магазин
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/containers"
-                          className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
-                        >
-                          Контейнеры
-                        </NavLink>
-                      </li>
-                      <li>
-                        <button
-                          className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
-                          onClick={() => dispatch(logoutUser())}
-                        >
-                          Выход
-                        </button>
-                      </li>
-                    </ul>
-                  ) : (
-                    <ul className="block lg:flex">
-                      <li>
-                        <NavLink
-                          to="/taxi"
-                          className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
-                        >
-                          Эко-такси
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/events"
-                          className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
-                        >
-                          Мероприятия
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/shop"
-                          className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
-                        >
-                          Магазин
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/containers"
-                          className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
-                        >
-                          Контейнеры
-                        </NavLink>
-                      </li>
-                    </ul>
-                  )}
+                  <ul className="block lg:flex">
+                    <li>
+                      <NavLink
+                        to="/taxi"
+                        className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
+                      >
+                        Эко-такси
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/events"
+                        className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
+                      >
+                        Мероприятия
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/shop"
+                        className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
+                      >
+                        Магазин
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/containers"
+                        className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
+                      >
+                        Контейнеры
+                      </NavLink>
+                    </li>
+                    {'id' in user && (
+                      <>
+                        <li>
+                          <button
+                            className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
+                            onClick={() => dispatch(logoutUser())}
+                          >
+                            Выход
+                          </button>
+                        </li>
+                        <p className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem">
+                          {user.email}
+                        </p>
+                      </>
+                    )}
+                  </ul>
                 </nav>
               </div>
-              <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
-                <NavLink
-                  to="/signin"
-                  className="text-dark hover:text-primary py-3 px-7 text-base font-medium navitem"
-                >
-                  Login
-                </NavLink>
-                <NavLink
-                  to="/signup"
-                  className="bg-primary rounded-lg py-3 px-7 text-base font-medium text-white hover:bg-opacity-90 navitem"
-                >
-                  Sign Up
-                </NavLink>
-              </div>
+              {!('id' in user) && (
+                <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
+                  <NavLink
+                    to="/signin"
+                    className="text-dark hover:text-primary py-3 px-7 text-base font-medium navitem"
+                  >
+                    Login
+                  </NavLink>
+                  <NavLink
+                    to="/signup"
+                    className="bg-primary rounded-lg py-3 px-7 text-base font-medium text-white hover:bg-opacity-90 navitem"
+                  >
+                    Sign Up
+                  </NavLink>
+                </div>
+              )}
             </div>
           </div>
         </div>
