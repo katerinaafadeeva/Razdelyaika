@@ -1,26 +1,45 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../store';
+import { editEvent } from './eventSlice';
+import { useParams } from 'react-router-dom';
+import { EventUpd } from './types/Event';
 
 function EventEdit(): JSX.Element {
   const dispatch = useAppDispatch();
+  const { eventId } = useParams();
+
   const [eventName, setEventName] = useState('');
   const [eventDescription, setEventDescription] = useState('');
   const [eventAddress, setEventAddress] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [isActive, setIsActive] = useState(true);
 
-  console.log(isActive);
-
   const onHandleClickStatus = (): void => {
     setIsActive((prev) => !prev);
   };
+
   const onSubmitCheck = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    dispatch();
+
+    dispatch(
+      editEvent({
+        id: Number(eventId),
+        eventName: eventName,
+        eventDescription: eventDescription,
+        eventAddress: eventAddress,
+        eventDate: eventDate,
+        isActive: isActive,
+      })
+    );
+    // setEventName('');
+    // setEventDescription('');
+    // setEventAddress('');
+    // setEventDate('');
+    // setIsActive(true);
   };
 
   return (
-    <form onChange={onSubmitCheck}>
+    <form onSubmit={onSubmitCheck}>
       <div className="-mx-4 flex flex-wrap">
         <div className="w-full px-4 md:w-1/2 lg:w-1/3">
           <div className="mb-12">
@@ -62,7 +81,7 @@ function EventEdit(): JSX.Element {
               placeholder="Дата"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               value={eventDate}
-              onChange={(e) => setEventDate(e.target.value)}
+              onChange={(e) => setEventDate(String(e.target.value))}
             />
             <label
               htmlFor="checkboxLabelTwo"
@@ -99,7 +118,7 @@ function EventEdit(): JSX.Element {
       <button
         type="submit"
         className="bg-primary inline-flex items-center justify-center rounded-full py-4 px-5 text-center text-base font-normal text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
-        Добавить
+        Изменить
       </button>
     </form>
   );

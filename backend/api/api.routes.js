@@ -138,16 +138,19 @@ router.put('/events/:eventId', async (req, res) => {
   try {
     const { eventId } = req.params;
     const { eventName, eventDescription, eventAddress, eventDate, isActive } = req.body;
-    const event = await Event.findOne({ where: { id: eventId } });
-    event.eventName = eventName;
-    event.eventDescription = eventDescription;
-    event.eventAddress = eventAddress;
-    event.eventDate = eventDate;
-    event.isActive = isActive;
-    event.save();
-    res.json(event);
-  } catch ({ message }) {
-    res.json();
+
+    const eventEdit = await Event.findOne({ where: { id: eventId } });
+    console.log(eventEdit, '2');
+    eventEdit.eventName = eventName;
+    eventEdit.eventDescription = eventDescription;
+    eventEdit.eventAddress = eventAddress;
+    eventEdit.eventDate = eventDate;
+    eventEdit.isActive = isActive;
+    eventEdit.save();
+    console.log(eventEdit, '1');
+    res.json(eventEdit);
+  } catch (error) {
+    res.json({ message: error.message });
   }
 });
 
@@ -164,8 +167,8 @@ router.put('/shop/:productId', async (req, res) => {
     product.save();
 
     res.json(product);
-  } catch ({ message }) {
-    res.json();
+  } catch (error) {
+    res.json({ message: error.message });
   }
 });
 module.exports = router;
