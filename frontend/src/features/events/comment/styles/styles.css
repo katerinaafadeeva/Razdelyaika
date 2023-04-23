@@ -333,3 +333,7 @@ button {
     padding: 32px;
   }
 }
+
+.w_size {
+  width: 500px;
+}

@@ -1,5 +1,7 @@
 import React from 'react';
 import './styles/styles.css';
+import CommentEvent from './CommentEvent';
+import FormAddComment from './FormAddComment';
 
 function CommentList(): JSX.Element {
   return (
@@ -9,7 +11,7 @@ function CommentList(): JSX.Element {
           <div className="card v-card v-sheet theme--light elevation-2">
             <span className="headline">Оставить коментарий</span>
             <div className="sign-in-wrapper">
-              <p className="caption disclaimer">Можете написать свои впечатления об мероприятие</p>
+              <FormAddComment />
               <p className="error-message"></p>
             </div>
           </div>
@@ -71,7 +73,7 @@ function CommentList(): JSX.Element {
               <div className="wrapper comment">
                 <p>
                   Fusce sodales magna id porta egestas. Nulla massa est, hendrerit nec auctor vitae,
-                  porta ut est.{' '}
+                  porta ut est.
                 </p>
                 <p>
                   Fusce sodales magna id porta egestas. Nulla massa est, hendrerit nec auctor vitae,
@@ -83,6 +85,7 @@ function CommentList(): JSX.Element {
             </div>
 
             <div className="answers"></div>
+            <CommentEvent />
           </div>
         </div>
       </div>
