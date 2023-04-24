@@ -12,7 +12,7 @@ import ContainersList from '../features/containers/ContainersList';
 import { getProducts } from '../features/shop/productsSlice';
 import * as api from './api';
 import ProductsList from '../features/shop/ProductsList';
-import { getEvent } from '../features/events/eventSlice';
+import { getComment, getEvent } from '../features/events/eventSlice';
 import { RootState, useAppDispatch } from '../store';
 import EventItemDiscription from '../features/events/EventItemDiscription';
 import ProductParams from '../features/shop/ProductParams';
@@ -28,7 +28,6 @@ function App(): JSX.Element {
   const { user } = useSelector((store: RootState) => store.auth);
 
   useEffect(() => {
-    // api.getProducts().then((data) => console.log(data));
     dispatch(getEvent());
   }, [dispatch]);
 
@@ -38,7 +37,11 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(verificationUser());
-  }, []);
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getComment());
+  }, [dispatch]);
 
   return (
     // <Routes>

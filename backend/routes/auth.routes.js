@@ -29,7 +29,6 @@ router.post('/signin', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
   const { userName, email, password, password2 } = req.body;
-  // console.log(req.body);
   try {
     if (userName && email && password && password2) {
       if (password === password2) {
@@ -74,7 +73,7 @@ router.get('/logout', async (req, res) => {
 router.get('/checkUser', async (req, res) => {
   try {
     const userSession = req.session.userId;
-    // console.log(userSession);
+
     if (userSession) {
       const user = await User.findOne({
         where: { id: userSession },
