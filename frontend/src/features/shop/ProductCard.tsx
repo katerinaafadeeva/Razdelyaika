@@ -1,9 +1,8 @@
 import React from 'react';
 import { Product } from './types/Products';
 import { Link } from 'react-router-dom';
-
 import { RootState, useAppDispatch } from '../../store';
-
+import './styles/shop.css';
 import { removeProduct } from './productsSlice';
 
 function ProductCard({ product }: { product: Product }): JSX.Element {
@@ -13,7 +12,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
     dispatch(removeProduct(product.id));
   };
 
-  // fn for suture adding products to cart:
+  // fn for future adding products to cart:
   // const addProductToCart = (): void => {
   //   dispatch(addProductToCart(product.id));
   // };
@@ -50,7 +49,14 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
           >
             Удалить запись
           </button>
-          <button className="btn-cart">в корзину</button>
+          <div>
+            <button className="btn-cart">в корзину</button>
+            <select className="size-selector">
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>

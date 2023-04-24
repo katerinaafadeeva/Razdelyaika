@@ -51,3 +51,9 @@
   color: black;
   border: 2px solid #c72800;
 }
+.size-selector {
+  size: 30px;
+  border: 1px solid black;
+  border-radius: 9px;
+  margin-left: 10px;
+}
