@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Comment } from './types/Comment';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
+import { User } from '../../auth/types/types';
 
 function CommentEvent({ comment }: { comment: Comment }): JSX.Element {
-  const date = comment.createdAt.replace(/[-]/gi, '.').slice(0, 10);
-
   const [name, setName] = useState(comment['User.userName']);
+  const userName = useSelector((state: RootState) => state.auth.user);
+
+  const date = comment.createdAt.replace(/[-]/gi, '.').slice(0, 10);
 
   useEffect(() => {
     setName(comment['User.userName']);
-  }, [comment]);
+  }, [comment, name]);
 
   return (
     <div>
@@ -18,7 +22,7 @@ function CommentEvent({ comment }: { comment: Comment }): JSX.Element {
             <img src="https://images.unsplash.com/photo-1490894641324-cfac2f5cd077?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=100&q=70" />
           </div>
 
-          <span className="displayName title">{name}</span>
+          {'id' in userName && <span className="displayName title">{userName?.userName}</span>}
           <span className="displayName caption">{date}</span>
         </div>
 

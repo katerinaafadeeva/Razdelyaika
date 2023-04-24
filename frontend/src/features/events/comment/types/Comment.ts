@@ -7,6 +7,6 @@ export type Comment = {
   eventRevText: string;
   userId: number;
   createdAt: string;
-  'User.userName'?: string;
+  'User.userName': string;
 };
 export type CommentId = Comment['id'];
