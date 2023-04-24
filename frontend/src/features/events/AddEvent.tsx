@@ -20,7 +20,10 @@ function AddEvent(): JSX.Element {
       <div className="-mx-4 flex flex-wrap">
         <div className="w-full px-4 md:w-1/2 lg:w-1/3">
           <div className="mb-12">
-            <label htmlFor="" className="mb-3 block text-base font-medium text-black">
+            <label
+              htmlFor=""
+              className="mb-3 block text-base font-medium text-black"
+            >
               Название мероприятия
             </label>
             <input
@@ -30,7 +33,10 @@ function AddEvent(): JSX.Element {
               value={eventName}
               onChange={(e) => setEventName(e.target.value)}
             />
-            <label htmlFor="" className="mb-3 block text-base font-medium text-black">
+            <label
+              htmlFor=""
+              className="mb-3 block text-base font-medium text-black"
+            >
               Описание
             </label>
             <input
@@ -40,7 +46,10 @@ function AddEvent(): JSX.Element {
               value={eventDescription}
               onChange={(e) => setEventDescription(e.target.value)}
             />
-            <label htmlFor="" className="mb-3 block text-base font-medium text-black">
+            <label
+              htmlFor=""
+              className="mb-3 block text-base font-medium text-black"
+            >
               Адрес проведения
             </label>
             <input
@@ -50,7 +59,10 @@ function AddEvent(): JSX.Element {
               value={eventAddress}
               onChange={(e) => setEventAddress(e.target.value)}
             />
-            <label htmlFor="" className="mb-3 block text-base font-medium text-black">
+            <label
+              htmlFor=""
+              className="mb-3 block text-base font-medium text-black"
+            >
               Дата проведения
             </label>
             <input
@@ -65,7 +77,8 @@ function AddEvent(): JSX.Element {
       </div>
       <button
         type="submit"
-        className="bg-primary inline-flex items-center justify-center rounded-full py-4 px-5 text-center text-base font-normal text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
+        className="bg-primary inline-flex items-center justify-center rounded-full py-4 px-5 text-center text-base font-normal text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+      >
         Добавить
       </button>
     </form>
