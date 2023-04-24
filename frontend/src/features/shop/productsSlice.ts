@@ -12,9 +12,14 @@ const initialState: State = {
   error: undefined,
 };
 
-export const getProducts = createAsyncThunk('shop/getProducts', () => api.getProducts());
+export const getProducts = createAsyncThunk('shop/getProducts', () =>
+  api.getProducts()
+);
 
-export const getParamProducts = createAsyncThunk('shop/getProduct/:id', () => api.getParamProducts);
+export const getParamProducts = createAsyncThunk(
+  'shop/getProduct/:id',
+  () => api.getParamProducts
+);
 
 export const addProduct = createAsyncThunk(
   '/shop/addProduct',
@@ -24,16 +29,17 @@ export const addProduct = createAsyncThunk(
     productDescript: string;
     productImgs: Imgs;
   }) => api.addProduct(newProduct)
-
+);
 // Изменил тип данных для корректного ввода стоимости, можно обратно исправить на number
-  //(newProduct: { productName: string; productPrice: number; productDescript: string }) =>
-  //  api.addProduct(newProduct)
+//(newProduct: { productName: string; productPrice: number; productDescript: string }) =>
+//  api.addProduct(newProduct)
 //);
 
 // added remove fn :
 
-export const removeProduct = createAsyncThunk('/shop/removeProduct', (productId: number) =>
-  api.removeProduct(productId)
+export const removeProduct = createAsyncThunk(
+  '/shop/removeProduct',
+  (productId: number) => api.removeProduct(productId)
 );
 
 // added update fn:
@@ -78,7 +84,9 @@ const productsSlice = createSlice({
         if (Number.isNaN(+action.payload)) {
           state.error = `${action.payload}`;
         }
-        state.products = state.products.filter((product) => product.id !== Number(action.payload));
+        state.products = state.products.filter(
+          (product) => product.id !== Number(action.payload)
+        );
       })
       .addCase(removeProduct.rejected, (state, action) => {
         state.error = action.error.message;
