@@ -141,6 +141,7 @@ function SignUp(): JSX.Element {
                       Sign In
                     </button>
                   </div>
+                  {error && <h1 className="ErrorLogin">{error}</h1>}
                 </div>
                 <p className="mb-6 text-base text-[#adadad]">Connect With</p>
                 {/* <ul className="-mx-2 mb-12 flex justify-between">
@@ -222,7 +223,6 @@ function SignUp(): JSX.Element {
             </div>
           </div>
         </div>
-        {error && <h1>{error}</h1>}
       </form>
     </section>
   );
