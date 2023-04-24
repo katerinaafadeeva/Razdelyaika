@@ -22,7 +22,6 @@ import Cart from '../features/shop/cart/Cart';
 
 import ErrorPage from '../features/Error/ErrorPage';
 
-
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
@@ -36,9 +35,10 @@ function App(): JSX.Element {
     dispatch(getProducts());
   }, [dispatch]);
 
+
   useEffect(() => {
     dispatch(verificationUser());
-  }, []);
+  });
 
   return (
     // <Routes>
@@ -56,7 +56,6 @@ function App(): JSX.Element {
           <Route path="/containers" element={<ContainersList />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<ErrorPage />} />
-
         </Route>
       </Routes>
     </div>
