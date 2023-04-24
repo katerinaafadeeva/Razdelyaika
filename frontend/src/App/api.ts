@@ -39,15 +39,10 @@ export const session = async (): Promise<User | Message> => {
   const res = await fetch('/auth/checkUser', {
     credentials: 'include',
   });
-  console.log(123);
   if (!res.ok) {
     const { message } = await res.json();
-    console.log(message);
     throw message;
   }
-  // console.log(!res.ok);
-  // console.log(await res.json());
-
   return res.json();
 };
 
@@ -69,7 +64,6 @@ export const getProducts = async (): Promise<Product[]> =>
 
 export const getEvents = (): Promise<Event[]> =>
   fetch('/api/events').then((res) => res.json());
-
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
