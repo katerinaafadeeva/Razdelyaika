@@ -4,12 +4,12 @@ const { User } = require('../db/models');
 
 router.post('/signin', async (req, res) => {
   const { email, password } = req.body;
+  // console.log(Number(req.session.userId), '>>>>>>>>>>');
   try {
     if (email && password) {
       const user = await User.findOne({ where: { email } });
       if (user && (await bcrypt.compare(password, user.password))) {
         req.session.userId = user.id;
-        console.log('req.session.userID', req.session.userId);
         res.status(201).json({
           id: user.id,
           email: user.email,
@@ -18,6 +18,7 @@ router.post('/signin', async (req, res) => {
         });
       } else {
         res.status(403).json({ message: 'Ваш email пароль не соответствуют' });
+        // console.log(message);
       }
     } else {
       res.status(403).json({ message: 'Заполните все поля' });
@@ -29,7 +30,7 @@ router.post('/signin', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
   const { userName, email, password, password2 } = req.body;
-  // console.log(req.body);
+
   try {
     if (userName && email && password && password2) {
       if (password === password2) {
@@ -75,7 +76,7 @@ router.get('/logout', async (req, res) => {
 router.get('/checkUser', async (req, res) => {
   try {
     const userSession = req.session.userId;
-    console.log(userSession);
+
     if (userSession) {
       const user = await User.findOne({
         where: { id: userSession },
@@ -83,9 +84,6 @@ router.get('/checkUser', async (req, res) => {
       });
       res.status(201).json(user);
     }
-    // else {
-    //   res.end();
-    // }
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

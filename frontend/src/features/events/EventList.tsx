@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import EventCard from './EventCard';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -8,6 +8,7 @@ import SwiperTest from '../swiper/SwiperTest';
 
 function EventList(): JSX.Element {
   const { events } = useSelector((store: RootState) => store.eventState);
+
   return (
     <>
       <div>

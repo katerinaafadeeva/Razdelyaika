@@ -13,8 +13,6 @@ function EventCard({ event }: { event: Event }): JSX.Element {
     dispatch(removeEvent(event.id));
   };
 
-  console.log(event);
-
   return (
     <div className="w-full px-4 md:w-1/2 lg:w-1/3 forSlicer">
       <div className="mx-auto mb-10 max-w-[550px]">

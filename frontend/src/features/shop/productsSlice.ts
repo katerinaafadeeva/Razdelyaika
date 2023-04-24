@@ -21,6 +21,7 @@ export const getParamProducts = createAsyncThunk(
   () => api.getParamProducts
 );
 
+
 export const addProduct = createAsyncThunk('/shop/addProduct', (data: any) =>
   api.addProduct(data)
 );
@@ -49,6 +50,12 @@ export const updateProduct = createAsyncThunk(
   }) => api.updatedProduct(updatedProduct)
 );
 
+// GET ALL CART PRODUCTS:
+
+export const getCartProducts = createAsyncThunk('cart/getCartProducts', () =>
+  api.getCartProducts()
+);
+
 // slicers:
 const productsSlice = createSlice({
   name: 'products',
@@ -75,7 +82,6 @@ const productsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(removeProduct.fulfilled, (state, action) => {
-        console.log(action.payload);
         if (Number.isNaN(+action.payload)) {
           state.error = `${action.payload}`;
         }
@@ -99,6 +105,12 @@ const productsSlice = createSlice({
         );
       })
       .addCase(updateProduct.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(getCartProducts.fulfilled, (state, action) => {
+        state.products = action.payload;
+      })
+      .addCase(getCartProducts.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },

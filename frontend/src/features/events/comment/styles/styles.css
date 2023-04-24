@@ -335,5 +335,12 @@ button {
 }
 
 .w_size {
-  width: 500px;
+  width: 250%;
+}
+
+.scroll_div {
+  overflow-y: scroll;
+  max-height: 700px;
+
+  overflow: auto;
 }
