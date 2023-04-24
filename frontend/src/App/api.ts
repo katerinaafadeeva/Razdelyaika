@@ -1,14 +1,8 @@
 import { Imgs } from '../features/shop/types/Img';
 import { Product, productId } from '../features/shop/types/Products';
-import {
-  Event,
-  EventAdd,
-  EventId,
-  EventUpd,
-} from '../features/events/types/Event';
+import { Event, EventAdd, EventId, EventUpd } from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
 import { Comment } from '../features/events/comment/types/Comment';
-
 
 export const registration = async (obj: User): Promise<User | Message> => {
   const res = await fetch('/auth/signup', {
@@ -66,9 +60,7 @@ export const getProducts = async (): Promise<Product[]> =>
 
 // Events
 
-
 export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
-
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
@@ -130,6 +122,14 @@ export const addComment = async (comment: {
 };
 export const getComments = async (): Promise<Comment[]> =>
   fetch('/api/comments').then((res) => res.json());
+
+export const removeComment = async (commentId: number): Promise<number> => {
+  const res = await fetch(`/api/comments/${commentId}`, {
+    method: 'DELETE',
+  });
+  const date = await res.json();
+  return date;
+};
 
 export const getParamEvent = async (): Promise<Event> =>
   fetch('/api/events/:id').then((res) => res.json());
