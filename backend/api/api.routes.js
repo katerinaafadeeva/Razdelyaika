@@ -162,7 +162,7 @@ router.get('/comments', async (req, res) => {
     const comments = await EventReview.findAll({
       raw: true,
       include: [{ model: User, attributes: ['userName'] }],
-      //order: [['createdAt', 'DESC']],
+      order: [['createdAt', 'DESC']],
     });
 
     if (comments) {

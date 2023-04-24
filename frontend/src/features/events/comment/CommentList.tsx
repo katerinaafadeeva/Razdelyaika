@@ -11,11 +11,6 @@ function CommentList({ eventId }: { eventId: number }): JSX.Element {
 
   const comments = commentsIsBase.filter((comment) => comment.eventId === eventId);
 
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getComment());
-  }, []);
   return (
     <>
       <div className="comment-container theme--light">
