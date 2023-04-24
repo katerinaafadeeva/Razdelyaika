@@ -1,50 +1,54 @@
 import React from 'react';
-// import { Routes, Route, Link } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
-// import {
-//   clearError,
-//   loadEducationTypes,
-// } from '../features/education/educationSlice';
-// import EducationTable from '../features/education/components/EducationTable';
-// import { useAppDispatch } from '../store';
+import { useSelector } from 'react-redux';
+import { addProdImg, delProdImg } from '../shop/productsSlice';
+import { RootState, useAppDispatch } from '../../store';
+import { Imgs } from '../shop/types/Img';
 
-// import UsersTable from '../features/user/components/UsersTable';
-// import { loadUsers } from '../features/user/usersSlice';
+function App(): JSX.Element {
+  const { imgs } = useSelector((store: RootState) => store.productsState);
+  const dispatch = useAppDispatch();
 
-function App({
-  newproductImg,
-  setProductImg,
-}: {
-  newproductImg: any;
-  setProductImg: (value: any) => void;
-}): JSX.Element {
-  //   const dispatch = useAppDispatch();
-  //   const { error } = useSelector((store: RootState) => store.education);
+  const addImgsToState = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    console.log('aaa', e.target.files);
+    dispatch(addProdImg(e.target.files));
+  };
 
-  //   useEffect(() => {
-  //     dispatch(loadEducationTypes());
-  //     dispatch(loadUsers());
-  //     if (error) {
-  //       alert('Проблемы на useEffect с dispatch');
-  //       dispatch(clearError());
-  //     }
-  //   }, [dispatch]);
+  function delAddedImg(): void {
+    dispatch(delProdImg);
+  }
 
   return (
-    <form
-      method="post"
-      action="http://localhost:4000/api/photo"
-      encType="multipart/form-data"
-    >
-      <input
-        type="file"
-        name="file"
-        multiple
-        value={newproductImg}
-        // onChange={(e) => setProductImg(e.target.value)}
-      />
-      <button type="submit">Добавить файлы</button>
-    </form>
+    // <form
+    //   method="post"
+    //   action="http://localhost:4000/api/photo"
+    //   onSubmit={getImgPath}
+    //   encType="multipart/form-data"
+    // >
+    //   <input type="file" name="file" multiple />
+    //   <button type="submit">Добавить файлы</button>
+    // </form>
+    <>
+      {Object.keys(imgs).length > 0 &&
+        Object.values(imgs).map((file: any) => (
+          <div key={file.lastModifiedDate}>
+            <h1>{file.name}</h1>
+            <button
+              type="button"
+              // className="close"
+              // aria-label="Close"
+              // style={{ color: 'black' }}
+              onClick={delAddedImg}
+            >
+              Удалить
+            </button>{' '}
+          </div>
+        ))}
+      <input type="file" name="file" multiple onChange={addImgsToState} />
+
+      {/* <button type="button" onClick={getImgPath}>
+        Добавить файлы
+      </button> */}
+    </>
   );
 }
 

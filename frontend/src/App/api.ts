@@ -1,3 +1,4 @@
+import { Imgs } from '../features/shop/types/Img';
 import { Product, productId } from '../features/shop/types/Products';
 import {
   Event,
@@ -69,6 +70,7 @@ export const getProducts = async (): Promise<Product[]> =>
 export const getEvents = (): Promise<Event[]> =>
   fetch('/api/events').then((res) => res.json());
 
+
 export const addNewEvent = async (newEvent: {
   eventName: string;
   eventDescription: string;
@@ -138,8 +140,9 @@ export const getParamProducts = async (): Promise<Product> =>
 
 export const addProduct = async (newProduct: {
   productName: string;
-  productPrice: number;
+  productPrice: string;
   productDescript: string;
+  productImgs: Imgs;
 }): Promise<Product> => {
   const res = await fetch('/api/shop', {
     method: 'POST',
