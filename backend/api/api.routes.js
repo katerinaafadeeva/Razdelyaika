@@ -1,5 +1,11 @@
 const router = require('express').Router();
-const { Product, Event, ProductImg, eventPhoto, EventReview } = require('../db/models');
+const {
+  Product,
+  Event,
+  ProductImg,
+  eventPhoto,
+  EventReview,
+} = require('../db/models');
 const path = require('path');
 
 // all products get:
@@ -145,7 +151,8 @@ router.delete('/events/:eventId', async (req, res) => {
 router.put('/events/:eventId', async (req, res) => {
   try {
     const { eventId } = req.params;
-    const { eventName, eventDescription, eventAddress, eventDate, isActive } = req.body;
+    const { eventName, eventDescription, eventAddress, eventDate, isActive } =
+      req.body;
 
     const eventEdit = await Event.findOne({ where: { id: eventId } });
     console.log(eventEdit, '2');
@@ -166,7 +173,7 @@ router.put('/events/:eventId', async (req, res) => {
 
 router.post('/comment', async (req, res) => {
   const { eventId, eventRevText } = req.body;
-  console.log(eventId, eventRevText);
+  // console.log(eventId, eventRevText);
 
   try {
     const comment = await EventReview.create({
@@ -174,9 +181,9 @@ router.post('/comment', async (req, res) => {
       eventRevText,
       userId: req.session.userId,
     });
-    console.log(req.session.userId);
+    // console.log(req.session.userId);
     if (comment) {
-      res.json(comment, '-----');
+      res.json(comment);
     }
   } catch (error) {
     res.json({ message: error.message });

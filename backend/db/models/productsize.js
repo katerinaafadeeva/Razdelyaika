@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   ProductSize.init(
     {
-      productId: {
+      productSizeId: {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
