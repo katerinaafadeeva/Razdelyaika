@@ -31,11 +31,11 @@ function EventEdit(): JSX.Element {
         isActive: isActive,
       })
     );
-    // setEventName('');
-    // setEventDescription('');
-    // setEventAddress('');
-    // setEventDate('');
-    // setIsActive(true);
+    setEventName('');
+    setEventDescription('');
+    setEventAddress('');
+    setEventDate('');
+    setIsActive(true);
   };
 
   return (

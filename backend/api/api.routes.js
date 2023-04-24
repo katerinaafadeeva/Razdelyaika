@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Product, Event, ProductImg, eventPhoto, EventReview } = require('../db/models');
+const { Product, Event, ProductImg, eventPhoto, EventReview, User } = require('../db/models');
 const path = require('path');
 
 // all products get:
@@ -69,8 +69,7 @@ router.get('/events', async (req, res) => {
 
 router.post('/shop', async (req, res) => {
   try {
-    const { productName, productPrice, productDescript, productImgs } =
-      req.body;
+    const { productName, productPrice, productDescript, productImgs } = req.body;
     console.log('req.body', req.body);
     const newProduct = await Product.create({
       productName,
@@ -164,9 +163,24 @@ router.put('/events/:eventId', async (req, res) => {
 
 // Comments
 
-router.post('/comment', async (req, res) => {
+router.get('/comments', async (req, res) => {
+  try {
+    const comments = await EventReview.findAll({
+      raw: true,
+      include: [{ model: User, attributes: ['userName'] }],
+      order: [['createdAt', 'DESC']],
+    });
+
+    if (comments) {
+      res.json(comments);
+    }
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
+router.post('/comments', async (req, res) => {
   const { eventId, eventRevText } = req.body;
-  console.log(eventId, eventRevText);
 
   try {
     const comment = await EventReview.create({
@@ -174,9 +188,10 @@ router.post('/comment', async (req, res) => {
       eventRevText,
       userId: req.session.userId,
     });
-    console.log(req.session.userId);
+    console.log(comment, 'comment info');
+
     if (comment) {
-      res.json(comment, '-----');
+      res.json(comment);
     }
   } catch (error) {
     res.json({ message: error.message });
