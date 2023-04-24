@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Product, Event, ProductImg, eventPhoto, EventReview, User } = require('../db/models');
+v
 const path = require('path');
 
 // all products get:
@@ -140,7 +141,8 @@ router.delete('/events/:eventId', async (req, res) => {
 router.put('/events/:eventId', async (req, res) => {
   try {
     const { eventId } = req.params;
-    const { eventName, eventDescription, eventAddress, eventDate, isActive } = req.body;
+    const { eventName, eventDescription, eventAddress, eventDate, isActive } =
+      req.body;
 
     const eventEdit = await Event.findOne({ where: { id: eventId } });
     eventEdit.eventName = eventName;
@@ -175,6 +177,7 @@ router.get('/comments', async (req, res) => {
 
 router.post('/comments', async (req, res) => {
   const { eventId, eventRevText } = req.body;
+
 
   try {
     const comment = await EventReview.create({

@@ -18,6 +18,11 @@ import EventItemDiscription from '../features/events/EventItemDiscription';
 import ProductParams from '../features/shop/ProductParams';
 import { verificationUser } from '../features/auth/userSlice';
 
+import Cart from '../features/shop/cart/Cart';
+
+import ErrorPage from '../features/Error/ErrorPage';
+
+
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
@@ -52,6 +57,9 @@ function App(): JSX.Element {
           <Route path="/events" element={<EventList />} />
           <Route path={`/events/:eventId`} element={<EventItemDiscription />} />
           <Route path="/containers" element={<ContainersList />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="*" element={<ErrorPage />} />
+
         </Route>
       </Routes>
     </div>

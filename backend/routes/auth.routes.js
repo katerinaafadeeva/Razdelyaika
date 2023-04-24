@@ -17,6 +17,7 @@ router.post('/signin', async (req, res) => {
         });
       } else {
         res.status(403).json({ message: 'Ваш email пароль не соответствуют' });
+        // console.log(message);
       }
     } else {
       res.status(403).json({ message: 'Заполните все поля' });
@@ -72,6 +73,7 @@ router.get('/logout', async (req, res) => {
 router.get('/checkUser', async (req, res) => {
   try {
     const userSession = req.session.userId;
+
     if (userSession) {
       const user = await User.findOne({
         where: { id: userSession },
@@ -79,9 +81,6 @@ router.get('/checkUser', async (req, res) => {
       });
       res.status(201).json(user);
     }
-    //  else {
-    //   res.end();
-    // }
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

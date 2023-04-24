@@ -1,9 +1,14 @@
 import { Imgs } from '../features/shop/types/Img';
 import { Product, productId } from '../features/shop/types/Products';
-import { Event, EventAdd, EventId, EventUpd } from '../features/events/types/Event';
+import {
+  Event,
+  EventAdd,
+  EventId,
+  EventUpd,
+} from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
 import { Comment } from '../features/events/comment/types/Comment';
-import { log } from 'console';
+
 
 export const registration = async (obj: User): Promise<User | Message> => {
   const res = await fetch('/auth/signup', {
@@ -25,6 +30,10 @@ export const login = async (obj: User): Promise<User | Message> => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(obj),
   });
+  if (!res.ok) {
+    const { message } = await res.json();
+    throw message;
+  }
   return res.json();
 };
 export const session = async (): Promise<User | Message> => {
@@ -55,7 +64,9 @@ export const getProducts = async (): Promise<Product[]> =>
 
 // Events
 
+
 export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
+
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
@@ -168,3 +179,8 @@ export const updatedProduct = async (updatedProduct: {
   });
   return res.json();
 };
+
+// CART GET ALL PRODUCTS:
+
+export const getCartProducts = async (): Promise<Product[]> =>
+  fetch('/cart').then((res) => res.json());

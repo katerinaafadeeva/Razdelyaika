@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { State } from './types/State';
 import { RootState, useAppDispatch } from '../../store';
 import { loginUser } from './userSlice';
+import './styles/auth.css';
 
 function SignIn(): JSX.Element {
   const [email, setEmail] = useState('');
@@ -13,6 +14,7 @@ function SignIn(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user, error } = useSelector((store: RootState) => store.auth);
+
 
   const autorization = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -101,8 +103,9 @@ function SignIn(): JSX.Element {
                       Sign In
                     </button>
                   </div>
+                  {error && <h1 className="ErrorLogin2">{error}</h1>}
                 </div>
-                <p className="mb-6 text-base text-[#adadad]">Connect With</p>
+                {/* <p className="mb-6 text-base text-[#adadad]">Connect With</p> */}
                 {/* <ul className="-mx-2 mb-12 flex justify-between">
                   <li className="w-full px-2">
                     <a
@@ -182,7 +185,6 @@ function SignIn(): JSX.Element {
             </div>
           </div>
         </div>
-        {error && <h1>{error}</h1>}
       </form>
     </section>
   );

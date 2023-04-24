@@ -7,8 +7,17 @@ const initialState: State = {
   user: {},
   error: undefined,
 };
-export const registrationUser = createAsyncThunk('auth/registration', (action: User) =>
-  api.registration(action)
+
+export const registrationUser = createAsyncThunk(
+  'auth/registration',
+  (action: User) => api.registration(action)
+);
+export const loginUser = createAsyncThunk('auth/signin', (action: User) =>
+  api.login(action)
+);
+export const verificationUser = createAsyncThunk('auth/checkUser', () =>
+  api.session()
+
 );
 export const loginUser = createAsyncThunk('auth/signin', (action: User) => api.login(action));
 export const verificationUser = createAsyncThunk('auth/checkUser', () => api.session());
