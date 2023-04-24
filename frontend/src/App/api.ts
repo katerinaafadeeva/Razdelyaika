@@ -9,7 +9,6 @@ import {
 import { Message, User } from '../features/auth/types/types';
 import { Comment } from '../features/events/comment/types/Comment';
 
-
 export const registration = async (obj: User): Promise<User | Message> => {
   const res = await fetch('/auth/signup', {
     method: 'POST',
@@ -37,8 +36,6 @@ export const login = async (obj: User): Promise<User | Message> => {
   return res.json();
 };
 export const session = async (): Promise<User | Message> => {
-  console.log('123123123');
-  
   const res = await fetch('/auth/checkUser', {
     credentials: 'include',
   });
@@ -66,9 +63,8 @@ export const getProducts = async (): Promise<Product[]> =>
 
 // Events
 
-
-export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
-
+export const getEvents = (): Promise<Event[]> =>
+  fetch('/api/events').then((res) => res.json());
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
