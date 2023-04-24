@@ -4,7 +4,7 @@ import { RootState } from '../../../store';
 import CartItem from './CartItem';
 
 function Cart(): JSX.Element {
-  const { products } = useSelector((store: RootState) => store.productsState);
+  const { products } = useSelector((store: RootState) => store.cartState);
 
   return (
     <section className="bg-white py-20 lg:py-[120px]">

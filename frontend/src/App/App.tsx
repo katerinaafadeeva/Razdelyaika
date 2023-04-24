@@ -9,7 +9,8 @@ import MainPage from '../features/mainPage/MainPage';
 import EcoTaxi from '../features/taxi/EcoTaxi';
 import EventList from '../features/events/EventList';
 import ContainersList from '../features/containers/ContainersList';
-import { getCartProducts, getProducts } from '../features/shop/productsSlice';
+import { getProducts } from '../features/shop/productsSlice';
+import { getCartProducts } from '../features/shop/cart/CartSlice';
 import * as api from './api';
 import ProductsList from '../features/shop/ProductsList';
 import { getComment, getEvent } from '../features/events/eventSlice';
@@ -35,7 +36,6 @@ function App(): JSX.Element {
     dispatch(getProducts());
   }, [dispatch]);
 
-
   useEffect(() => {
     dispatch(verificationUser());
   }, []);
@@ -47,7 +47,6 @@ function App(): JSX.Element {
   useEffect(() => {
     dispatch(getCartProducts());
   }, [dispatch]);
-
 
   return (
     // <Routes>
