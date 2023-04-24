@@ -1,5 +1,11 @@
 const router = require('express').Router();
-const { Product, Event, ProductImg, eventPhoto, EventReview } = require('../db/models');
+const {
+  Product,
+  Event,
+  ProductImg,
+  eventPhoto,
+  EventReview,
+} = require('../db/models');
 const path = require('path');
 
 // all products get:
@@ -69,27 +75,96 @@ router.get('/events', async (req, res) => {
 
 router.post('/shop', async (req, res) => {
   try {
-    const { productName, productPrice, productDescript, productImgs } =
-      req.body;
+    // const { productName, productPrice, productDescript } = req.body;
+    const { name, price, description } = req.body;
+
+    console.log('files', req.files);
     console.log('req.body', req.body);
     const newProduct = await Product.create({
-      productName,
-      productPrice,
-      productDescript,
+      productName: name,
+      productPrice: price,
+      productDescript: description,
     });
     if (newProduct) {
-      await Promise.all(
-        Object.values(productImgs).map(async (productImg) => {
-          await ProductImg.create({
-            productImgId: newProduct.id,
-            productImg: productImg.name,
+      if (Array.isArray(req.files.file)) {
+        const uploadPathes = req.files.file.map((file) =>
+          path.join(__dirname, 'photos', `${file.name}`)
+        );
+        await Promise.all(
+          uploadPathes.map(async (uploadPath) => {
+            await ProductImg.create({
+              productImgId: newProduct.id,
+              productImg: uploadPath,
+            });
+          })
+        );
+        // Use the mv() method to place the file somewhere on your server
+        uploadPathes.forEach(async (uploadPath, index) => {
+          // console.log('productImgs[index]', uploadPath);
+          await req.files.file[index].mv(uploadPath, (err) => {
+            if (err) {
+              return res.status(500).send(err);
+            }
           });
-        })
-      );
+        });
+      } else {
+        const uploadPath = path.join(
+          __dirname,
+          'photos',
+          `${req.files.file.name}`
+        );
+        await ProductImg.create({
+          productImgId: newProduct.id,
+          productImgs: uploadPath,
+        });
+        await req.files.file.mv(uploadPath, (err) => {
+          if (err) {
+            return res.status(500).send(err);
+          }
+        });
+      }
     }
     res.json(newProduct);
   } catch ({ message }) {
     res.json(message);
+  }
+});
+
+// роутер для добавления фото на backend (не работает для примера)
+router.post('/photo', (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  const sampleFiles = req.files.file;
+  if (Array.isArray(sampleFiles)) {
+    const uploadPathes = sampleFiles.map((sampleFile) =>
+      path.join(__dirname, 'photos', `${sampleFile.name}`)
+    );
+    // Use the mv() method to place the file somewhere on your server
+    uploadPathes.forEach(async (uploadPath, index) => {
+      await sampleFiles[index].mv(uploadPath, (err) => {
+        if (err) {
+          return res.status(500).send(err);
+        }
+        // res.end();
+        // res.send(uploadPathes);
+        // res.redirect('http://localhost:3000/shop');
+        // res.send('File uploaded!');
+      });
+    });
+    res.json(uploadPathes);
+  } else {
+    const uploadPath = path.join(__dirname, 'photos', `${sampleFiles.name}`);
+    sampleFiles.mv(uploadPath, (err) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      res.send(uploadPath);
+      res.end();
+      // res.redirect('http://localhost:3000/shop');
+      // res.send('File uploaded!');
+    });
   }
 });
 
@@ -145,7 +220,8 @@ router.delete('/events/:eventId', async (req, res) => {
 router.put('/events/:eventId', async (req, res) => {
   try {
     const { eventId } = req.params;
-    const { eventName, eventDescription, eventAddress, eventDate, isActive } = req.body;
+    const { eventName, eventDescription, eventAddress, eventDate, isActive } =
+      req.body;
 
     const eventEdit = await Event.findOne({ where: { id: eventId } });
     console.log(eventEdit, '2');
@@ -166,15 +242,23 @@ router.put('/events/:eventId', async (req, res) => {
 
 router.post('/comment', async (req, res) => {
   const { eventId, eventRevText } = req.body;
-  console.log(eventId, eventRevText);
-
+  // console.log(
+  //   'req.body for comment',
+  //   eventId,
+  //   eventRevText,
+  //   req.session.userId
+  // );
   try {
-    const comment = await EventReview.create({
-      eventId,
-      eventRevText,
-      userId: req.session.userId,
-    });
-    console.log(req.session.userId);
+    const comment = await EventReview.create(
+      {
+        eventId,
+        eventRevText,
+        userId: req.session.userId,
+      },
+      { raw: true }
+    );
+    console.log('comment', comment);
+    // console.log('req.session.userId in comment api', req.session.userId);
     if (comment) {
       res.json(comment, '-----');
     }

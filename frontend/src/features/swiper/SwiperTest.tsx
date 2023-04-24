@@ -52,7 +52,8 @@ function SwiperTest(): JSX.Element {
         //   type: 'fraction',
         // }}
         navigation={true}
-        virtual>
+        virtual
+      >
         {/*slides*/}
         {events.map((event, index) => (
           <SwiperSlide key={event.id} virtualIndex={index}>

@@ -9,6 +9,7 @@ router.post('/signin', async (req, res) => {
       const user = await User.findOne({ where: { email } });
       if (user && (await bcrypt.compare(password, user.password))) {
         req.session.userId = user.id;
+        console.log('req.session.userID', req.session.userId);
         res.status(201).json({
           id: user.id,
           email: user.email,
@@ -41,6 +42,7 @@ router.post('/signup', async (req, res) => {
             password: hash,
             password2,
           });
+          console.log('newUser', newUser);
           req.session.userId = newUser.id;
           res.status(201).json(newUser);
         } else {
@@ -81,7 +83,7 @@ router.get('/checkUser', async (req, res) => {
       });
       res.status(201).json(user);
     }
-    //  else {
+    // else {
     //   res.end();
     // }
   } catch (error) {

@@ -4,6 +4,7 @@ export type Event = {
   eventDescription: string;
   eventAddress: string;
   eventDate: string;
+  // detailsLink: string;
   isActive: boolean;
   [key: string]: any;
 };
@@ -15,6 +16,7 @@ export type EventAdd = {
   eventDescription: string;
   eventAddress: string;
   eventDate: string;
+  // detailsLink: string;
 };
 
 export type EventUpd = {

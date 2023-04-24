@@ -1,10 +1,13 @@
 import { Imgs } from '../features/shop/types/Img';
 import { Product, productId } from '../features/shop/types/Products';
-import { Event, EventAdd, EventId, EventUpd } from '../features/events/types/Event';
+import {
+  Event,
+  EventAdd,
+  EventId,
+  EventUpd,
+} from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
 import { Comment } from '../features/events/comment/types/Comment';
-
-
 
 export const registration = async (obj: User): Promise<User | Message> => {
   const res = await fetch('/auth/signup', {
@@ -60,14 +63,15 @@ export const getProducts = async (): Promise<Product[]> =>
 
 // Events
 
-export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
-
+export const getEvents = (): Promise<Event[]> =>
+  fetch('/api/events').then((res) => res.json());
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
   eventDescription: string;
   eventAddress: string;
   eventDate: string;
+  // detailsLink: string;
 }): Promise<Event> => {
   const res = await fetch('/api/events', {
     method: 'POST',
@@ -129,20 +133,13 @@ export const getParamProducts = async (): Promise<Product> =>
   fetch('/api/shop/:id').then((res) => res.json());
 
 // api add product :
-
-export const addProduct = async (newProduct: {
-  productName: string;
-  productPrice: string;
-  productDescript: string;
-  productImgs: Imgs;
-}): Promise<Product> => {
-  const res = await fetch('/api/shop', {
+type RequestInit = {};
+export const addProduct = async (data: any): Promise<Product> => {
+  let params: RequestInit = {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(newProduct),
-  });
+    body: data,
+  };
+  const res = await fetch('/api/shop', params);
   return res.json();
 };
 
