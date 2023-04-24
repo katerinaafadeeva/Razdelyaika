@@ -1,10 +1,9 @@
 import React from 'react';
 import { Product } from './types/Products';
 import { Link } from 'react-router-dom';
-// import del from '../images/delete.png';
 
 import { RootState, useAppDispatch } from '../../store';
-// import { useSelector } from 'react-redux';
+
 import { removeProduct } from './productsSlice';
 
 function ProductCard({ product }: { product: Product }): JSX.Element {
@@ -13,6 +12,11 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
   const handleRemoveProduct = (): void => {
     dispatch(removeProduct(product.id));
   };
+
+  // fn for suture adding products to cart:
+  // const addProductToCart = (): void => {
+  //   dispatch(addProductToCart(product.id));
+  // };
 
   return (
     <div className="w-full px-4 md:w-1/2 xl:w-1/3">
@@ -39,11 +43,16 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
           </Link>
         </div>
         <div className="btns-group">
-          <button onClick={handleRemoveProduct} type="button" className='btn-del-product'>
-            {/* <img src={del} alt="delete" /> */}
+          <button
+            onClick={handleRemoveProduct}
+            type="button"
+            className="btn-del-product"
+          >
             Удалить запись
           </button>
-          <button className="btn-cart">в корзину</button>
+          {/* <button className="btn-cart" onClick={addProductToCart}>
+            в корзину
+          </button> */}
         </div>
       </div>
     </div>

@@ -9,13 +9,13 @@ const initialState: State = {
 };
 export const registrationUser = createAsyncThunk(
   'auth/registration',
-  (action: User) => api.registration(action),
+  (action: User) => api.registration(action)
 );
 export const loginUser = createAsyncThunk('auth/signin', (action: User) =>
-  api.login(action),
+  api.login(action)
 );
 export const verificationUser = createAsyncThunk('auth/checkUser', () =>
-  api.session(),
+  api.session()
 );
 export const logoutUser = createAsyncThunk('auth/logout', () => api.logout());
 

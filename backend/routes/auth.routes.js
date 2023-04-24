@@ -73,7 +73,7 @@ router.get('/logout', async (req, res) => {
 router.get('/checkUser', async (req, res) => {
   try {
     const userSession = req.session.userId;
-    console.log(userSession);
+    // console.log(userSession);
     if (userSession) {
       const user = await User.findOne({
         where: { id: userSession },
@@ -81,9 +81,6 @@ router.get('/checkUser', async (req, res) => {
       });
       res.status(201).json(user);
     }
-    //  else {
-    //   res.end();
-    // }
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

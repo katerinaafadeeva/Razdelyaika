@@ -130,6 +130,14 @@ function Navbar(): JSX.Element {
                     {'id' in user && (
                       <>
                         <li>
+                          <NavLink
+                            to="/cart"
+                            className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
+                          >
+                            Корзина
+                          </NavLink>
+                        </li>
+                        <li>
                           <button
                             className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
                             onClick={() => dispatch(logoutUser())}
