@@ -36,6 +36,8 @@ export const login = async (obj: User): Promise<User | Message> => {
   return res.json();
 };
 export const session = async (): Promise<User | Message> => {
+  console.log('123123123');
+  
   const res = await fetch('/auth/checkUser', {
     credentials: 'include',
   });
@@ -43,6 +45,9 @@ export const session = async (): Promise<User | Message> => {
     const { message } = await res.json();
     throw message;
   }
+  console.log(res);
+  
+  // console.log(res.json(), '00000000');
   return res.json();
 };
 

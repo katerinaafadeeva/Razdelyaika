@@ -11,6 +11,9 @@ function Navbar(): JSX.Element {
   const { user } = useSelector((store: RootState) => store.auth);
   console.log(user);
 
+  // useEffect(() => {
+  //   dispatch(verificationUser());
+  // }, []);
   useEffect(() => {
     dispatch(verificationUser());
   }, []);
