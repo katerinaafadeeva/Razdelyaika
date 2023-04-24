@@ -31,8 +31,6 @@ export const login = async (obj: User): Promise<User | Message> => {
   return res.json();
 };
 export const session = async (): Promise<User | Message> => {
-  console.log('123123123');
-  
   const res = await fetch('/auth/checkUser', {
     credentials: 'include',
   });
@@ -60,7 +58,9 @@ export const getProducts = async (): Promise<Product[]> =>
 
 // Events
 
+
 export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
+
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
