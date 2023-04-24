@@ -21,12 +21,11 @@ router.get('/cart', async (req, res) => {
         { model: ProductSize, include: { model: Size } },
         // { model: User },
       ],
-      //   where: { userId: req.session.userId },
-
-      where: { productPrice: 500 },
     });
-
-    res.json(cards);
+    const Prod = cards.filter(
+      (el) => el['AddedProducts.Order.userId'] === req.session.userId,
+    );
+    res.json(Prod);
   } catch (error) {
     res.json({ message: error.message });
   }

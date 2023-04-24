@@ -25,7 +25,7 @@ import ErrorPage from '../features/Error/ErrorPage';
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
-  // console.log(user);
+  console.log(user);
 
   useEffect(() => {
     dispatch(getEvent());
@@ -34,7 +34,6 @@ function App(): JSX.Element {
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
-
 
   useEffect(() => {
     dispatch(verificationUser());
@@ -47,7 +46,6 @@ function App(): JSX.Element {
   useEffect(() => {
     dispatch(getCartProducts());
   }, [dispatch]);
-
 
   return (
     // <Routes>
