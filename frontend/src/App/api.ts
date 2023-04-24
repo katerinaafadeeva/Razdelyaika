@@ -43,7 +43,6 @@ export const session = async (): Promise<User | Message> => {
     const { message } = await res.json();
     throw message;
   }
-
   return res.json();
 };
 
