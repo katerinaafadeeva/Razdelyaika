@@ -50,9 +50,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
           >
             Удалить запись
           </button>
-          {/* <button className="btn-cart" onClick={addProductToCart}>
-            в корзину
-          </button> */}
+          <button className="btn-cart">в корзину</button>
         </div>
       </div>
     </div>
