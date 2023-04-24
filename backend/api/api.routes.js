@@ -130,7 +130,7 @@ router.delete('/events/:eventId', async (req, res) => {
     if (delEvent > 0) {
       res.json(eventId);
     } else {
-      res.json('Ответ потерялся :{');
+      res.json('Failed res');
     }
   } catch (error) {
     res.json({ message: error.message });
@@ -185,6 +185,20 @@ router.post('/comments', async (req, res) => {
 
     if (comment) {
       res.json(comment);
+    }
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
+router.delete('/comments/:commentId', async (req, res) => {
+  const { commentId } = req.params;
+  try {
+    const delComment = await EventReview.destroy({ where: { id: Number(commentId) } });
+    if (delComment > 0) {
+      res.json(commentId);
+    } else {
+      res.json('Failed res');
     }
   } catch (error) {
     res.json({ message: error.message });

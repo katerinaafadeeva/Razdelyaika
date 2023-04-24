@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Comment } from './types/Comment';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
+import { RootState, useAppDispatch } from '../../../store';
 import { User } from '../../auth/types/types';
+import { removeComment } from '../eventSlice';
 
 function CommentEvent({ comment }: { comment: Comment }): JSX.Element {
   const [name, setName] = useState(comment['User.userName']);
@@ -14,6 +15,11 @@ function CommentEvent({ comment }: { comment: Comment }): JSX.Element {
     setName(comment['User.userName']);
   }, [comment, name]);
 
+  const dispatch = useAppDispatch();
+  const onHandleClickDelete = (): void => {
+    dispatch(removeComment(comment.id));
+  };
+
   return (
     <div>
       <div className="card v-card v-sheet theme--light elevation-2" style={{ height: '180px' }}>
@@ -24,6 +30,9 @@ function CommentEvent({ comment }: { comment: Comment }): JSX.Element {
 
           {'id' in userName && <span className="displayName title">{userName?.userName}</span>}
           <span className="displayName caption">{date}</span>
+          <button onClick={onHandleClickDelete} className="displayName caption">
+            Удалить
+          </button>
         </div>
 
         <div className="wrapper comment">

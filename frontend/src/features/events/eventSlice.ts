@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { State } from './types/State';
 import * as api from '../../App/api';
 import { Event, EventAdd, EventId, EventUpd } from './types/Event';
-import { Comment } from './comment/types/Comment';
+import { Comment, CommentId } from './comment/types/Comment';
 
 const initialState: State = {
   events: [],
@@ -25,6 +25,10 @@ export const addCommentEvent = createAsyncThunk(
 
 export const removeEvent = createAsyncThunk('events/removeEvent', (eventId: number) =>
   api.removeEvent(eventId)
+);
+
+export const removeComment = createAsyncThunk('events/removeComment', (commentId: CommentId) =>
+  api.removeComment(commentId)
 );
 
 export const editEvent = createAsyncThunk(
@@ -85,6 +89,17 @@ const eventsSlice = createSlice({
         state.eventComments = action.payload;
       })
       .addCase(getComment.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(removeComment.fulfilled, (state, action) => {
+        if (Number.isNaN(+action.payload)) {
+          state.error = `${action.payload}`;
+        }
+        state.eventComments = state.eventComments.filter(
+          (comment) => comment.id !== Number(action.payload)
+        );
+      })
+      .addCase(removeComment.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },
