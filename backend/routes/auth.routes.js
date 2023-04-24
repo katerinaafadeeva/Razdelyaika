@@ -17,6 +17,7 @@ router.post('/signin', async (req, res) => {
         });
       } else {
         res.status(403).json({ message: 'Ваш email пароль не соответствуют' });
+        // console.log(message);
       }
     } else {
       res.status(403).json({ message: 'Заполните все поля' });
