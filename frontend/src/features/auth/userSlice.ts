@@ -15,8 +15,8 @@ export const registrationUser = createAsyncThunk(
 export const loginUser = createAsyncThunk('auth/signin', (action: User) =>
   api.login(action)
 );
-export const verificationUser = createAsyncThunk('auth/checkUser', () =>
-  api.session()
+
+export const verificationUser = createAsyncThunk('auth/checkUser', () => api.session()
 
 );
 export const loginUser = createAsyncThunk('auth/signin', (action: User) => api.login(action));
@@ -40,7 +40,9 @@ const authSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(verificationUser.fulfilled, (state, action) => {
+
         state.user = action.payload ?? {};
+
       })
       .addCase(verificationUser.rejected, (state, action) => {
         state.error = action.error.message;

@@ -9,7 +9,7 @@ import MainPage from '../features/mainPage/MainPage';
 import EcoTaxi from '../features/taxi/EcoTaxi';
 import EventList from '../features/events/EventList';
 import ContainersList from '../features/containers/ContainersList';
-import { getProducts } from '../features/shop/productsSlice';
+import { getCartProducts, getProducts } from '../features/shop/productsSlice';
 import * as api from './api';
 import ProductsList from '../features/shop/ProductsList';
 import { getComment, getEvent } from '../features/events/eventSlice';
@@ -22,10 +22,10 @@ import Cart from '../features/shop/cart/Cart';
 
 import ErrorPage from '../features/Error/ErrorPage';
 
-
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
+  // console.log(user);
 
   useEffect(() => {
     dispatch(getEvent());
@@ -41,6 +41,10 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(getComment());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getCartProducts());
   }, [dispatch]);
 
   return (
@@ -59,7 +63,6 @@ function App(): JSX.Element {
           <Route path="/containers" element={<ContainersList />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<ErrorPage />} />
-
         </Route>
       </Routes>
     </div>
