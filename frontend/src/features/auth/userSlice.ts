@@ -8,6 +8,7 @@ const initialState: State = {
   error: undefined,
 };
 
+
 export const registrationUser = createAsyncThunk('auth/registration', (action: User) =>
   api.registration(action)
 );
@@ -16,6 +17,7 @@ export const registrationUser = createAsyncThunk('auth/registration', (action: U
 
 export const loginUser = createAsyncThunk('auth/signin', (action: User) => api.login(action));
 export const verificationUser = createAsyncThunk('auth/checkUser', () => api.session());
+
 export const logoutUser = createAsyncThunk('auth/logout', () => api.logout());
 
 const authSlice = createSlice({
@@ -35,9 +37,7 @@ const authSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(verificationUser.fulfilled, (state, action) => {
-
         state.user = action.payload ?? {};
-
       })
       .addCase(verificationUser.rejected, (state, action) => {
         state.error = action.error.message;
