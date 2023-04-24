@@ -21,7 +21,8 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
     <div className="w-full px-4 md:w-1/2 xl:w-1/3">
       <div className="mb-10 overflow-hidden rounded-lg bg-white">
         <img
-          src={`https://localhost:3000${product['ProductImgs.productImg']}`}
+          src={`${product['ProductImgs.productImg']}`}
+          // src={`https://localhost:3000${product['ProductImgs.productImg']}`}
           alt="image"
           className="w-full"
         />

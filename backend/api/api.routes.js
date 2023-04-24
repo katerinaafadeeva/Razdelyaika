@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+// const { log } = require('console');
 const {
   Product,
   Event,
@@ -19,6 +20,7 @@ router.get('/shop', async (req, res) => {
       include: [{ model: ProductImg }],
       raw: true,
     });
+
     res.json(products);
   } catch (error) {
     res.json({ message: error.message });
@@ -79,13 +81,16 @@ router.get('/events', async (req, res) => {
 router.post('/shop', async (req, res) => {
   try {
     // const { productName, productPrice, productDescript } = req.body;
-    const { name, price, description } = req.body;
-    console.log('files', req.files);
-    console.log('req.body', req.body);
+
+    // uploader - не рабоатет!!
+    const { name, price, description} = req.body;
+    // console.log('files', req.files);
+    // console.log('req.body', req.body);
     const newProduct = await Product.create({
       productName: name,
       productPrice: price,
       productDescript: description,
+      // productImg: imgs,
     });
     if (newProduct) {
       if (Array.isArray(req.files.file)) {
@@ -272,7 +277,9 @@ router.post('/comments', async (req, res) => {
 router.delete('/comments/:commentId', async (req, res) => {
   const { commentId } = req.params;
   try {
-    const delComment = await EventReview.destroy({ where: { id: Number(commentId) } });
+    const delComment = await EventReview.destroy({
+      where: { id: Number(commentId) },
+    });
     if (delComment > 0) {
       res.json(commentId);
     } else {
