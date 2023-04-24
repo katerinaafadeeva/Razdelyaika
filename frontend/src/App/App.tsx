@@ -54,9 +54,7 @@ function App(): JSX.Element {
           <Route path="/events" element={<EventList />} />
           <Route path={`/events/:eventId`} element={<EventItemDiscription />} />
           <Route path="/containers" element={<ContainersList />} />
-
           <Route path="/cart" element={<Cart />} />
-
           <Route path="*" element={<ErrorPage />} />
 
         </Route>

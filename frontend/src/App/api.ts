@@ -174,3 +174,8 @@ export const updatedProduct = async (updatedProduct: {
   });
   return res.json();
 };
+
+// CART GET ALL PRODUCTS:
+
+export const getCartProducts = async (): Promise<Product[]> =>
+  fetch('/cart').then((res) => res.json());
