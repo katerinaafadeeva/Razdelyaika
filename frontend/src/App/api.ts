@@ -31,6 +31,8 @@ export const login = async (obj: User): Promise<User | Message> => {
   return res.json();
 };
 export const session = async (): Promise<User | Message> => {
+  console.log('123123123');
+  
   const res = await fetch('/auth/checkUser', {
     credentials: 'include',
   });

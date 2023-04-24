@@ -7,7 +7,6 @@ import CartItem from './CartItem';
 
 function Cart(): JSX.Element {
   const { products } = useSelector((store: RootState) => store.productsState);
-  console.log(products, '>>>>>>>>');
 
   return (
     <section className="bg-white py-20 lg:py-[120px]">
@@ -17,7 +16,10 @@ function Cart(): JSX.Element {
             <div className="max-w-full overflow-x-auto">
               <table className="w-full table-auto">
                 <thead>
-                  <tr className="bg-primary text-center">
+                  <tr
+                    className="bg-primary text-center"
+                    style={{ backgroundColor: '#309959' }}
+                  >
                     <th className="w-1/6 min-w-[160px] border-l border-transparent py-4 px-3 text-lg font-semibold text-white lg:py-7 lg:px-4">
                       продукт
                     </th>
@@ -33,7 +35,9 @@ function Cart(): JSX.Element {
                     <th className="w-1/6 min-w-[160px] border-r border-transparent py-4 px-3 text-lg font-semibold text-white lg:py-7 lg:px-4"></th>
                   </tr>
                   {products?.map((product) => (
+                    // <tbody>
                     <CartItem key={product.id} product={product} />
+                    // </tbody>
                   ))}
                 </thead>
               </table>

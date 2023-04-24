@@ -10,6 +10,7 @@ const {
 } = require('../db/models');
 
 router.get('/cart', async (req, res) => {
+
   try {
     const cards = await Product.findAll({
       raw: true,
@@ -21,8 +22,14 @@ router.get('/cart', async (req, res) => {
         { model: ProductSize, include: { model: Size } },
         // { model: User },
       ],
-    //   where: { userId: req.session.userId },
+      //   where: { userId: req.session.userId },
+
+
+      where: { productName: 500 },
     });
+
+
+
     res.json(cards);
   } catch (error) {
     res.json({ message: error.message });
