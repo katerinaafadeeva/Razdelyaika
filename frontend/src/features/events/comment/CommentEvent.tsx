@@ -16,7 +16,7 @@ function CommentEvent({ comment }: { comment: Comment }): JSX.Element {
 
   return (
     <div>
-      <div className="card v-card v-sheet theme--light elevation-2">
+      <div className="card v-card v-sheet theme--light elevation-2" style={{ height: '180px' }}>
         <div className="header">
           <div className="v-avatar avatar" style={{ height: '50px', width: '50px' }}>
             <img src="https://w1.pngwing.com/pngs/337/122/png-transparent-christmas-tree-symbol-fir-pine-road-logo-spruce-evergreen-natural-environment.png" />
