@@ -1,6 +1,13 @@
 const router = require('express').Router();
-const { Product, Event, ProductImg, eventPhoto, EventReview, User } = require('../db/models');
-v
+const {
+  Product,
+  Event,
+  ProductImg,
+  eventPhoto,
+  EventReview,
+  User,
+} = require('../db/models');
+
 const path = require('path');
 
 // all products get:
@@ -70,7 +77,8 @@ router.get('/events', async (req, res) => {
 
 router.post('/shop', async (req, res) => {
   try {
-    const { productName, productPrice, productDescript, productImgs } = req.body;
+    const { productName, productPrice, productDescript, productImgs } =
+      req.body;
     const newProduct = await Product.create({
       productName,
       productPrice,
@@ -177,7 +185,6 @@ router.get('/comments', async (req, res) => {
 
 router.post('/comments', async (req, res) => {
   const { eventId, eventRevText } = req.body;
-
 
   try {
     const comment = await EventReview.create({
