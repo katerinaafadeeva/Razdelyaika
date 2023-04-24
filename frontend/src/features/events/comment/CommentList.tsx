@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './styles/styles.css';
 import CommentEvent from './CommentEvent';
 import FormAddComment from './FormAddComment';
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from '../../../store';
+import { getComment } from '../eventSlice';
 
-function CommentList(): JSX.Element {
+function CommentList({ eventId }: { eventId: number }): JSX.Element {
+  const commentsIsBase = useSelector((store: RootState) => store.eventState.eventComments);
+
+  const comments = commentsIsBase.filter((comment) => comment.eventId === eventId);
+
   return (
     <>
       <div className="comment-container theme--light">
@@ -16,7 +23,7 @@ function CommentList(): JSX.Element {
             </div>
           </div>
           <div>
-            <div className="card v-card v-sheet theme--light elevation-2">
+            {/*<div className="card v-card v-sheet theme--light elevation-2">
               <div className="header">
                 <div className="v-avatar avatar" style={{ height: '50px', width: '50px' }}>
                   <img src="https://images.unsplash.com/photo-1490894641324-cfac2f5cd077?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=100&q=70" />
@@ -82,10 +89,12 @@ function CommentList(): JSX.Element {
               </div>
               <div className="actions"></div>
               <div className="v-dialog__container" style={{ display: 'block' }}></div>
-            </div>
+            </div>*/}
 
             <div className="answers"></div>
-            <CommentEvent />
+            {comments?.map((comment) => (
+              <CommentEvent key={comment.id} comment={comment} />
+            ))}
           </div>
         </div>
       </div>

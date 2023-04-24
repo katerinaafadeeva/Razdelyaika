@@ -12,17 +12,19 @@ const initialState: State = {
 
 export const getEvent = createAsyncThunk('events/getEvent', () => api.getEvents());
 
+export const getComment = createAsyncThunk('events/getComment', () => api.getComments());
+
 export const addEvent = createAsyncThunk('events/addEvent', (newEvent: EventAdd) =>
   api.addNewEvent(newEvent)
-);
-
-export const removeEvent = createAsyncThunk('events/removeEvent', (eventId: number) =>
-  api.removeEvent(eventId)
 );
 
 export const addCommentEvent = createAsyncThunk(
   'events/addCommentEvent',
   (comment: { eventId: number; eventRevText: string }) => api.addComment(comment)
+);
+
+export const removeEvent = createAsyncThunk('events/removeEvent', (eventId: number) =>
+  api.removeEvent(eventId)
 );
 
 export const editEvent = createAsyncThunk(
@@ -56,7 +58,6 @@ const eventsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(removeEvent.fulfilled, (state, action) => {
-        console.log(action.payload);
         if (Number.isNaN(+action.payload)) {
           state.error = `${action.payload}`;
         }
@@ -74,9 +75,16 @@ const eventsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(addCommentEvent.fulfilled, (state, action) => {
-        state.eventComments = [...state.eventComments, action.payload];
+        console.log(action.payload, '--00--00');
+        state.eventComments.unshift(action.payload);
       })
       .addCase(addCommentEvent.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(getComment.fulfilled, (state, action) => {
+        state.eventComments = action.payload;
+      })
+      .addCase(getComment.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },

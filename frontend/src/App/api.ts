@@ -9,6 +9,7 @@ import {
 import { Message, User } from '../features/auth/types/types';
 import { Comment } from '../features/events/comment/types/Comment';
 
+
 export const registration = async (obj: User): Promise<User | Message> => {
   const res = await fetch('/auth/signup', {
     method: 'POST',
@@ -45,9 +46,7 @@ export const session = async (): Promise<User | Message> => {
     const { message } = await res.json();
     throw message;
   }
-  console.log(res);
-  
-  // console.log(res.json(), '00000000');
+
   return res.json();
 };
 
@@ -67,8 +66,9 @@ export const getProducts = async (): Promise<Product[]> =>
 
 // Events
 
-export const getEvents = (): Promise<Event[]> =>
-  fetch('/api/events').then((res) => res.json());
+
+export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
+
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
@@ -92,7 +92,6 @@ export const removeEvent = async (eventId: number): Promise<number> => {
     method: 'DELETE',
   });
   const date = await res.json();
-  //  console.log(date);
   return date;
 };
 
@@ -114,20 +113,23 @@ export const updateEvent = async (updEvent: {
   return res.json();
 };
 
-export const addComment = async (commit: {
+export const addComment = async (comment: {
   eventId: EventId;
   eventRevText: string;
 }): Promise<Comment> => {
-  const res = await fetch('/api/comment', {
+  const res = await fetch('/api/comments', {
     method: 'POST',
+
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(commit),
+    body: JSON.stringify(comment),
   });
 
   return res.json();
 };
+export const getComments = async (): Promise<Comment[]> =>
+  fetch('/api/comments').then((res) => res.json());
 
 export const getParamEvent = async (): Promise<Event> =>
   fetch('/api/events/:id').then((res) => res.json());

@@ -2,14 +2,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import store, { RootState } from '../../store';
-import RemoveEventBtn from './RemoveEventBtn';
 import EventEdit from './EventEdit';
 import CommentList from './comment/CommentList';
 
 function EventItemDiscription(): JSX.Element {
-  const { events } = useSelector((store: RootState) => store.eventState);
+  const events = useSelector((store: RootState) => store.eventState.events);
   const { eventId } = useParams();
-  const [event] = events.filter((el) => el.id === Number(eventId));
+
+  const [event] = events?.filter((el) => el.id === Number(eventId));
 
   return (
     <section className="overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
@@ -616,17 +616,17 @@ function EventItemDiscription(): JSX.Element {
           <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
             <div className="mt-10 lg:mt-0">
               <span className="text-primary mb-2 block text-lg font-semibold">
-                {event.eventDate}
+                {event?.eventDate}
               </span>
-              <h2 className="text-dark mb-8 text-3xl font-bold sm:text-4xl">{event.eventName}</h2>
-              <p className="text-body-color mb-8 text-base">{event.eventDescription}</p>
-              <p className="text-body-color mb-12 text-base">{event.eventAddress}</p>
+              <h2 className="text-dark mb-8 text-3xl font-bold sm:text-4xl">{event?.eventName}</h2>
+              <p className="text-body-color mb-8 text-base">{event?.eventDescription}</p>
+              <p className="text-body-color mb-12 text-base">{event?.eventAddress}</p>
             </div>
           </div>
         </div>
       </div>
       <EventEdit />
-      <CommentList />
+      <CommentList eventId={Number(eventId)} />
     </section>
   );
 }
