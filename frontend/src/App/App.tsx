@@ -35,6 +35,7 @@ function App(): JSX.Element {
     dispatch(getProducts());
   }, [dispatch]);
 
+
   useEffect(() => {
     dispatch(verificationUser());
   }, [dispatch]);
@@ -46,6 +47,7 @@ function App(): JSX.Element {
   useEffect(() => {
     dispatch(getCartProducts());
   }, [dispatch]);
+
 
   return (
     // <Routes>
