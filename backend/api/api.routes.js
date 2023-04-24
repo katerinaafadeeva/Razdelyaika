@@ -70,7 +70,6 @@ router.get('/events', async (req, res) => {
 router.post('/shop', async (req, res) => {
   try {
     const { productName, productPrice, productDescript, productImgs } = req.body;
-    console.log('req.body', req.body);
     const newProduct = await Product.create({
       productName,
       productPrice,
@@ -109,7 +108,6 @@ router.delete('/shop/:productId', async (req, res) => {
 
 router.post('/events', async (req, res) => {
   const { eventName, eventDescription, eventAddress, eventDate } = req.body;
-  //  console.log(eventName, eventDescription, eventAddress, eventDate);
   try {
     const event = await Event.create({
       eventName,
@@ -127,10 +125,8 @@ router.post('/events', async (req, res) => {
 
 router.delete('/events/:eventId', async (req, res) => {
   const { eventId } = req.params;
-  console.log(123);
   try {
     const delEvent = await Event.destroy({ where: { id: Number(eventId) } });
-    console.log(delEvent, '----');
     if (delEvent > 0) {
       res.json(eventId);
     } else {
@@ -147,14 +143,12 @@ router.put('/events/:eventId', async (req, res) => {
     const { eventName, eventDescription, eventAddress, eventDate, isActive } = req.body;
 
     const eventEdit = await Event.findOne({ where: { id: eventId } });
-    console.log(eventEdit, '2');
     eventEdit.eventName = eventName;
     eventEdit.eventDescription = eventDescription;
     eventEdit.eventAddress = eventAddress;
     eventEdit.eventDate = eventDate;
     eventEdit.isActive = isActive;
     eventEdit.save();
-    console.log(eventEdit, '1');
     res.json(eventEdit);
   } catch (error) {
     res.json({ message: error.message });
@@ -168,7 +162,7 @@ router.get('/comments', async (req, res) => {
     const comments = await EventReview.findAll({
       raw: true,
       include: [{ model: User, attributes: ['userName'] }],
-      order: [['createdAt', 'DESC']],
+      //order: [['createdAt', 'DESC']],
     });
 
     if (comments) {
@@ -188,7 +182,6 @@ router.post('/comments', async (req, res) => {
       eventRevText,
       userId: req.session.userId,
     });
-    console.log(comment, 'comment info');
 
     if (comment) {
       res.json(comment);

@@ -23,7 +23,6 @@ function App(): JSX.Element {
   const { user } = useSelector((store: RootState) => store.auth);
 
   useEffect(() => {
-    // api.getProducts().then((data) => console.log(data));
     dispatch(getEvent());
   }, [dispatch]);
 

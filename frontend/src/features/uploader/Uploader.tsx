@@ -9,7 +9,6 @@ function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const addImgsToState = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    console.log('aaa', e.target.files);
     dispatch(addProdImg(e.target.files));
   };
 
@@ -37,8 +36,7 @@ function App(): JSX.Element {
               // className="close"
               // aria-label="Close"
               // style={{ color: 'black' }}
-              onClick={delAddedImg}
-            >
+              onClick={delAddedImg}>
               Удалить
             </button>{' '}
           </div>

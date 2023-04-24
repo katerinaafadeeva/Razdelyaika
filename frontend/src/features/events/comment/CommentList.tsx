@@ -9,10 +9,7 @@ import { getComment } from '../eventSlice';
 function CommentList({ eventId }: { eventId: number }): JSX.Element {
   const commentsIsBase = useSelector((store: RootState) => store.eventState.eventComments);
 
-  console.log(commentsIsBase, 'array comments');
   const comments = commentsIsBase.filter((comment) => comment.eventId === eventId);
-
-  console.log(comments, '<--');
 
   const dispatch = useAppDispatch();
 

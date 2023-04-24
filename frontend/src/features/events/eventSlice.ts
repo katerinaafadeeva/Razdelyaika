@@ -58,7 +58,6 @@ const eventsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(removeEvent.fulfilled, (state, action) => {
-        console.log(action.payload);
         if (Number.isNaN(+action.payload)) {
           state.error = `${action.payload}`;
         }
@@ -76,15 +75,12 @@ const eventsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(addCommentEvent.fulfilled, (state, action) => {
-        state.eventComments = [...state.eventComments, action.payload];
-
-        console.log(action, 'ACTION');
+        state.eventComments.unshift(action.payload);
       })
       .addCase(addCommentEvent.rejected, (state, action) => {
         state.error = action.error.message;
       })
       .addCase(getComment.fulfilled, (state, action) => {
-        console.log(action);
         state.eventComments = action.payload;
       })
       .addCase(getComment.rejected, (state, action) => {

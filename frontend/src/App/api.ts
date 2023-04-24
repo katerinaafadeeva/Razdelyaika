@@ -31,14 +31,10 @@ export const session = async (): Promise<User | Message> => {
   const res = await fetch('/auth/checkUser', {
     credentials: 'include',
   });
-  console.log(123);
   if (!res.ok) {
     const { message } = await res.json();
-    console.log(message);
     throw message;
   }
-  // console.log(!res.ok);
-  // console.log(await res.json());
 
   return res.json();
 };
@@ -83,7 +79,6 @@ export const removeEvent = async (eventId: number): Promise<number> => {
     method: 'DELETE',
   });
   const date = await res.json();
-  //  console.log(date);
   return date;
 };
 
@@ -118,9 +113,6 @@ export const addComment = async (comment: {
     body: JSON.stringify(comment),
   });
 
-  const data = await res.json();
-
-  console.log(data, 'addcom');
   return res.json();
 };
 export const getComments = async (): Promise<Comment[]> =>
