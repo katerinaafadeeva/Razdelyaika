@@ -21,7 +21,6 @@ export const getParamProducts = createAsyncThunk(
   () => api.getParamProducts
 );
 
-
 export const addProduct = createAsyncThunk('/shop/addProduct', (data: any) =>
   api.addProduct(data)
 );

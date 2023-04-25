@@ -11,6 +11,7 @@ const store = configureStore({
   reducer: {
     eventState: eventsSlice,
     productsState: productsSlice,
+    
     auth: authSlice,
   },
 });
