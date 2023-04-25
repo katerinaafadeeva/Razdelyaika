@@ -14,12 +14,19 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          userName: 'Максим',
+          email: 'admin@gmail.com',
+          password: await bcrypt.hash('123', 10),
+          // isAdmin: true,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
-      {},
     );
   },
 
   async down(queryInterface) {
-    await queryInterface.bulkDelete('Users', null, {});
+    await queryInterface.bulkDelete('Users');
   },
 };

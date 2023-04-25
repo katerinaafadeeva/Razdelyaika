@@ -9,7 +9,8 @@ import MainPage from '../features/mainPage/MainPage';
 import EcoTaxi from '../features/taxi/EcoTaxi';
 import EventList from '../features/events/EventList';
 import ContainersList from '../features/containers/ContainersList';
-import { getCartProducts, getProducts } from '../features/shop/productsSlice';
+import { getProducts } from '../features/shop/productsSlice';
+import { addToCart, getCartProducts } from '../features/shop/cart/CartSlice';
 import * as api from './api';
 import ProductsList from '../features/shop/ProductsList';
 import { getComment, getEvent } from '../features/events/eventSlice';
@@ -26,6 +27,7 @@ function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
 
+
   useEffect(() => {
     dispatch(getEvent());
   }, [dispatch]);
@@ -36,7 +38,8 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(verificationUser());
-  }, [dispatch]);
+  },[]);
+  // []
 
   useEffect(() => {
     dispatch(getComment());
@@ -44,11 +47,17 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(getCartProducts());
-  }, [dispatch]);
+  }, [user]);
+
 
   useEffect(() => {
     dispatch(getEcoPoint());
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(addToCart());
+  // }, [dispatch]);
+
 
   return (
     <div className="App">

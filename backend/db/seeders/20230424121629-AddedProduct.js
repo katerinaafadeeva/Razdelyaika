@@ -18,6 +18,13 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        productId: 1,
+        orderId: 3,
+        count: 10,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 

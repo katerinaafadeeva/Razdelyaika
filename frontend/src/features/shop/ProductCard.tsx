@@ -4,18 +4,28 @@ import { Link } from 'react-router-dom';
 import { RootState, useAppDispatch } from '../../store';
 import './styles/shop.css';
 import { removeProduct } from './productsSlice';
+import { useSelector } from 'react-redux';
+import { addToCart } from './cart/CartSlice';
 
 function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
 
+
+
   const handleRemoveProduct = (): void => {
-    dispatch(removeProduct(product.id));
+    if (product.id) {
+      dispatch(removeProduct(product.id));
+    }
   };
 
   // fn for future adding products to cart:
-  // const addProductToCart = (): void => {
-  //   dispatch(addProductToCart(product.id));
-  // };
+
+  const addProductToCart = (): void => {
+    if (product.id) {
+      dispatch(addToCart(product.id));
+    }
+  };
+
 
   return (
     <div className="w-full px-4 md:w-1/2 xl:w-1/3">
@@ -30,6 +40,9 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
           <p className="text-body-color mb-7 text-base leading-relaxed">
             {product.productPrice}₽
           </p>
+          {/* {product.id && (
+            <h3>{`${product.id['ProductSizes.Size.sizeText']}`} размера</h3>
+          )} */}
 
           <p className="text-body-color mb-7 text-base leading-relaxed">
             {product.productDescript}
@@ -50,11 +63,13 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
             Удалить запись
           </button>
           <div>
-            <button className="btn-cart">в корзину</button>
+            <button className="btn-cart" onClick={addProductToCart}>
+              в корзину
+            </button>
             <select className="size-selector">
-              <option>S</option>
-              <option>M</option>
-              <option>L</option>
+              {/* <option>{product['ProductSizes.Size.sizeText']}</option>
+              <option>{product['ProductSizes.Size.sizeText']}</option> */}
+              {/* <option>L</option> */}
             </select>
           </div>
         </div>

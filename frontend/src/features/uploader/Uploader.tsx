@@ -4,7 +4,7 @@ import { addProdImg, delProdImg } from '../shop/productsSlice';
 import { RootState, useAppDispatch } from '../../store';
 import { Imgs } from '../shop/types/Img';
 
-function App(): JSX.Element {
+function Uploader(): JSX.Element {
   const { imgs } = useSelector((store: RootState) => store.productsState);
   const dispatch = useAppDispatch();
 
@@ -12,20 +12,12 @@ function App(): JSX.Element {
     dispatch(addProdImg(e.target.files));
   };
 
-  function delAddedImg(): void {
-    dispatch(delProdImg);
+  function delAddedImg(e: React.MouseEvent<HTMLButtonElement>): void {
+    console.log(new Date(e.currentTarget.name).getTime());
+    dispatch(delProdImg(new Date(e.currentTarget.name).getTime()));
   }
 
   return (
-    // <form
-    //   method="post"
-    //   action="http://localhost:4000/api/photo"
-    //   onSubmit={getImgPath}
-    //   encType="multipart/form-data"
-    // >
-    //   <input type="file" name="file" multiple />
-    //   <button type="submit">Добавить файлы</button>
-    // </form>
     <>
       {Object.keys(imgs).length > 0 &&
         Object.values(imgs).map((file: any) => (
@@ -33,21 +25,23 @@ function App(): JSX.Element {
             <h1>{file.name}</h1>
             <button
               type="button"
-              // className="close"
-              // aria-label="Close"
-              // style={{ color: 'black' }}
+              name={file.lastModifiedDate}
               onClick={delAddedImg}>
               Удалить
-            </button>{' '}
+            </button>
           </div>
         ))}
-      <input type="file" name="file" multiple onChange={addImgsToState} />
+      <input
+        type="file"
+        name="file"
+        multiple
+        accept="image/png, image/jpeg, image/jpg"
+        onChange={addImgsToState}
+        style={{ color: 'transparent' }}
+      />
 
-      {/* <button type="button" onClick={getImgPath}>
-        Добавить файлы
-      </button> */}
     </>
   );
 }
 
-export default App;
+export default Uploader;

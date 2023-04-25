@@ -12,19 +12,19 @@ const initialState: State = {
   error: undefined,
 };
 
-export const getProducts = createAsyncThunk('shop/getProducts', () => api.getProducts());
-
-export const getParamProducts = createAsyncThunk('shop/getProduct/:id', () => api.getParamProducts);
-
-export const addProduct = createAsyncThunk(
-  '/shop/addProduct',
-  (newProduct: {
-    productName: string;
-    productPrice: string;
-    productDescript: string;
-    productImgs: Imgs;
-  }) => api.addProduct(newProduct)
+export const getProducts = createAsyncThunk('shop/getProducts', () =>
+  api.getProducts()
 );
+
+export const getParamProducts = createAsyncThunk(
+  'shop/getProduct/:id',
+  () => api.getParamProducts
+);
+
+export const addProduct = createAsyncThunk('/shop/addProduct', (data: any) =>
+  api.addProduct(data)
+);
+
 // Изменил тип данных для корректного ввода стоимости, можно обратно исправить на number
 //(newProduct: { productName: string; productPrice: number; productDescript: string }) =>
 //  api.addProduct(newProduct)
@@ -32,8 +32,9 @@ export const addProduct = createAsyncThunk(
 
 // added remove fn :
 
-export const removeProduct = createAsyncThunk('/shop/removeProduct', (productId: number) =>
-  api.removeProduct(productId)
+export const removeProduct = createAsyncThunk(
+  '/shop/removeProduct',
+  (productId: number) => api.removeProduct(productId)
 );
 
 // added update fn:
@@ -48,12 +49,6 @@ export const updateProduct = createAsyncThunk(
   }) => api.updatedProduct(updatedProduct)
 );
 
-// GET ALL CART PRODUCTS:
-
-export const getCartProducts = createAsyncThunk('cart/getCartProducts', () =>
-  api.getCartProducts()
-);
-
 // slicers:
 const productsSlice = createSlice({
   name: 'products',
@@ -64,8 +59,11 @@ const productsSlice = createSlice({
     },
     delProdImg: (state, action) => {
       state.imgs = Object.values(state.imgs).filter(
-        (img) => img.lastModifiedDate !== action.payload
+        (img) => new Date(img.lastModifiedDate).getTime() !== action.payload
       );
+    },
+    clearImgState: (state, action) => {
+      state.imgs = {};
     },
   },
   extraReducers: (builder) => {
@@ -83,7 +81,9 @@ const productsSlice = createSlice({
         if (Number.isNaN(+action.payload)) {
           state.error = `${action.payload}`;
         }
-        state.products = state.products.filter((product) => product.id !== Number(action.payload));
+        state.products = state.products.filter(
+          (product) => product.id !== Number(action.payload)
+        );
       })
       .addCase(removeProduct.rejected, (state, action) => {
         state.error = action.error.message;
@@ -102,16 +102,10 @@ const productsSlice = createSlice({
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.error = action.error.message;
-      })
-      .addCase(getCartProducts.fulfilled, (state, action) => {
-        state.products = action.payload;
-      })
-      .addCase(getCartProducts.rejected, (state, action) => {
-        state.error = action.error.message;
       });
   },
 });
 
-export const { addProdImg, delProdImg } = productsSlice.actions;
+export const { addProdImg, delProdImg, clearImgState } = productsSlice.actions;
 
 export default productsSlice.reducer;
