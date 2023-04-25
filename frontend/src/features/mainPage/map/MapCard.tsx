@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import Geocode from 'react-geocode';
 import { LanguageSharp } from '@mui/icons-material';
-import { Position } from './types/Map';
+// import { Position } from './types/Map';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 
