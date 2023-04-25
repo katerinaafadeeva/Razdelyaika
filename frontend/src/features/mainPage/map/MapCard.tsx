@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import Geocode from 'react-geocode';
@@ -6,10 +6,28 @@ import { LanguageSharp } from '@mui/icons-material';
 import { Position } from './types/Map';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
+import EcoPointIcon from './image/tree.png';
+import defaultTheme from './theme/Theme';
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 const containerStyle = {
   width: '100%',
   height: '655px',
+};
+
+const defaultOptions = {
+  panControl: true,
+  mapTypeControl: false,
+  zoomControl: true,
+  scaleControl: false,
+  streetViewControl: false,
+  rotateControl: false,
+  clickableIcons: false,
+  keyboardShortcuts: false,
+  scrollwheel: false,
+  disableDoubleClickZoom: false,
+  fullscreenControl: false,
+  styles: defaultTheme,
 };
 
 const center = {
@@ -23,6 +41,15 @@ function MapCard(): JSX.Element {
   Geocode.setRegion('ru');
   Geocode.setLocationType('ROOFTOP');
   Geocode.enableDebug();
+
+  const mapRef = useRef(undefined);
+
+  const onLoad = React.useCallback(function callback(map: any) {
+    mapRef.current = map;
+  }, []);
+  const onUnmount = React.useCallback(function callback(map: any) {
+    mapRef.current = undefined;
+  }, []);
 
   const ecoPoint = useSelector((store: RootState) => store.ecoPointState);
   const [adress, setAdress] = useState<string[]>([]);
@@ -48,7 +75,6 @@ function MapCard(): JSX.Element {
         }
       );
     });
-    // await setMyPlaces(lats.map((lat, idx) => ({ pos: { lat, lng: lngs[idx] } })));
   };
 
   const rndId = uuidv4();
@@ -66,25 +92,21 @@ function MapCard(): JSX.Element {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyBWkPNOHI1knOEfFe2GJNmL4sr0C1snsu4',
+    googleMapsApiKey: String(API_KEY),
   });
 
   return isLoaded ? (
     <div className="map__card">
       <div className="map__card__body" id="map">
-        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={center}
+          zoom={11}
+          onLoad={onLoad}
+          onUnmount={onUnmount}
+          options={defaultOptions}>
           {myPlaces.map((place, idx) => (
-            <Marker
-              key={uuidv4()}
-              position={place.pos}
-              icon={{
-                path: 'M12.75 0l-2.25 2.25 2.25 2.25-5.25 6h-5.25l4.125 4.125-6.375 8.452v0.923h0.923l8.452-6.375 4.125 4.125v-5.25l6-5.25 2.25 2.25 2.25-2.25-11.25-11.25zM10.5 12.75l-1.5-1.5 5.25-5.25 1.5 1.5-5.25 5.25z',
-                fillColor: '#0000ff',
-                fillOpacity: 1.0,
-                strokeWeight: 0,
-                scale: 1.25,
-              }}
-            />
+            <Marker key={uuidv4()} position={place.pos} icon={EcoPointIcon} />
           ))}
         </GoogleMap>
       </div>
@@ -96,4 +118,4 @@ function MapCard(): JSX.Element {
 
 //fff
 
-export default MapCard;
+export default React.memo(MapCard);
