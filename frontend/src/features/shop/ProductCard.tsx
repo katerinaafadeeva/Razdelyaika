@@ -7,15 +7,18 @@ import { removeProduct } from './productsSlice';
 
 function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
+  // console.log(product['ProductSizes.Size.sizeText'], '>>>>>>>>>>');
+  console.log(product.id);
 
   const handleRemoveProduct = (): void => {
     dispatch(removeProduct(product.id));
   };
 
-  // fn for future adding products to cart:
-  // const addProductToCart = (): void => {
+  // const addProductToCart = (): void => { q
   //   dispatch(addProductToCart(product.id));
   // };
+  console.log(product['ProductSizes.Size.sizeText']);
+
   return (
     <div className="w-full px-4 md:w-1/2 xl:w-1/3">
       <div className="mb-10 overflow-hidden rounded-lg bg-white">
@@ -51,9 +54,9 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
           <div>
             <button className="btn-cart">в корзину</button>
             <select className="size-selector">
-              <option>S</option>
-              <option>M</option>
-              <option>L</option>
+              <option>{product['ProductSizes.Size.sizeText']}</option>
+              <option>{product['ProductSizes.Size.sizeText']}</option>
+              {/* <option>L</option> */}
             </select>
           </div>
         </div>
