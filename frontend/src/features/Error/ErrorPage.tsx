@@ -1,9 +1,14 @@
 import React from 'react';
 import './style/error.css';
+// import man from './images/man.png';
+import forest from './images/forest.png';
 
 function ErrorPage(): JSX.Element {
   return (
-    <section className="bg-primary relative z-10 py-[120px]">
+    <section
+      className="bg-primary relative z-10 py-[120px]"
+      style={{ minHeight: '100vh', backgroundColor: '#309959' }}
+    >
       <div className="container mx-auto">
         <div className="-mx-4 flex">
           <div className="w-full px-4">
@@ -12,18 +17,17 @@ function ErrorPage(): JSX.Element {
                 404
               </h2>
               <h4 className="mb-3 text-[22px] font-semibold leading-tight text-white">
-                Oops! That page can’t be found
+                Oops! Мы не нашли такую страничку
               </h4>
-              <p className="mb-8 text-lg text-white">
-                The page you are looking for it maybe deleted
-              </p>
+
               <a
                 href="/"
                 className="hover:text-primary inline-block rounded-lg border border-white px-8 py-3 text-center text-base font-semibold text-white transition hover:bg-white"
               >
-                Go To Home
+                домой
               </a>
             </div>
+            <img src={forest} alt="..."></img>
           </div>
         </div>
       </div>

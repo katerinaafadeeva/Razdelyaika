@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 // const { log } = require('console');
+// const { log } = require('console');
 const {
   Product,
   Event,
@@ -9,6 +10,7 @@ const {
   EventReview,
   Size,
   ProductSize,
+
   User,
 } = require('../db/models');
 
@@ -23,22 +25,20 @@ router.get('/shop', async (req, res) => {
         { model: ProductImg, attributes: ['productImg'] },
         { model: ProductSize, include: { model: Size } },
       ],
+
       raw: true,
       order: [['id', 'ASC']],
     });
-    const filteredProducts = [];
-    products.filter((item) => {
-      if (!filteredProducts.some((element) => element.id === item.id)) {
-        filteredProducts.push(item);
-      }
-    });
     res.json(filteredProducts);
-    // res.json(products);
+
+    // console.log(products[0].ProductSizes[0].Size.sizeText, '1231231231321');
+    // console.log(products, '----products with sizes');
+    res.json(products);
   } catch (error) {
     res.json({ message: error.message });
   }
 });
-
+    
 router.get('/events', async (req, res) => {
   try {
     const events = await Event.findAll({
@@ -55,13 +55,10 @@ router.get('/events', async (req, res) => {
 router.post('/shop', async (req, res) => {
   try {
     const { name, price, description } = req.body;
-    console.log('body', req.body);
-    console.log('req.files', req.files);
     const newProduct = await Product.create({
       productName: name,
       productPrice: price,
       productDescript: description,
-      // productImg: imgs,
     });
     if (newProduct) {
       if (Array.isArray(req.files.file)) {

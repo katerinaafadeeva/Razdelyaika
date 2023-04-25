@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import GeneralModal from '../modals/GeneralModal';
-import SvgBackground from './SvgBackground';
-import SvgGroup from './SvgGroup';
-import SvgMan from './SvgMan';
+import image from './images/taxipng.png';
 
 function EcoTaxi(): JSX.Element {
   const [showModal, setShowModal] = useState(false);
@@ -29,9 +27,7 @@ function EcoTaxi(): JSX.Element {
           <a href="https://xn--b1aduhfbab7a4a8e.xn--p1ai/call-eco-taxi">
             <button className="cst__btn">вызвать эко-такси</button>
           </a>
-          <SvgGroup />
-          <SvgBackground />
-          <SvgMan />
+          <img src={image} alt="..."></img>
         </div>
       </div>
     </>
