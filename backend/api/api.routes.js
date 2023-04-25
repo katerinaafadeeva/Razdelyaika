@@ -29,8 +29,6 @@ router.get('/shop', async (req, res) => {
       raw: true,
       order: [['id', 'ASC']],
     });
-    // console.log(products[0].ProductSizes[0].Size.sizeText, '1231231231321');
-    // console.log(products, '----products with sizes');
     res.json(products);
   } catch (error) {
     res.json({ message: error.message });
@@ -122,7 +120,6 @@ router.post('/shop', async (req, res) => {
         res.json(product);
       }
     }
-    // res.json(newProduct);
   } catch ({ message }) {
     res.json(message);
   }

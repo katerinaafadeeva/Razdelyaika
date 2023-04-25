@@ -15,6 +15,7 @@ const store = configureStore({
     productsState: productsSlice,
     ecoPointState: ecoPointSlice,
     cartState: CartSlice,
+    modalState: modalSlice,
     auth: authSlice,
   },
 });

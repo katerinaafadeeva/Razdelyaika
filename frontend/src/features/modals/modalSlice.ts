@@ -1,16 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { State } from './types/State';
 import * as api from '../../App/api';
-import { Product } from './types/Products';
 
-// import { productId } from './types/Products';
-
-const initialState: State = {
-  products: [],
-  imgs: {},
-  
-  error: undefined,
+const initialState = {
+  isDisaplay: false,
 };
+
+
 
 export const getProducts = createAsyncThunk('shop/getProducts', () =>
   api.getProducts()
