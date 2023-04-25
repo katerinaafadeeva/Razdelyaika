@@ -23,11 +23,10 @@ module.exports = {
           updatedAt: new Date(),
         },
       ],
-      {}
     );
   },
 
   async down(queryInterface) {
-    await queryInterface.bulkDelete('Users', null, {});
+    await queryInterface.bulkDelete('Users');
   },
 };
