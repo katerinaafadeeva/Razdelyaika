@@ -51,5 +51,27 @@ const {
 //     res.json({ message: error.message });
 //   }
 // });
+router.get('/cart', async (req, res) => {
+  try {
+    const cards = await Product.findAll({
+      raw: true,
+      include: [
+        {
+          model: AddedProduct,
+          include: { model: Order, include: { model: User } },
+        },
+        { model: ProductSize, include: { model: Size } },
+  
+      ],
+    });
+    const Prod = cards.filter(
+      (el) => el['AddedProducts.Order.userId'] === req.session.userId,
+    );
+
+    res.json(Prod);
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
 
 module.exports = router;

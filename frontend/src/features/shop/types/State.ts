@@ -6,3 +6,8 @@ export type State = {
   imgs: Imgs;
   error: undefined | string;
 };
+
+export type CartState = {
+  products: Product[];
+  error: undefined | string;
+};

@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+// const { log } = require('console');
 const {
   Product,
   Event,
@@ -27,6 +28,7 @@ router.get('/shop', async (req, res) => {
       }
     });
     res.json(filteredProducts);
+    //res.json(products);
   } catch (error) {
     res.json({ message: error.message });
   }
@@ -47,7 +49,6 @@ router.get('/events', async (req, res) => {
 
 router.post('/shop', async (req, res) => {
   try {
-    // const { productName, productPrice, productDescript } = req.body;
     const { name, price, description } = req.body;
     console.log('body', req.body);
     console.log('req.files', req.files);
@@ -55,6 +56,7 @@ router.post('/shop', async (req, res) => {
       productName: name,
       productPrice: price,
       productDescript: description,
+      // productImg: imgs,
     });
     if (newProduct) {
       if (Array.isArray(req.files.file)) {

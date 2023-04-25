@@ -2,23 +2,26 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Orders', [
+  async up(queryInterface) {
+    await queryInterface.bulkInsert('AddedProducts', [
       {
-        userId: 1,
-        status: 'выполнен',
+        productId: 1,
+        orderId: 1,
+        count: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        userId: 1,
-        status: 'активен',
+        productId: 4,
+        orderId: 2,
+        count: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        userId: 2,
-        status: 'выполнен',
+        productId: 1,
+        orderId: 3,
+        count: 10,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -26,6 +29,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.bulkDelete('Orders');
+    await queryInterface.bulkDelete('AddedProducts');
   },
 };
