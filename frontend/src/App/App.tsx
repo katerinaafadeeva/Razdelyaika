@@ -46,7 +46,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(getCartProducts());
-  }, [dispatch]);
+  }, [user]);
 
   return (
     // <Routes>
