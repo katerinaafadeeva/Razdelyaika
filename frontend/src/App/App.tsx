@@ -18,15 +18,15 @@ import { RootState, useAppDispatch } from '../store';
 import EventItemDiscription from '../features/events/EventItemDiscription';
 import ProductParams from '../features/shop/ProductParams';
 import { verificationUser } from '../features/auth/userSlice';
-
+import { YMaps } from '@pbe/react-yandex-maps';
 import Cart from '../features/shop/cart/Cart';
-
 import ErrorPage from '../features/Error/ErrorPage';
+import { getEcoPoint } from '../features/mainPage/map/mapSlice';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
-  console.log(user);
+
 
   useEffect(() => {
     dispatch(getEvent());
@@ -49,12 +49,17 @@ function App(): JSX.Element {
     dispatch(getCartProducts());
   }, [user]);
 
+
+  useEffect(() => {
+    dispatch(getEcoPoint());
+  }, [dispatch]);
+
   // useEffect(() => {
   //   dispatch(addToCart());
   // }, [dispatch]);
 
+
   return (
-    // <Routes>
     <div className="App">
       <Routes>
         <Route path="/" element={<Navbar />}>
@@ -72,7 +77,6 @@ function App(): JSX.Element {
         </Route>
       </Routes>
     </div>
-    // </Routes>
   );
 }
 

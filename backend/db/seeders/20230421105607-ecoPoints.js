@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface) {
     await queryInterface.bulkInsert(
-      'ecoPoints',
+      'EcoPoints',
       [
         {
           pointName: 'Экоцентр',
@@ -72,6 +72,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.bulkDelete('ecoPoints', null, {});
+    await queryInterface.bulkDelete('EcoPoints', null, {});
   },
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/main.css';
 import ImgGroup from './ImgGroup';
-import MapCard from './MapCard';
+import MapCard from './map/MapCard';
 function MainPage(): JSX.Element {
   return (
     <>

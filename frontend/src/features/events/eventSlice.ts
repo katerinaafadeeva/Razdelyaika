@@ -92,7 +92,6 @@ const eventsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(addCommentEvent.fulfilled, (state, action) => {
-        console.log(action.payload, '--00--00');
         state.eventComments.unshift(action.payload);
       })
       .addCase(addCommentEvent.rejected, (state, action) => {

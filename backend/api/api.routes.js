@@ -12,6 +12,7 @@ const {
   ProductSize,
 
   User,
+  EcoPoint,
 } = require('../db/models');
 
 const path = require('path');
@@ -51,7 +52,9 @@ router.get('/events', async (req, res) => {
 
 router.post('/shop', async (req, res) => {
   try {
+
     const { name, price, description, imgs } = req.body;
+
     const newProduct = await Product.create({
       productName: name,
       productPrice: price,
@@ -247,6 +250,17 @@ router.delete('/comments/:commentId', async (req, res) => {
       res.json(commentId);
     } else {
       res.json('Failed res');
+    }
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
+router.get('/ecoPoint', async (req, res) => {
+  try {
+    const ecoPoints = await EcoPoint.findAll({ raw: true });
+    if (ecoPoints) {
+      res.json(ecoPoints);
     }
   } catch (error) {
     res.json({ message: error.message });
