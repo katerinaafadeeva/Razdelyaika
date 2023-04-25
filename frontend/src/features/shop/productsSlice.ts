@@ -62,6 +62,9 @@ const productsSlice = createSlice({
         (img) => new Date(img.lastModifiedDate).getTime() !== action.payload
       );
     },
+    clearImgState: (state, action) => {
+      state.imgs = {};
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -103,6 +106,6 @@ const productsSlice = createSlice({
   },
 });
 
-export const { addProdImg, delProdImg } = productsSlice.actions;
+export const { addProdImg, delProdImg, clearImgState } = productsSlice.actions;
 
 export default productsSlice.reducer;

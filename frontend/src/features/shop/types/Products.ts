@@ -8,4 +8,5 @@ export type Product = {
   ['ProductImgs.productImg']: string;
 };
 
+export type prodImg = {};
 export type productId = Product['id'];

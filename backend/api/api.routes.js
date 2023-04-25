@@ -49,9 +49,7 @@ router.get('/events', async (req, res) => {
 
 router.post('/shop', async (req, res) => {
   try {
-    const { name, price, description } = req.body;
-    console.log('body', req.body);
-    console.log('req.files', req.files);
+    const { name, price, description, imgs } = req.body;
     const newProduct = await Product.create({
       productName: name,
       productPrice: price,
@@ -60,10 +58,13 @@ router.post('/shop', async (req, res) => {
     });
     if (newProduct) {
       if (Array.isArray(req.files.file)) {
-        const uploadPathes = req.files.file.map((file) =>
+        const imgsForDB = req.files.file.filter((file) =>
+          imgs.split(',').includes(file.name)
+        );
+        const uploadPathes = imgsForDB.map((file) =>
           path.join(__dirname, '..', 'public', 'photos', `${file.name}`)
         );
-        const pathesForDB = req.files.file.map((file) =>
+        const pathesForDB = imgsForDB.map((file) =>
           path.join('photos', `${file.name}`)
         );
         await Promise.all(
@@ -76,13 +77,23 @@ router.post('/shop', async (req, res) => {
         );
         // Use the mv() method to place the file somewhere on your server
         uploadPathes.forEach(async (uploadPath, index) => {
-          await req.files.file[index].mv(uploadPath, (err) => {
+          await imgsForDB[index].mv(uploadPath, (err) => {
             if (err) {
               return res.status(500).send(err);
             }
           });
         });
+        const product = await Product.findOne({
+          where: { id: newProduct.id },
+          include: [{ model: ProductImg, attributes: ['productImg'] }],
+          raw: true,
+          order: [['id', 'ASC']],
+        });
+        res.json(product);
       } else {
+        // const imgForDB = req.files.file.filter((file) =>
+        //   imgs.includes(file.name)
+        // );
         const uploadPath = path.join(
           __dirname,
           '..',
@@ -100,9 +111,15 @@ router.post('/shop', async (req, res) => {
             return res.status(500).send(err);
           }
         });
+        const product = await Product.findOne({
+          where: { id: newProduct.id },
+          raw: true,
+          include: [{ model: ProductImg, attributes: ['productImg'] }],
+        });
+        res.json(product);
       }
     }
-    res.json(newProduct);
+    // res.json(newProduct);
   } catch ({ message }) {
     res.json(message);
   }
@@ -124,17 +141,29 @@ router.delete('/shop/:productId', async (req, res) => {
 });
 
 router.post('/events', async (req, res) => {
-  const { eventName, eventDescription, eventAddress, eventDate } = req.body;
+  // const { eventName, eventDescription, eventAddress, eventDate } = req.body;
   try {
+    const { eventName, description, address, time } = req.body;
+    console.log('body', req.body);
+    console.log('files', req.files);
     const event = await Event.create({
       eventName,
-      eventDescription,
-      eventAddress,
-      eventDate,
+      eventDescription: description,
+      eventAddress: address,
+      eventDate: time.replace('T', ' '),
       isActive: true,
     });
-
-    res.json(event);
+    await eventPhoto.create({
+      eventId: event.id,
+      file: path.join('photos', `${req.files.file.name}`),
+    });
+    const forSlider = await Event.findOne({
+      where: { id: event.id },
+      raw: true,
+      include: [{ model: eventPhoto, attributes: ['file'] }],
+    });
+    console.log('forSlider', forSlider);
+    res.json(forSlider);
   } catch (error) {
     res.json({ message: error.message });
   }

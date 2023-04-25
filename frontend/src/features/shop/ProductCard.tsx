@@ -12,6 +12,8 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
     dispatch(removeProduct(product.id));
   };
 
+  console.log('product', product);
+
   // fn for future adding products to cart:
   // const addProductToCart = (): void => {
   //   dispatch(addProductToCart(product.id));
