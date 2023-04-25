@@ -18,9 +18,7 @@ export const getCartProducts = createAsyncThunk('cart/getCartProducts', () =>
 // adding product to cart:
 export const addToCart = createAsyncThunk(
   'cart/addProductToCart',
-  (productId: any) =>
-    // api.addProductToCart()
-    api.addProductToCart(productId)
+  (productId: number) => api.addProductToCart(productId)
 );
 
 // slicers:
