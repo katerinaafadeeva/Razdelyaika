@@ -1,5 +1,12 @@
 .forSlicer {
   width: 450px !important;
+  transform: scale(1.05);
+  transition: 1s;
+}
+
+.swiper-slide-visible:hover {
+  transform: scale(1.05);
+  transition: 0.7s;
 }
 
 .events-word {

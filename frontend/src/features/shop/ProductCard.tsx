@@ -10,8 +10,6 @@ import { addToCart } from './cart/CartSlice';
 function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
 
-
-
   const handleRemoveProduct = (): void => {
     if (product.id) {
       dispatch(removeProduct(product.id));
@@ -25,7 +23,6 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
       dispatch(addToCart(product.id));
     }
   };
-
 
   return (
     <div className="w-full px-4 md:w-1/2 xl:w-1/3">
@@ -67,8 +64,8 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
               в корзину
             </button>
             <select className="size-selector">
-              <option>{product['ProductSizes.Size.sizeText']}</option>
-              <option>{product['ProductSizes.Size.sizeText']}</option>
+              {/* <option>{product['ProductSizes.Size.sizeText']}</option>
+              <option>{product['ProductSizes.Size.sizeText']}</option> */}
               {/* <option>L</option> */}
             </select>
           </div>

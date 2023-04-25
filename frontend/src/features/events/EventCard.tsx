@@ -23,13 +23,14 @@ function EventCard({ event }: { event: Event }): JSX.Element {
             src={`${event['eventPhotos.file']}`}
             alt="image"
             className="w-full"
-            style={{ width: '200px', height: '200px' }}
+            style={{ maxWidth: '500px' }}
           />
         </div>
         <div>
           <h3>
             <Link
               to={`/events/${event.id}`}
+              // onClick={}
               className="text-dark hover:text-primary mb-4 inline-block text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
             >
               {event.eventName}
@@ -38,7 +39,7 @@ function EventCard({ event }: { event: Event }): JSX.Element {
           <span className="bg-primary mb-5 inline-block rounded py-1 px-4 text-center text-xs font-semibold leading-loose text-white">
             {event.eventDate}
           </span>
-          <p className="text-body-color text-base">{event.eventAddress}</p>
+          {/* <p className="text-body-color text-base">{event.eventAddress}</p> */}
           <button type="button" onClick={onHandleClickDel}>
             DELETE
           </button>
