@@ -94,4 +94,6 @@ function MapCard(): JSX.Element {
   );
 }
 
+//fff
+
 export default MapCard;
