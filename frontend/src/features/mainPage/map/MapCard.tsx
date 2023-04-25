@@ -25,17 +25,18 @@ function MapCard(): JSX.Element {
   Geocode.enableDebug();
 
   const ecoPoint = useSelector((store: RootState) => store.ecoPointState);
-  console.log(ecoPoint, 'all');
   const [adress, setAdress] = useState<string[]>([]);
-
   const [lats, setLats] = useState<number[]>([]);
   const [lngs, srtLng] = useState<number[]>([]);
+  const [myPlaces, setMyPlaces] = useState<{ pos: { lat: number; lng: number } }[]>([]);
   const getAdressBase = (): void => {
-    ecoPoint.ecoPoints.map((point) => setAdress((prev) => [...prev, point.pointAddress]));
+    ecoPoint.ecoPoints.forEach((point) => {
+      setAdress((prev) => [...prev, point.pointAddress]);
+    });
   };
 
   const getCoordinates = async (adresses: string[]): Promise<void> => {
-    adresses.forEach((element) => {
+    await adresses.forEach((element) => {
       Geocode.fromAddress(element).then(
         (response) => {
           const { lat, lng } = response.results[0].geometry.location;
@@ -47,15 +48,17 @@ function MapCard(): JSX.Element {
         }
       );
     });
+    // await setMyPlaces(lats.map((lat, idx) => ({ pos: { lat, lng: lngs[idx] } })));
   };
 
   const rndId = uuidv4();
   useEffect(() => {
     getAdressBase();
-  }, []);
+  }, [ecoPoint]);
 
-  const myPlaces = lats.map((lat, idx) => ({ pos: { lat, lng: lngs[idx] } }));
-  console.log(myPlaces);
+  useEffect(() => {
+    setMyPlaces(lats.map((lat, idx) => ({ pos: { lat, lng: lngs[idx] } })));
+  }, [lngs, lats]);
 
   useEffect(() => {
     getCoordinates(adress);
@@ -72,7 +75,7 @@ function MapCard(): JSX.Element {
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
           {myPlaces.map((place, idx) => (
             <Marker
-              key={idx}
+              key={uuidv4()}
               position={place.pos}
               icon={{
                 path: 'M12.75 0l-2.25 2.25 2.25 2.25-5.25 6h-5.25l4.125 4.125-6.375 8.452v0.923h0.923l8.452-6.375 4.125 4.125v-5.25l6-5.25 2.25 2.25 2.25-2.25-11.25-11.25zM10.5 12.75l-1.5-1.5 5.25-5.25 1.5 1.5-5.25 5.25z',
@@ -91,4 +94,4 @@ function MapCard(): JSX.Element {
   );
 }
 
-export default React.memo(MapCard);
+export default MapCard;
