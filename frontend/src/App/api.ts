@@ -182,3 +182,21 @@ export const updatedProduct = async (updatedProduct: {
 
 export const getCartProducts = async (): Promise<Product[]> =>
   fetch('/cart').then((res) => res.json());
+
+// add product to cart:
+
+// export const addProductToCart = async (productId: number): Promise<Product> =>
+//   fetch('/cart').then((res) => res.json());
+
+export const addProductToCart = async (
+  productSelected: Product
+): Promise<Product> => {
+  const res = await fetch('/cart', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(productSelected),
+  });
+  return res.json();
+};
