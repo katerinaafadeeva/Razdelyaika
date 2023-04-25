@@ -61,7 +61,8 @@ export const getProducts = async (): Promise<Product[]> =>
   fetch('/api/shop').then((res) => res.json());
 
 // Events
-export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
+export const getEvents = (): Promise<Event[]> =>
+  fetch('/api/events').then((res) => res.json());
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
