@@ -172,7 +172,6 @@ export async function removeProduct(productId: number): Promise<number> {
   });
   return res.json();
 }
-
 // api for updating the product:
 
 export const updatedProduct = async (updatedProduct: {
@@ -196,10 +195,10 @@ export const updatedProduct = async (updatedProduct: {
 export const getCartProducts = async (): Promise<Product[]> =>
   fetch('/cart').then((res) => res.json());
 
-// add product to cart:
+export const removeCartItem = async (addedProdId: number): Promise<number> =>
+  fetch(`/cart/${addedProdId}`, { method: 'DELETE' }).then((res) => res.json());
 
-// export const addProductToCart = async (productId: number): Promise<Product> =>
-//   fetch('/cart').then((res) => res.json());
+// add product to cart:
 
 export const addProductToCart = async (
   productId: number
@@ -210,7 +209,7 @@ export const addProductToCart = async (
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({productId}),
+    body: JSON.stringify({ productId }),
   });
   return res.json();
 };

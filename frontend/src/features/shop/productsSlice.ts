@@ -9,6 +9,7 @@ import { Product } from './types/Products';
 const initialState: State = {
   products: [],
   imgs: {},
+  
   error: undefined,
 };
 

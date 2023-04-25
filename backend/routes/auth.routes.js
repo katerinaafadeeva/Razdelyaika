@@ -47,7 +47,6 @@ router.post('/signup', async (req, res) => {
             userId: newUser.id,
             status: 'активен',
           });
-          console.log('newUser', newUser);
           req.session.userId = newUser.id;
           res.status(201).json(newUser);
         } else {
