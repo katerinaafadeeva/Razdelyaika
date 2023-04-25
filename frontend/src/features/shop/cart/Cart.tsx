@@ -1,10 +1,19 @@
+import { type } from 'os';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import CartItem from './CartItem';
 
+// type productPrice = any;
+
 function Cart(): JSX.Element {
   const { products } = useSelector((store: RootState) => store.cartState);
+  // console.log(products.productPrice);
+  const summ = (): any => {
+    const result = products?.reduce((a, b) => a + b.productPrice, 0);
+    return result;
+  };
+  console.log(summ);
 
   return (
     <section className="bg-white py-20 lg:py-[120px]">
@@ -46,7 +55,10 @@ function Cart(): JSX.Element {
             </div>
           </div>
           <div>
-            <h3>Товаров в корзине на сумму: </h3>
+            <h3>
+              {products?.reduce((a, b) => a + b.productPrice, 0)}: Них*** ты
+              набрал конечно
+            </h3>
             <button className="btn-cart-cart">Купить</button>
           </div>
         </div>
