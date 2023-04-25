@@ -5,7 +5,7 @@ import * as api from '../../../App/api';
 import { Product } from '../types/Products';
 
 const initialState: CartState = {
-  products: [],
+  addedProds: [],
   error: undefined,
 };
 
@@ -30,13 +30,13 @@ const productsSlice = createSlice({
     builder
 
       .addCase(getCartProducts.fulfilled, (state, action) => {
-        state.products = action.payload;
+        state.addedProds = action.payload;
       })
       .addCase(getCartProducts.rejected, (state, action) => {
         state.error = action.error.message;
       })
       .addCase(addToCart.fulfilled, (state, action) => {
-        state.products = [...state.products, action.payload];
+        state.addedProds = [...state.addedProds, action.payload];
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.error = action.error.message;

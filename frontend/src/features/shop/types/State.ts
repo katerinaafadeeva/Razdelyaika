@@ -8,6 +8,6 @@ export type State = {
 };
 
 export type CartState = {
-  products: Product[];
+  addedProds: Product[];
   error: undefined | string;
 };
