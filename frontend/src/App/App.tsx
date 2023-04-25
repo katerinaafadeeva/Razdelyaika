@@ -38,7 +38,8 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(verificationUser());
-  }, []);
+  },[]);
+  // []
 
   useEffect(() => {
     dispatch(getComment());

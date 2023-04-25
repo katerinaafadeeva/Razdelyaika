@@ -25,12 +25,9 @@ router.get('/shop', async (req, res) => {
         { model: ProductImg, attributes: ['productImg'] },
         { model: ProductSize, include: { model: Size } },
       ],
-
       raw: true,
       order: [['id', 'ASC']],
     });
-    res.json(filteredProducts);
-
     // console.log(products[0].ProductSizes[0].Size.sizeText, '1231231231321');
     // console.log(products, '----products with sizes');
     res.json(products);
@@ -38,7 +35,7 @@ router.get('/shop', async (req, res) => {
     res.json({ message: error.message });
   }
 });
-    
+
 router.get('/events', async (req, res) => {
   try {
     const events = await Event.findAll({
@@ -54,7 +51,6 @@ router.get('/events', async (req, res) => {
 
 router.post('/shop', async (req, res) => {
   try {
-
     const { name, price, description, imgs } = req.body;
     const newProduct = await Product.create({
       productName: name,
@@ -63,7 +59,6 @@ router.post('/shop', async (req, res) => {
     });
     if (newProduct) {
       if (Array.isArray(req.files.file)) {
-
         const imgsForDB = req.files.file.filter((file) =>
           imgs.split(',').includes(file.name)
         );
@@ -79,7 +74,7 @@ router.post('/shop', async (req, res) => {
               productImgId: newProduct.id,
               productImg: patheForDB,
             });
-          }),
+          })
         );
         // Use the mv() method to place the file somewhere on your server
         uploadPathes.forEach(async (uploadPath, index) => {
@@ -105,7 +100,7 @@ router.post('/shop', async (req, res) => {
           '..',
           'public',
           'photos',
-          `${req.files.file.name}`,
+          `${req.files.file.name}`
         );
         const patheForDB = path.join('photos', `${req.files.file.name}`);
         await ProductImg.create({
