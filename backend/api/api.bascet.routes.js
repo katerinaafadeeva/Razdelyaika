@@ -64,26 +64,11 @@ router.get('/cart', async (req, res) => {
       include: [
         {
           model: Product,
-          include: { model: ProductSize, include: { model: Size } },
+          // include: { model: ProductSize, include: { model: Size } },
         },
       ],
     });
-    console.log('addedProducts', addedProducts);
     res.json(addedProducts);
-    // const cards = await Product.findAll({
-    //   raw: true,
-    //   include: [
-    //     {
-    //       model: AddedProduct,
-    //       include: { model: Order, include: { model: User } },
-    //     },
-    //     { model: ProductSize, include: { model: Size } },
-    //   ],
-    // });
-    // const Prod = cards.filter(
-    //   (el) => el['AddedProducts.Order.userId'] === req.session.userId
-    // );
-    // res.json(Prod);
   } catch (error) {
     res.json({ message: error.message });
   }
@@ -109,4 +94,23 @@ router.post('/cart', async (req, res) => {
     res.json({ message: error.message });
   }
 });
+
+router.delete('/cart/:addedProdId', async (req, res) => {
+  const { addedProdId } = req.params;
+  console.log('addedProdId', addedProdId);
+  try {
+    const delAddProd = await AddedProduct.destroy({
+      where: { productId: addedProdId },
+    });
+    console.log('was deleted', delAddProd);
+    if (delAddProd > 0) {
+      res.json(delAddProd);
+    } else {
+      res.json('Failed res');
+    }
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
 module.exports = router;

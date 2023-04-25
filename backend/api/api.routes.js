@@ -24,7 +24,7 @@ router.get('/shop', async (req, res) => {
     const products = await Product.findAll({
       include: [
         { model: ProductImg, attributes: ['productImg'] },
-        { model: ProductSize, include: { model: Size } },
+        // { model: ProductSize, include: { model: Size } },
       ],
       raw: true,
       order: [['id', 'ASC']],
@@ -52,7 +52,6 @@ router.get('/events', async (req, res) => {
 
 router.post('/shop', async (req, res) => {
   try {
-
     const { name, price, description, imgs } = req.body;
 
     const newProduct = await Product.create({
