@@ -133,12 +133,13 @@ function Navbar(): JSX.Element {
                           </NavLink>
                         </li>
                         <li>
-                          <button
+                          <NavLink
+                            to="/"
                             className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
                             onClick={() => dispatch(logoutUser())}
                           >
                             Выход
-                          </button>
+                          </NavLink>
                         </li>
                         <p className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem">
                           {user.email}
