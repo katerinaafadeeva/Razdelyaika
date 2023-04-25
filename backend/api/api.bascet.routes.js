@@ -73,16 +73,20 @@ router.get('/cart', async (req, res) => {
 });
 
 router.post('/cart', async (req, res) => {
-  const { productId, productName, productDescript, productPrice } = req.body;
+  console.log('req.body', req.body);
   try {
-    const product = await Product.create({
-      productId,
-      productName,
-      productDescript,
-      productPrice,
+    const { productId } = req.body;
+    const activeOrder = await Order.findOne({
+      where: { userId: req.session.userId, status: 'активен' },
+      raw: true,
     });
-    if (product) {
-      res.json(product);
+    const addedProduct = await AddedProduct.create({
+      productId,
+      orderId: activeOrder.id,
+      count: 5,
+    });
+    if (addedProduct) {
+      res.json(addedProduct);
     }
   } catch (error) {
     res.json({ message: error.message });

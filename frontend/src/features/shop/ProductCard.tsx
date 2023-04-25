@@ -10,8 +10,6 @@ import { addToCart } from './cart/CartSlice';
 function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
 
-
-
   const handleRemoveProduct = (): void => {
     if (product.id) {
       dispatch(removeProduct(product.id));
@@ -21,11 +19,11 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
   // fn for future adding products to cart:
 
   const addProductToCart = (): void => {
-    if (product.id) {
-      dispatch(addToCart(product.id));
+    const productId = product.id;
+    if (productId) {
+      dispatch(addToCart(productId));
     }
   };
-
 
   return (
     <div className="w-full px-4 md:w-1/2 xl:w-1/3">
