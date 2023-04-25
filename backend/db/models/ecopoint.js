@@ -1,10 +1,10 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class ecoPoint extends Model {
+  class EcoPoint extends Model {
     static associate(models) {}
   }
-  ecoPoint.init(
+  EcoPoint.init(
     {
       pointName: {
         allowNull: false,
@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'ecoPoint',
+      modelName: 'EcoPoint',
     }
   );
-  return ecoPoint;
+  return EcoPoint;
 };
