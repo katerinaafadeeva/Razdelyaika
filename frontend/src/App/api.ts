@@ -202,14 +202,15 @@ export const getCartProducts = async (): Promise<Product[]> =>
 //   fetch('/cart').then((res) => res.json());
 
 export const addProductToCart = async (
-  productSelected: Product
+  productId: number
+  // productSelected: Product
 ): Promise<Product> => {
   const res = await fetch('/cart', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(productSelected),
+    body: JSON.stringify({productId}),
   });
   return res.json();
 };
