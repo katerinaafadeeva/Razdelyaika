@@ -16,6 +16,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        userId: 2,
+        status: 'выполнен',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
