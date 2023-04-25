@@ -12,41 +12,29 @@ function FormAddProduct(): JSX.Element {
   const [newproductDescript, setproductDescript] = useState('');
   const { imgs } = useSelector((store: RootState) => store.productsState);
 
-  // const handleAddProduct: React.FormEventHandler<HTMLFormElement> = async (
-  //   event
-  // ) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.target as HTMLFormElement);
-  //   // console.log('data', data);
-  //   dispatch(addProduct(data));
-  // };
-
-  const formChange: React.FormEventHandler<HTMLFormElement> = async (event) => {
-    const data = new FormData(event.target as HTMLFormElement);
-    console.log('data', data);
-    dispatch(addProdImg(data));
-  };
-
   const handleAddProduct: React.FormEventHandler<HTMLFormElement> = async (
     event
   ) => {
     event.preventDefault();
-    dispatch(addProduct(imgs));
+    const data = new FormData(event.target as HTMLFormElement);
+    // Имена файлов, оставшихся после удаления лишних фото, как передать вместе с data
+    // на fetch?
+    console.log('data', data);
+    const imgNames = Object.values(imgs).map((img) => img.name);
+    dispatch(addProduct(data));
   };
+
+  // const formChange: React.FormEventHandler<HTMLFormElement> = async (event) => {
+  //   const data = new FormData(event.target as HTMLFormElement);
+  //   console.log('data', data);
+  //   dispatch(addProdImg(data));
+  // };
 
   // const handleAddProduct: React.FormEventHandler<HTMLFormElement> = async (
   //   event
   // ) => {
   //   event.preventDefault();
-
-  //   const data = new FormData(event.target as HTMLFormElement);
-  //   console.log('data', data);
-  //   let params: RequestInit = {
-  //     method: 'POST',
-  //     body: data,
-  //   };
-  //   const res = await fetch('/api/shop', params);
-  //   return res.json();
+  //   dispatch(addProduct(imgs));
   // };
 
   return (
@@ -57,7 +45,7 @@ function FormAddProduct(): JSX.Element {
             className="mb-12"
             encType="multipart/form-data"
             onSubmit={handleAddProduct}
-            onChange={formChange}
+            // onChange={formChange}
           >
             <label
               htmlFor=""
@@ -95,8 +83,8 @@ function FormAddProduct(): JSX.Element {
             >
               Описание
             </label>
-            <input
-              type="text"
+            <textarea
+              // type="text"
               placeholder="Описание"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               value={newproductDescript}

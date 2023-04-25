@@ -20,12 +20,16 @@ const path = require('path');
 router.get('/shop', async (req, res) => {
   try {
     const products = await Product.findAll({
+
       include: [
-        { model: ProductImg },
+        { model: ProductImg, attributes: ['productImg'] },
         { model: ProductSize, include: { model: Size } },
       ],
+
       raw: true,
+      order: [['id', 'ASC']],
     });
+
     // console.log(products[0].ProductSizes[0].Size.sizeText, '1231231231321');
     // console.log(products, '----products with sizes');
     res.json(products);
@@ -33,45 +37,7 @@ router.get('/shop', async (req, res) => {
     res.json({ message: error.message });
   }
 });
-
-// роутер для добавления фото на backend
-router.post('/photo', (req, res) => {
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send('No files were uploaded.');
-  }
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-  const sampleFiles = req.files.file;
-  if (Array.isArray(sampleFiles)) {
-    const uploadPathes = sampleFiles.map((sampleFile) =>
-      path.join(__dirname, 'photos', `${sampleFile.name}`)
-    );
-    // Use the mv() method to place the file somewhere on your server
-    uploadPathes.forEach(async (uploadPath, index) => {
-      await sampleFiles[index].mv(uploadPath, (err) => {
-        if (err) {
-          return res.status(500).send(err);
-        }
-        // res.end();
-        // res.send(uploadPathes);
-        // res.redirect('http://localhost:3000/shop');
-        // res.send('File uploaded!');
-      });
-    });
-    res.json(uploadPathes);
-  } else {
-    const uploadPath = path.join(__dirname, 'photos', `${sampleFiles.name}`);
-    sampleFiles.mv(uploadPath, (err) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-      res.send(uploadPath);
-      res.end();
-      // res.redirect('http://localhost:3000/shop');
-      // res.send('File uploaded!');
-    });
-  }
-});
-
+    
 router.get('/events', async (req, res) => {
   try {
     const events = await Event.findAll({
@@ -88,7 +54,6 @@ router.get('/events', async (req, res) => {
 router.post('/shop', async (req, res) => {
   try {
     const { name, price, description } = req.body;
-
     const newProduct = await Product.create({
       productName: name,
       productPrice: price,
@@ -97,13 +62,16 @@ router.post('/shop', async (req, res) => {
     if (newProduct) {
       if (Array.isArray(req.files.file)) {
         const uploadPathes = req.files.file.map((file) =>
-          path.join(__dirname, 'photos', `${file.name}`)
+          path.join(__dirname, '..', 'public', 'photos', `${file.name}`)
+        );
+        const pathesForDB = req.files.file.map((file) =>
+          path.join('photos', `${file.name}`)
         );
         await Promise.all(
-          uploadPathes.map(async (uploadPath) => {
+          pathesForDB.map(async (patheForDB) => {
             await ProductImg.create({
               productImgId: newProduct.id,
-              productImg: uploadPath,
+              productImg: patheForDB,
             });
           })
         );
@@ -118,12 +86,15 @@ router.post('/shop', async (req, res) => {
       } else {
         const uploadPath = path.join(
           __dirname,
+          '..',
+          'public',
           'photos',
           `${req.files.file.name}`
         );
+        const patheForDB = path.join('photos', `${req.files.file.name}`);
         await ProductImg.create({
           productImgId: newProduct.id,
-          productImgs: uploadPath,
+          productImg: patheForDB,
         });
         await req.files.file.mv(uploadPath, (err) => {
           if (err) {
@@ -135,44 +106,6 @@ router.post('/shop', async (req, res) => {
     res.json(newProduct);
   } catch ({ message }) {
     res.json(message);
-  }
-});
-
-// роутер для добавления фото на backend (не работает для примера)
-router.post('/photo', (req, res) => {
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send('No files were uploaded.');
-  }
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-  const sampleFiles = req.files.file;
-  if (Array.isArray(sampleFiles)) {
-    const uploadPathes = sampleFiles.map((sampleFile) =>
-      path.join(__dirname, 'photos', `${sampleFile.name}`)
-    );
-    // Use the mv() method to place the file somewhere on your server
-    uploadPathes.forEach(async (uploadPath, index) => {
-      await sampleFiles[index].mv(uploadPath, (err) => {
-        if (err) {
-          return res.status(500).send(err);
-        }
-        // res.end();
-        // res.send(uploadPathes);
-        // res.redirect('http://localhost:3000/shop');
-        // res.send('File uploaded!');
-      });
-    });
-    res.json(uploadPathes);
-  } else {
-    const uploadPath = path.join(__dirname, 'photos', `${sampleFiles.name}`);
-    sampleFiles.mv(uploadPath, (err) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-      res.send(uploadPath);
-      res.end();
-      // res.redirect('http://localhost:3000/shop');
-      // res.send('File uploaded!');
-    });
   }
 });
 

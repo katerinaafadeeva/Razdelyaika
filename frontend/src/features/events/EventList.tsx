@@ -16,14 +16,15 @@ function EventList(): JSX.Element {
           <div className="container mx-auto">
             <div className="-mx-4 flex flex-wrap justify-center">
               <div className="w-full px-4">
-                <div className="mx-auto mb-[60px] max-w-[510px] text-center lg:mb-0">
+                <div className="mx-auto mb-[60px] max-w-[800px] text-center lg:mb-0">
                   {/* <span className="text-primary mb-2 block text-lg font-semibold">
                     сейчас
                   </span> */}
-                  <h2 className="text-dark mb-4 text-3xl font-bold sm:text-4xl md:text-[40px]">
-                    Мероприятия Разделяйки
+                  <h2 className="text-dark mb-4 text-3xl font-bold sm:text-4xl md:text-[40px] eventsHeader">
+                    <span className="events-word">Мероприятия </span>
+                    <span className="company-word">Разделяйки</span>
                   </h2>
-                  <p className="text-body-color text-base">
+                  <p className="text-body-color text-base subTitle">
                     Жить экологично – это просто, если каждый начнёт с себя!
                   </p>
                 </div>

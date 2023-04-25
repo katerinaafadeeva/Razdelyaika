@@ -16,6 +16,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
   };
 
   // fn for future adding products to cart:
+
   const addProductToCart = (): void => {
     if (product.id) {
       dispatch(addToCart(product.id));
