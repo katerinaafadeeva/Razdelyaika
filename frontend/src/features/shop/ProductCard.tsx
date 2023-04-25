@@ -67,8 +67,8 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
               в корзину
             </button>
             <select className="size-selector">
-              <option>{product['ProductSizes.Size.sizeText']}</option>
-              <option>{product['ProductSizes.Size.sizeText']}</option>
+              {/* <option>{product['ProductSizes.Size.sizeText']}</option>
+              <option>{product['ProductSizes.Size.sizeText']}</option> */}
               {/* <option>L</option> */}
             </select>
           </div>
