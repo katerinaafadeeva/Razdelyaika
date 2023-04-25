@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+const { log } = require('console');
 // const { log } = require('console');
 const {
   Product,
@@ -7,6 +8,8 @@ const {
   ProductImg,
   eventPhoto,
   EventReview,
+  ProductSize,
+  Size,
   User,
 } = require('../db/models');
 
@@ -17,10 +20,14 @@ const path = require('path');
 router.get('/shop', async (req, res) => {
   try {
     const products = await Product.findAll({
-      include: [{ model: ProductImg }],
+      include: [
+        { model: ProductImg },
+        { model: ProductSize, include: { model: Size } },
+      ],
       raw: true,
     });
-
+    // console.log(products[0].ProductSizes[0].Size.sizeText, '1231231231321');
+    // console.log(products, '----products with sizes');
     res.json(products);
   } catch (error) {
     res.json({ message: error.message });
@@ -83,7 +90,7 @@ router.post('/shop', async (req, res) => {
     // const { productName, productPrice, productDescript } = req.body;
 
     // uploader - не рабоатет!!
-    const { name, price, description} = req.body;
+    const { name, price, description } = req.body;
     // console.log('files', req.files);
     // console.log('req.body', req.body);
     const newProduct = await Product.create({

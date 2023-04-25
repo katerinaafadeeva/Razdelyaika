@@ -4,9 +4,14 @@ import { Link } from 'react-router-dom';
 import { RootState, useAppDispatch } from '../../store';
 import './styles/shop.css';
 import { removeProduct } from './productsSlice';
+import { useSelector } from 'react-redux';
 
 function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
+
+  // const { products } = useSelector((store: RootState) => store.);
+  // console.log(products);
+  console.log(product);
 
   const handleRemoveProduct = (): void => {
     dispatch(removeProduct(product.id));
@@ -31,6 +36,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
           <p className="text-body-color mb-7 text-base leading-relaxed">
             {product.productPrice}₽
           </p>
+          <h3>{`${product.id['ProductSizes.Size.sizeText']}`} размера</h3>
 
           <p className="text-body-color mb-7 text-base leading-relaxed">
             {product.productDescript}
