@@ -18,7 +18,6 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
     }
   };
 
-
   // fn for future adding products to cart:
 
   const addProductToCart = (): void => {

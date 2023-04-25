@@ -10,25 +10,36 @@ const initialState: State = {
   error: undefined,
 };
 
-export const getEvent = createAsyncThunk('events/getEvent', () => api.getEvents());
-
-export const getComment = createAsyncThunk('events/getComment', () => api.getComments());
-
-export const addEvent = createAsyncThunk('events/addEvent', (newEvent: EventAdd) =>
-  api.addNewEvent(newEvent)
+export const getEvent = createAsyncThunk('events/getEvent', () =>
+  api.getEvents()
 );
+
+export const getComment = createAsyncThunk('events/getComment', () =>
+  api.getComments()
+);
+
+export const addEvent = createAsyncThunk('events/addEvent', (data: any) =>
+  api.addNewEvent(data)
+);
+
+// export const addEvent = createAsyncThunk('events/addEvent', (newEvent: EventAdd) =>
+//   api.addNewEvent(newEvent)
+// );
 
 export const addCommentEvent = createAsyncThunk(
   'events/addCommentEvent',
-  (comment: { eventId: number; eventRevText: string }) => api.addComment(comment)
+  (comment: { eventId: number; eventRevText: string }) =>
+    api.addComment(comment)
 );
 
-export const removeEvent = createAsyncThunk('events/removeEvent', (eventId: number) =>
-  api.removeEvent(eventId)
+export const removeEvent = createAsyncThunk(
+  'events/removeEvent',
+  (eventId: number) => api.removeEvent(eventId)
 );
 
-export const removeComment = createAsyncThunk('events/removeComment', (commentId: CommentId) =>
-  api.removeComment(commentId)
+export const removeComment = createAsyncThunk(
+  'events/removeComment',
+  (commentId: CommentId) => api.removeComment(commentId)
 );
 
 export const editEvent = createAsyncThunk(
@@ -65,7 +76,9 @@ const eventsSlice = createSlice({
         if (Number.isNaN(+action.payload)) {
           state.error = `${action.payload}`;
         }
-        state.events = state.events.filter((event) => event.id !== Number(action.payload));
+        state.events = state.events.filter(
+          (event) => event.id !== Number(action.payload)
+        );
       })
       .addCase(removeEvent.rejected, (state, action) => {
         state.error = action.error.message;

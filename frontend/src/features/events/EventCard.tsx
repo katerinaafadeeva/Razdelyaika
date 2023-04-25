@@ -13,6 +13,8 @@ function EventCard({ event }: { event: Event }): JSX.Element {
     dispatch(removeEvent(event.id));
   };
 
+  console.log('event', event);
+
   return (
     <div className="w-full px-4 md:w-1/2 lg:w-1/3 forSlicer">
       <div className="mx-auto mb-10 max-w-[550px]">
@@ -21,6 +23,7 @@ function EventCard({ event }: { event: Event }): JSX.Element {
             src={`${event['eventPhotos.file']}`}
             alt="image"
             className="w-full"
+            style={{ width: '200px', height: '200px' }}
           />
         </div>
         <div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../store';
 import { addEvent } from './eventSlice';
+import Uploader from '../uploader/Uploader';
 
 function AddEvent(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -9,10 +10,12 @@ function AddEvent(): JSX.Element {
   const [eventAddress, setEventAddress] = useState('');
   const [eventDate, setEventDate] = useState('');
 
-  const onHandleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const onHandleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    const newEvent = { eventName, eventDescription, eventAddress, eventDate };
-    dispatch(addEvent(newEvent));
+    const data = new FormData(e.target as HTMLFormElement);
+    // const newEvent = { eventName, eventDescription, eventAddress, eventDate };
+    // dispatch(addEvent(newEvent));
+    dispatch(addEvent(data));
   };
 
   return (
@@ -28,6 +31,7 @@ function AddEvent(): JSX.Element {
             </label>
             <input
               type="text"
+              name="eventName"
               placeholder="Название"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               value={eventName}
@@ -41,6 +45,7 @@ function AddEvent(): JSX.Element {
             </label>
             <input
               type="text"
+              name="description"
               placeholder="Опишите мероприятие"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               value={eventDescription}
@@ -54,6 +59,7 @@ function AddEvent(): JSX.Element {
             </label>
             <input
               type="text"
+              name="address"
               placeholder="Адрес"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               value={eventAddress}
@@ -63,15 +69,17 @@ function AddEvent(): JSX.Element {
               htmlFor=""
               className="mb-3 block text-base font-medium text-black"
             >
-              Дата проведения
+              Время проведения
             </label>
             <input
-              type="date"
+              type="datetime-local"
+              name="time"
               placeholder="Дата"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               value={eventDate}
               onChange={(e) => setEventDate(e.target.value)}
             />
+            <Uploader />
           </div>
         </div>
       </div>

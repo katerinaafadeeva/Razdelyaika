@@ -64,22 +64,31 @@ export const getProducts = async (): Promise<Product[]> =>
 export const getEvents = (): Promise<Event[]> =>
   fetch('/api/events').then((res) => res.json());
 
-export const addNewEvent = async (newEvent: {
-  eventName: string;
-  eventDescription: string;
-  eventAddress: string;
-  eventDate: string;
-  // detailsLink: string;
-}): Promise<Event> => {
-  const res = await fetch('/api/events', {
+export const addNewEvent = async (
+  data: any
+): // (newEvent: {
+//   eventName: string;
+//   eventDescription: string;
+//   eventAddress: string;
+//   eventDate: string;
+//   // detailsLink: string;
+// })
+Promise<Event> => {
+  let params: RequestInit = {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(newEvent),
-  });
-
+    body: data,
+  };
+  const res = await fetch('/api/events', params);
   return res.json();
+  // const res = await fetch('/api/events', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify(newEvent),
+  // });
+
+  // return res.json();
 };
 
 export const removeEvent = async (eventId: number): Promise<number> => {

@@ -19,19 +19,19 @@ function SwiperTest(): JSX.Element {
 
   const { events } = useSelector((store: RootState) => store.eventState);
 
-  const [slides, setSlides] = useState(
-    Array.from({ length: 500 }).map((_, index) => `Slide ${index + 1}`)
-  );
+  // const [slides, setSlides] = useState(
+  //   Array.from({ length: 500 }).map((_, index) => `Slide ${index + 1}`)
+  // );
 
-  //  const prepend = (): void => {
-  //    setSlides([
-  //      `Slide ${prependNumber.current - 2}`,
-  //      `Slide ${prependNumber.current - 1}`,
-  //      ...slides,
-  //    ]);
-  //    prependNumber.current = prependNumber.current - 2;
-  //    swiperRef.slideTo(swiperRef.activeIndex + 2, 0);
-  //  };
+  // const prepend = (): void => {
+  //   setSlides([
+  //     `Slide ${prependNumber.current - 2}`,
+  //     `Slide ${prependNumber.current - 1}`,
+  //     ...slides,
+  //   ]);
+  //   prependNumber.current = prependNumber.current - 2;
+  //   swiperRef.slideTo(swiperRef.activeIndex + 2, 0);
+  // };
 
   //  const append = (): void => {
   //    setSlides([...slides, 'Slide ' + ++appendNumber.current]);
@@ -46,7 +46,7 @@ function SwiperTest(): JSX.Element {
       <Swiper
         onSwiper={setSwiperRef}
         slidesPerView={3}
-        centeredSlides={true}
+        // centeredSlides={true}
         spaceBetween={30}
         // pagination={{
         //   type: 'fraction',

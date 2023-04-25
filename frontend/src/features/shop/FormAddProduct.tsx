@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RootState, useAppDispatch } from '../../store';
-import { addProdImg, addProduct } from './productsSlice';
+import { clearImgState, addProduct } from './productsSlice';
 import Uploader from '../uploader/Uploader';
 import { useSelector } from 'react-redux';
 import './style.css';
@@ -17,25 +17,9 @@ function FormAddProduct(): JSX.Element {
   ) => {
     event.preventDefault();
     const data = new FormData(event.target as HTMLFormElement);
-    // Имена файлов, оставшихся после удаления лишних фото, как передать вместе с data
-    // на fetch?
     console.log('data', data);
-    const imgNames = Object.values(imgs).map((img) => img.name);
     dispatch(addProduct(data));
   };
-
-  // const formChange: React.FormEventHandler<HTMLFormElement> = async (event) => {
-  //   const data = new FormData(event.target as HTMLFormElement);
-  //   console.log('data', data);
-  //   dispatch(addProdImg(data));
-  // };
-
-  // const handleAddProduct: React.FormEventHandler<HTMLFormElement> = async (
-  //   event
-  // ) => {
-  //   event.preventDefault();
-  //   dispatch(addProduct(imgs));
-  // };
 
   return (
     <div>
@@ -84,12 +68,20 @@ function FormAddProduct(): JSX.Element {
               Описание
             </label>
             <textarea
-              // type="text"
               placeholder="Описание"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               value={newproductDescript}
               onChange={(e) => setproductDescript(e.target.value)}
               name="description"
+            />
+            <input
+              style={{ display: 'none' }}
+              type="text"
+              className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD] raz"
+              value={Object.values(imgs)
+                .map((img) => img.name)
+                .join()}
+              name="imgs"
             />
             <Uploader />
             <button
