@@ -29,6 +29,8 @@ export type Point = {
     pos: Position;
   };
 };
+
+//type
 export type EcoPoint = {
   id: number;
   pointName: string;
