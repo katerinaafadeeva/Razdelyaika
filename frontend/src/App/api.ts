@@ -8,6 +8,7 @@ import {
 } from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
 import { Comment } from '../features/events/comment/types/Comment';
+import { EcoPoint } from '../features/mainPage/map/types/Map';
 
 export const registration = async (obj: User): Promise<User | Message> => {
   const res = await fetch('/auth/signup', {
@@ -143,6 +144,9 @@ export const removeComment = async (commentId: number): Promise<number> => {
   return date;
 };
 
+export const getEcoPoint = async (): Promise<EcoPoint[]> =>
+  fetch('/api/ecoPoint').then((res) => res.json());
+
 export const getParamEvent = async (): Promise<Event> =>
   fetch('/api/events/:id').then((res) => res.json());
 
@@ -168,7 +172,6 @@ export async function removeProduct(productId: number): Promise<number> {
   });
   return res.json();
 }
-
 // api for updating the product:
 
 export const updatedProduct = async (updatedProduct: {
@@ -192,20 +195,21 @@ export const updatedProduct = async (updatedProduct: {
 export const getCartProducts = async (): Promise<Product[]> =>
   fetch('/cart').then((res) => res.json());
 
+export const removeCartItem = async (addedProdId: number): Promise<number> =>
+  fetch(`/cart/${addedProdId}`, { method: 'DELETE' }).then((res) => res.json());
+
 // add product to cart:
 
-// export const addProductToCart = async (productId: number): Promise<Product> =>
-//   fetch('/cart').then((res) => res.json());
-
 export const addProductToCart = async (
-  productSelected: Product
+  productId: number
+  // productSelected: Product
 ): Promise<Product> => {
   const res = await fetch('/cart', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(productSelected),
+    body: JSON.stringify({ productId }),
   });
   return res.json();
 };

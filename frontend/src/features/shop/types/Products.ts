@@ -3,6 +3,7 @@ export type Product = {
   productName: string;
   productDescript: string;
   productPrice: number;
+  [key: string]: any;
   ['AddedProducts.count']?: number;
   ['ProductImgs.id']?: number;
   ['ProductImgs.productImgId']?: number;

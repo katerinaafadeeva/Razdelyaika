@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const { User } = require('../db/models');
+const { User, Order } = require('../db/models');
 
 router.post('/signin', async (req, res) => {
   const { email, password } = req.body;
@@ -43,7 +43,10 @@ router.post('/signup', async (req, res) => {
             password: hash,
             password2,
           });
-          console.log('newUser', newUser);
+          await Order.create({
+            userId: newUser.id,
+            status: 'активен',
+          });
           req.session.userId = newUser.id;
           res.status(201).json(newUser);
         } else {

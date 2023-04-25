@@ -3,7 +3,6 @@ import { useAppDispatch } from '../../store';
 import { removeEvent } from './eventSlice';
 
 function RemoveEventBtn({ eventId }: { eventId: number }): JSX.Element {
-  console.log(eventId);
   const dispatch = useAppDispatch();
   const onHandleClickDel = (): void => {
     dispatch(removeEvent(eventId));
