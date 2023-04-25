@@ -8,8 +8,9 @@ const {
   ProductImg,
   eventPhoto,
   EventReview,
-  ProductSize,
   Size,
+  ProductSize,
+
   User,
 } = require('../db/models');
 
@@ -20,7 +21,6 @@ const path = require('path');
 router.get('/shop', async (req, res) => {
   try {
     const products = await Product.findAll({
-
       include: [
         { model: ProductImg, attributes: ['productImg'] },
         { model: ProductSize, include: { model: Size } },
@@ -29,6 +29,7 @@ router.get('/shop', async (req, res) => {
       raw: true,
       order: [['id', 'ASC']],
     });
+    res.json(filteredProducts);
 
     // console.log(products[0].ProductSizes[0].Size.sizeText, '1231231231321');
     // console.log(products, '----products with sizes');
@@ -62,10 +63,10 @@ router.post('/shop', async (req, res) => {
     if (newProduct) {
       if (Array.isArray(req.files.file)) {
         const uploadPathes = req.files.file.map((file) =>
-          path.join(__dirname, '..', 'public', 'photos', `${file.name}`)
+          path.join(__dirname, '..', 'public', 'photos', `${file.name}`),
         );
         const pathesForDB = req.files.file.map((file) =>
-          path.join('photos', `${file.name}`)
+          path.join('photos', `${file.name}`),
         );
         await Promise.all(
           pathesForDB.map(async (patheForDB) => {
@@ -73,7 +74,7 @@ router.post('/shop', async (req, res) => {
               productImgId: newProduct.id,
               productImg: patheForDB,
             });
-          })
+          }),
         );
         // Use the mv() method to place the file somewhere on your server
         uploadPathes.forEach(async (uploadPath, index) => {
@@ -89,7 +90,7 @@ router.post('/shop', async (req, res) => {
           '..',
           'public',
           'photos',
-          `${req.files.file.name}`
+          `${req.files.file.name}`,
         );
         const patheForDB = path.join('photos', `${req.files.file.name}`);
         await ProductImg.create({
