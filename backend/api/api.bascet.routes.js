@@ -30,4 +30,20 @@ router.get('/cart', async (req, res) => {
   }
 });
 
+router.post('/cart', async (req, res) => {
+  const { productId, productName, productDescript, productPrice } = req.body;
+  try {
+    const product = await Product.create({
+      productId,
+      productName,
+      productDescript,
+      productPrice,
+    });
+    if (product) {
+      res.json(product);
+    }
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
 module.exports = router;

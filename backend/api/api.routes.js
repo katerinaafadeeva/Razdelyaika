@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { log } = require('console');
+// const { log } = require('console');
 // const { log } = require('console');
 const {
   Product,
@@ -87,17 +87,12 @@ router.get('/events', async (req, res) => {
 
 router.post('/shop', async (req, res) => {
   try {
-    // const { productName, productPrice, productDescript } = req.body;
-
-    // uploader - не рабоатет!!
     const { name, price, description } = req.body;
-    // console.log('files', req.files);
-    // console.log('req.body', req.body);
+
     const newProduct = await Product.create({
       productName: name,
       productPrice: price,
       productDescript: description,
-      // productImg: imgs,
     });
     if (newProduct) {
       if (Array.isArray(req.files.file)) {
@@ -114,7 +109,6 @@ router.post('/shop', async (req, res) => {
         );
         // Use the mv() method to place the file somewhere on your server
         uploadPathes.forEach(async (uploadPath, index) => {
-          // console.log('productImgs[index]', uploadPath);
           await req.files.file[index].mv(uploadPath, (err) => {
             if (err) {
               return res.status(500).send(err);

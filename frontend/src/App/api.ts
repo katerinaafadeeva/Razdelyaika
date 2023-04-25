@@ -61,7 +61,8 @@ export const getProducts = async (): Promise<Product[]> =>
   fetch('/api/shop').then((res) => res.json());
 
 // Events
-export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
+export const getEvents = (): Promise<Event[]> =>
+  fetch('/api/events').then((res) => res.json());
 
 export const addNewEvent = async (newEvent: {
   eventName: string;
@@ -181,3 +182,21 @@ export const updatedProduct = async (updatedProduct: {
 
 export const getCartProducts = async (): Promise<Product[]> =>
   fetch('/cart').then((res) => res.json());
+
+// add product to cart:
+
+// export const addProductToCart = async (productId: number): Promise<Product> =>
+//   fetch('/cart').then((res) => res.json());
+
+export const addProductToCart = async (
+  productSelected: Product
+): Promise<Product> => {
+  const res = await fetch('/cart', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(productSelected),
+  });
+  return res.json();
+};

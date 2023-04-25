@@ -15,6 +15,14 @@ export const getCartProducts = createAsyncThunk('cart/getCartProducts', () =>
   api.getCartProducts()
 );
 
+// adding product to cart:
+export const addToCart = createAsyncThunk(
+  'cart/addProductToCart',
+  (productId: any) =>
+    // api.addProductToCart()
+    api.addProductToCart(productId)
+);
+
 // slicers:
 const productsSlice = createSlice({
   name: 'products',
@@ -27,6 +35,12 @@ const productsSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(getCartProducts.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(addToCart.fulfilled, (state, action) => {
+        state.products = [...state.products, action.payload];
+      })
+      .addCase(addToCart.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },
