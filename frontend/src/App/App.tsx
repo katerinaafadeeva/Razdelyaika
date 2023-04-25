@@ -20,6 +20,7 @@ import { verificationUser } from '../features/auth/userSlice';
 import { YMaps } from '@pbe/react-yandex-maps';
 import Cart from '../features/shop/cart/Cart';
 import ErrorPage from '../features/Error/ErrorPage';
+import { getEcoPoint } from '../features/mainPage/map/mapSlice';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -43,6 +44,10 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(getCartProducts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getEcoPoint());
   }, [dispatch]);
 
   return (

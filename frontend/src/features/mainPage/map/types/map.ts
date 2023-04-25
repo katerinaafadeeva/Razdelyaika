@@ -19,8 +19,8 @@ export type SetRegion = { region: string };
 export type SetLocationType = { location_type: string };
 
 export type Position = {
-  lat: number;
-  lng: number;
+  lat: number[];
+  lng: number[];
 };
 
 export type Point = {
@@ -28,4 +28,9 @@ export type Point = {
     id: string;
     pos: Position;
   };
+};
+export type EcoPoint = {
+  id: number;
+  pointName: string;
+  pointAddress: string;
 };

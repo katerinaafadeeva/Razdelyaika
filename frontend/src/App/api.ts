@@ -3,6 +3,7 @@ import { Product, productId } from '../features/shop/types/Products';
 import { Event, EventAdd, EventId, EventUpd } from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
 import { Comment } from '../features/events/comment/types/Comment';
+import { EcoPoint } from '../features/mainPage/map/types/Map';
 
 export const registration = async (obj: User): Promise<User | Message> => {
   const res = await fetch('/auth/signup', {
@@ -31,8 +32,6 @@ export const login = async (obj: User): Promise<User | Message> => {
   return res.json();
 };
 export const session = async (): Promise<User | Message> => {
-  console.log('123123123');
-  
   const res = await fetch('/auth/checkUser', {
     credentials: 'include',
   });
@@ -130,6 +129,9 @@ export const removeComment = async (commentId: number): Promise<number> => {
   const date = await res.json();
   return date;
 };
+
+export const getEcoPoint = async (): Promise<EcoPoint[]> =>
+  fetch('/api/ecoPoint').then((res) => res.json());
 
 export const getParamEvent = async (): Promise<Event> =>
   fetch('/api/events/:id').then((res) => res.json());

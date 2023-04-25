@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import eventsSlice from './features/events/eventSlice';
 import productsSlice from './features/shop/productsSlice';
+import ecoPointSlice from './features/mainPage/map/mapSlice';
 
 import authSlice from './features/auth/userSlice';
 
@@ -11,6 +12,7 @@ const store = configureStore({
   reducer: {
     eventState: eventsSlice,
     productsState: productsSlice,
+    ecoPointState: ecoPointSlice,
     auth: authSlice,
   },
 });

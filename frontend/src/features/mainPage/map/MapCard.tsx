@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import Geocode from 'react-geocode';
 import { LanguageSharp } from '@mui/icons-material';
-import { Position } from './types/map';
+import { Position } from './types/Map';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
 
 const containerStyle = {
   width: '100%',
@@ -21,34 +24,43 @@ function MapCard(): JSX.Element {
   Geocode.setLocationType('ROOFTOP');
   Geocode.enableDebug();
 
-  const [adress, setAdress] = useState('');
-  const [lats, setLats] = useState(0);
-  const [lngs, srtLng] = useState(0);
+  const ecoPoint = useSelector((store: RootState) => store.ecoPointState);
+  console.log(ecoPoint, 'all');
+  const [adress, setAdress] = useState<string[]>([]);
 
-  const point: Position = {
-    lat: lats,
-    lng: lngs,
+  const [lats, setLats] = useState<number[]>([]);
+  const [lngs, srtLng] = useState<number[]>([]);
+  const getAdressBase = (): void => {
+    ecoPoint.ecoPoints.map((point) => setAdress((prev) => [...prev, point.pointAddress]));
   };
 
-  console.log(point);
-  const myPlaces = [
-    { id: 'place1', pos: point },
-    { id: 'place2', pos: { lat: 55.182707, lng: 61.450696 } },
-  ];
+  const getCoordinates = async (adresses: string[]): Promise<void> => {
+    adresses.forEach((element) => {
+      Geocode.fromAddress(element).then(
+        (response) => {
+          const { lat, lng } = response.results[0].geometry.location;
+          setLats((prev) => [...prev, lat]);
+          srtLng((prev) => [...prev, lng]);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    });
+  };
+
+  const rndId = uuidv4();
+  useEffect(() => {
+    getAdressBase();
+  }, []);
+
+  const myPlaces = lats.map((lat, idx) => ({ pos: { lat, lng: lngs[idx] } }));
+  console.log(myPlaces);
 
   useEffect(() => {
-    Geocode.fromAddress('ул. 3-го Интернационала, Челябинск').then(
-      (response) => {
-        const { lat, lng } = response.results[0].geometry.location;
-        console.log(lat, lng);
-        setLats(lat);
-        srtLng(lng);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  });
+    getCoordinates(adress);
+  }, [adress]);
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyBWkPNOHI1knOEfFe2GJNmL4sr0C1snsu4',
@@ -58,13 +70,9 @@ function MapCard(): JSX.Element {
     <div className="map__card">
       <div className="map__card__body" id="map">
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
-          {/* Child components, such as markers, info windows, etc. */}
-          <></>
-
-          <Marker position={point} />
-          {myPlaces.map((place) => (
+          {myPlaces.map((place, idx) => (
             <Marker
-              key={place.id}
+              key={idx}
               position={place.pos}
               icon={{
                 path: 'M12.75 0l-2.25 2.25 2.25 2.25-5.25 6h-5.25l4.125 4.125-6.375 8.452v0.923h0.923l8.452-6.375 4.125 4.125v-5.25l6-5.25 2.25 2.25 2.25-2.25-11.25-11.25zM10.5 12.75l-1.5-1.5 5.25-5.25 1.5 1.5-5.25 5.25z',
