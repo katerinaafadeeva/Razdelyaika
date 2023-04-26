@@ -80,3 +80,8 @@
   background-color: #4caf50;
   color: white;
 }
+
+.mb-10:hover {
+  transform: scale(1.05);
+  transition: 0.7s;
+}

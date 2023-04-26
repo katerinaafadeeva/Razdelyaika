@@ -27,7 +27,6 @@ function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
 
-
   useEffect(() => {
     dispatch(getEvent());
   }, [dispatch]);
@@ -38,7 +37,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(verificationUser());
-  },[]);
+  }, []);
   // []
 
   useEffect(() => {
@@ -49,7 +48,6 @@ function App(): JSX.Element {
     dispatch(getCartProducts());
   }, [user]);
 
-
   useEffect(() => {
     dispatch(getEcoPoint());
   }, [dispatch]);
@@ -57,7 +55,6 @@ function App(): JSX.Element {
   // useEffect(() => {
   //   dispatch(addToCart());
   // }, [dispatch]);
-
 
   return (
     <div className="App">

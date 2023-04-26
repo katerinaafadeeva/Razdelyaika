@@ -10,9 +10,8 @@ function CartItem({ addedProd }: { addedProd: Product }): JSX.Element {
 
   // fn for deleting item:
   const cartItemDelete = (): void => {
-    console.log(addedProd.id);
-    if (addedProd.id) {
-      const addedProdId = addedProd.id;
+    if (addedProd.productId) {
+      const addedProdId = addedProd.productId;
       dispatch(removeCartItem(addedProdId));
     }
   };

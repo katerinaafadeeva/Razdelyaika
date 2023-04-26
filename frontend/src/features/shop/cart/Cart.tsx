@@ -10,22 +10,6 @@ import { getCartProducts } from './CartSlice';
 function Cart(): JSX.Element {
   const { addedProds } = useSelector((store: RootState) => store.cartState);
   const dispatch = useAppDispatch();
-  // console.log(products.productPrice);
-  // function summ( ) {
-  //   const result = products?.reduce((a:number, b:number) => a + b.productPrice, 0);
-  // }
-  // console.log(summ);
-  // const [suum, setSumm] = useState(0);
-
-  // const summa = (): string => {
-  //   console.log('addedProds', addedProds);
-  //   let her = addedProds?.reduce((a, b) => a + b['Product.productPrice'], 0);
-  //   if (her === 0) {
-  //     return 'Корзина пуста';
-  //   } else {
-  //     return '';
-  //   }
-  // };
 
   useEffect(() => {
     dispatch(getCartProducts());
@@ -47,6 +31,9 @@ function Cart(): JSX.Element {
                     <th className="w-1/6 min-w-[160px] border-l border-transparent py-4 px-3 text-lg font-semibold text-white lg:py-7 lg:px-4">
                       продукт
                     </th>
+                    {/* <th className="w-1/6 min-w-[160px] py-4 px-3 text-lg font-semibold text-white lg:py-7 lg:px-4">
+                      фото
+                    </th> */}
                     <th className="w-1/6 min-w-[160px] py-4 px-3 text-lg font-semibold text-white lg:py-7 lg:px-4">
                       описание
                     </th>

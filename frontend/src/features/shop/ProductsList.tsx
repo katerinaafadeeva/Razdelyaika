@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -8,8 +8,12 @@ import FormAddProduct from './FormAddProduct';
 
 function ProductsList(): JSX.Element {
   const { products } = useSelector((store: RootState) => store.productsState);
+  const [showModal, setShowModal] = useState(false);
 
-  console.log('products', products);
+  const showModalWindow = (): void => {
+    setShowModal((prev) => !prev);
+  };
+
   return (
     <>
       <section className="bg-[#F3F4F6] pt-20 pb-10 lg:pt-[120px] lg:pb-20">
