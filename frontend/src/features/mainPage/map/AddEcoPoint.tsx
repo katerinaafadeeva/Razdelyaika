@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../../store';
 import { addEcoPoint } from './mapSlice';
+import './styles/Map.css';
 
 function AddEcoPoint(): JSX.Element {
   const [ecoPointName, setEcoPointName] = useState('');
@@ -20,16 +21,7 @@ function AddEcoPoint(): JSX.Element {
   return (
     <form onSubmit={onHandleSubmitForm}>
       <div className="-mx-4 flex flex-wrap">
-        <div className="w-full px-4 md:w-1/2 lg:w-1/3">
-          <div className="mb-12">
-            <input
-              type="text"
-              placeholder="Название точки"
-              className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
-              value={ecoPointName}
-              onChange={(e) => setEcoPointName(e.target.value)}
-            />
-          </div>
+        <div className="w-full px-4 ">
           <div className="mb-12">
             <input
               type="text"
