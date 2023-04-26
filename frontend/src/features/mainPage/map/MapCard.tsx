@@ -56,6 +56,8 @@ function MapCard(): JSX.Element {
   const [lats, setLats] = useState<number[]>([]);
   const [lngs, setLngs] = useState<number[]>([]);
   const [name, setName] = useState<string[]>([]);
+  const [title, setTitle] = useState<string[]>([]);
+
   const [activeMarker, setActiveMarker] = useState(null);
   const [myPlaces, setMyPlaces] = useState<{ pos: { lat: number; lng: number }; name: string }[]>(
     []
@@ -63,7 +65,7 @@ function MapCard(): JSX.Element {
 
   const getAdressBase = (): void => {
     ecoPoint.ecoPoints.forEach((point) => {
-      setAdress((prev) => [...prev, point.pointAddress]);
+      setAdress((prev) => [...prev, point.pointAddress, point.pointName]);
     });
   };
 
@@ -76,6 +78,7 @@ function MapCard(): JSX.Element {
           setLngs((prev) => [...prev, lng]);
           setName((prev) => [...prev, element]);
         },
+
         (error) => {
           console.error(error);
         }
@@ -94,7 +97,7 @@ function MapCard(): JSX.Element {
 
   useEffect(() => {
     getCoordinates(adress);
-  }, [adress]);
+  }, [adress, title]);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -134,7 +137,13 @@ function MapCard(): JSX.Element {
               onClick={() => handleActiveMarker(idx)}>
               {activeMarker === idx ? (
                 <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-                  <div>{name[idx]}</div>
+                  <div>
+                    {/*{title[idx]}*/}
+                    <h1>
+                      <b>Эко-точка</b>
+                    </h1>
+                    <p>По адресу: {name[idx]}</p>
+                  </div>
                 </InfoWindow>
               ) : null}
             </Marker>
