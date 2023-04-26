@@ -199,7 +199,6 @@
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
   padding-left: 30px;
-  padding-top: 30px;
 }
 
 .info-icon-div {
@@ -338,4 +337,15 @@
 .modalBtn-fisrt:active {
   background-color: #298e46;
   box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
+}
+
+.scroll-plastic-modal {
+  overflow-y: scroll;
+  max-height: 300px;
+  overflow: auto;
+}
+.btn-close-modal {
+  display: 'flex';
+  justify-content: 'center';
+  align-items: 'center';
 }

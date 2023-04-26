@@ -21,48 +21,103 @@ import OpenSoftPlasticModal from './OpenSoftPlasticModal';
 
 function ContainersList(): JSX.Element {
   const [modal, setModal] = useState(false);
+  const [modalCarton, setModalCarton] = useState(false);
+  const [modalElectro, setModalElectro] = useState(false);
+  const [modalPaper, setModalPaper] = useState(false);
+  const [modalHardPlastic, setModalHardPlastic] = useState(false);
+  const [modalSoftPlastic, setModalSoftPlastic] = useState(false);
 
-  const changeModal = (): void => {
+  const changeGlassModal = (): void => {
     setModal((prev) => !prev);
   };
 
+  const changeCartonModal = (): void => {
+    setModalCarton((prev) => !prev);
+  };
+
+  const changeElectronicsModal = (): void => {
+    setModalElectro((prev) => !prev);
+  };
+  const changePaperModal = (): void => {
+    setModalPaper((prev) => !prev);
+  };
+
+  const changeHardPlasticModal = (): void => {
+    setModalHardPlastic((prev) => !prev);
+  };
+
+  const changeSoftPlasticModal = (): void => {
+    setModalSoftPlastic((prev) => !prev);
+  };
   return (
     <>
       <div className="main-containerst-first">
         <div className="btn-image-coordinate-div">
           <img src={board} alt="..."></img>
-          {modal && <CloseGlassModalBtn changeModal={changeModal} />}
-          {!modal && <OpenModalbtn changeModal={changeModal} />}
+          {modal && <CloseGlassModalBtn changeGlassModal={changeGlassModal} />}
+          {!modal && <OpenModalbtn changeGlassModal={changeGlassModal} />}
         </div>
 
         <div className="btn-image-coordinate-div">
           <img src={carton} alt="..."></img>
-          {modal && <CloseCartonModal changeModal={changeModal} />}
-          {!modal && <OpenCartonModal changeModal={changeModal} />}
+          {modalCarton && (
+            <CloseCartonModal changeCartonModal={changeCartonModal} />
+          )}
+          {!modalCarton && (
+            <OpenCartonModal changeCartonModal={changeCartonModal} />
+          )}
         </div>
 
         <div className="btn-image-coordinate-div">
           <img src={electronics} alt="..."></img>
-          {modal && <CloseElectronicModal changeModal={changeModal} />}
-          {!modal && <OpenElectronicModal changeModal={changeModal} />}
+          {modalElectro && (
+            <CloseElectronicModal
+              changeElectronicsModal={changeElectronicsModal}
+            />
+          )}
+          {!modalElectro && (
+            <OpenElectronicModal
+              changeElectronicsModal={changeElectronicsModal}
+            />
+          )}
         </div>
 
         <div className="btn-image-coordinate-div">
           <img src={paper} alt="..."></img>
-          {modal && <ClosePaperModal changeModal={changeModal} />}
-          {!modal && <OpenPaperModal changeModal={changeModal} />}
+          {modalPaper && (
+            <ClosePaperModal changePaperModal={changePaperModal} />
+          )}
+          {!modalPaper && (
+            <OpenPaperModal changePaperModal={changePaperModal} />
+          )}
         </div>
 
         <div className="btn-image-coordinate-div">
           <img src={plastichard} alt="..."></img>
-          {modal && <CloseHardPlasticModal changeModal={changeModal} />}
-          {!modal && <OpenHardPlasticModal changeModal={changeModal} />}
+          {modalHardPlastic && (
+            <CloseHardPlasticModal
+              changeHardPlasticModal={changeHardPlasticModal}
+            />
+          )}
+          {!modalHardPlastic && (
+            <OpenHardPlasticModal
+              changeHardPlasticModal={changeHardPlasticModal}
+            />
+          )}
         </div>
 
         <div className="btn-image-coordinate-div">
           <img src={plasticSoft} alt="..."></img>
-          {modal && <CloseSoftPlasticModal changeModal={changeModal} />}
-          {!modal && <OpenSoftPlasticModal changeModal={changeModal} />}
+          {modalSoftPlastic && (
+            <CloseSoftPlasticModal
+              changeSoftPlasticModal={changeSoftPlasticModal}
+            />
+          )}
+          {!modalSoftPlastic && (
+            <OpenSoftPlasticModal
+              changeSoftPlasticModal={changeSoftPlasticModal}
+            />
+          )}
         </div>
       </div>
       <div className="main-containers">
@@ -113,12 +168,18 @@ function ContainersList(): JSX.Element {
               >
                 ВКонтакте
               </a>{' '}
-              и на странице Instagram и на странице сайта. На акцию нужно
-              приходить уже с рассортированным мусором, чтобы не тратить время
-              волонтеров на акции.
+              , на странице{' '}
+              <a
+                href="https://www.instagram.com/razdelyaika74/"
+                style={{ color: '#2f6099' }}
+              >
+                Instagram
+              </a>{' '}
+              и на странице сайта. На акцию нужно приходить уже с
+              рассортированным мусором.
             </h3>
             <div className="info-icon-div">
-              {/* <span className="material-symbols-outlined">question_mark</span> */}
+           
               <p className="icon-info-link">
                 Акция слишком далеко? Становись куратором и открывай новую
                 точку!
