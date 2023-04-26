@@ -155,6 +155,14 @@ export const addEcoPoint = async (newEcoPoint: {
   return res.json();
 };
 
+export const removeEcoPoint = async (poinId: number): Promise<number> => {
+  const res = await fetch(`/api/ecoPoint/${poinId}`, {
+    method: 'DELETE',
+  });
+  const date = await res.json();
+  return date;
+};
+
 export const getParamEvent = async (): Promise<Event> =>
   fetch('/api/events/:id').then((res) => res.json());
 

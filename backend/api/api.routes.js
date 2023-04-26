@@ -269,6 +269,21 @@ router.post('/ecoPoint', async (req, res) => {
   }
 });
 
+router.delete('/ecoPoint/:pointId', async (req, res) => {
+  const { pointId } = req.params;
+  console.log(pointId);
+  try {
+    const delEcoPoint = await EcoPoint.destroy({ where: { id: Number(pointId) } });
+    if (delEcoPoint > 0) {
+      res.json(delEcoPoint);
+    } else {
+      res.json('Failed res deleted');
+    }
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
 // update products router:
 
 router.put('/shop/:productId', async (req, res) => {
