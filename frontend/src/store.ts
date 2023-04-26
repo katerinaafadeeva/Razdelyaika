@@ -6,6 +6,7 @@ import ecoPointSlice from './features/mainPage/map/mapSlice';
 
 import authSlice from './features/auth/userSlice';
 import CartSlice from './features/shop/cart/CartSlice';
+import modalSlice from './features/modals/modalSlice';
 
 // Слайсы - это отдельные модули нашего приложения. У каждого слайса - свой редьюсер:
 
