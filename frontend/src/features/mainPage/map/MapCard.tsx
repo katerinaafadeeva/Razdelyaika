@@ -3,10 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
 import Geocode from 'react-geocode';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
+import { RootState, useAppDispatch } from '../../../store';
 import EcoPointIcon from './image/tree.png';
 import defaultTheme from './theme/Theme';
 import AddEcoPoint from './AddEcoPoint';
+import { removeEcoPoint } from './mapSlice';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -42,6 +43,7 @@ function MapCard(): JSX.Element {
   Geocode.setLocationType('ROOFTOP');
   Geocode.enableDebug();
 
+  const dispatch = useAppDispatch();
   const mapRef = useRef(undefined);
 
   const onLoad = React.useCallback(function callback(map: any) {
@@ -117,6 +119,10 @@ function MapCard(): JSX.Element {
     map.fitBounds(bounds);
   };
 
+  const onHandleClickDelete = (pointId: number): void => {
+    dispatch(removeEcoPoint(Number(pointId)));
+  };
+
   return isLoaded ? (
     <div className="map__card">
       <AddEcoPoint />
@@ -143,6 +149,9 @@ function MapCard(): JSX.Element {
                       <b>Эко-точка</b>
                     </h1>
                     <p>По адресу: {name[idx]}</p>
+                    <button type="button" onClick={() => onHandleClickDelete(Number(idx))}>
+                      Удалить
+                    </button>
                   </div>
                 </InfoWindow>
               ) : null}
