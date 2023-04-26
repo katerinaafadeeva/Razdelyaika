@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
 import Geocode from 'react-geocode';
-import { LanguageSharp } from '@mui/icons-material';
-// import { Position } from './types/Map';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import EcoPointIcon from './image/tree.png';
 import defaultTheme from './theme/Theme';
 import AddEcoPoint from './AddEcoPoint';
+
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 const containerStyle = {
@@ -23,7 +22,7 @@ const defaultOptions = {
   scaleControl: false,
   streetViewControl: true,
   rotateControl: false,
-  clickableIcons: false,
+  clickableIcons: true,
   keyboardShortcuts: false,
   scrollwheel: true,
   disableDoubleClickZoom: false,
@@ -37,7 +36,7 @@ const center = {
 };
 
 function MapCard(): JSX.Element {
-  Geocode.setApiKey('AIzaSyBWkPNOHI1knOEfFe2GJNmL4sr0C1snsu4');
+  Geocode.setApiKey(String(API_KEY));
   Geocode.setLanguage('ru');
   Geocode.setRegion('ru');
   Geocode.setLocationType('ROOFTOP');
@@ -55,11 +54,18 @@ function MapCard(): JSX.Element {
   const ecoPoint = useSelector((store: RootState) => store.ecoPointState);
   const [adress, setAdress] = useState<string[]>([]);
   const [lats, setLats] = useState<number[]>([]);
-  const [lngs, srtLng] = useState<number[]>([]);
-  const [myPlaces, setMyPlaces] = useState<{ pos: { lat: number; lng: number } }[]>([]);
+  const [lngs, setLngs] = useState<number[]>([]);
+  const [name, setName] = useState<string[]>([]);
+  const [title, setTitle] = useState<string[]>([]);
+
+  const [activeMarker, setActiveMarker] = useState(null);
+  const [myPlaces, setMyPlaces] = useState<{ pos: { lat: number; lng: number }; name: string }[]>(
+    []
+  );
+
   const getAdressBase = (): void => {
     ecoPoint.ecoPoints.forEach((point) => {
-      setAdress((prev) => [...prev, point.pointAddress]);
+      setAdress((prev) => [...prev, point.pointAddress, point.pointName]);
     });
   };
 
@@ -69,8 +75,10 @@ function MapCard(): JSX.Element {
         (response) => {
           const { lat, lng } = response.results[0].geometry.location;
           setLats((prev) => [...prev, lat]);
-          srtLng((prev) => [...prev, lng]);
+          setLngs((prev) => [...prev, lng]);
+          setName((prev) => [...prev, element]);
         },
+
         (error) => {
           console.error(error);
         }
@@ -84,17 +92,30 @@ function MapCard(): JSX.Element {
   }, [ecoPoint]);
 
   useEffect(() => {
-    setMyPlaces(lats.map((lat, idx) => ({ pos: { lat, lng: lngs[idx] } })));
+    setMyPlaces(lats.map((lat, idx) => ({ pos: { lat, lng: lngs[idx] }, name: name[idx] })));
   }, [lngs, lats]);
 
   useEffect(() => {
     getCoordinates(adress);
-  }, [adress]);
+  }, [adress, title]);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: String(API_KEY),
   });
+
+  const handleActiveMarker = (marker: any): any => {
+    if (marker === activeMarker) {
+      return;
+    }
+    setActiveMarker(marker);
+  };
+
+  const handleOnLoad = (map: any): void => {
+    const bounds = new google.maps.LatLngBounds();
+    myPlaces.forEach((place) => bounds.extend(place.pos));
+    map.fitBounds(bounds);
+  };
 
   return isLoaded ? (
     <div className="map__card">
@@ -106,9 +127,26 @@ function MapCard(): JSX.Element {
           zoom={11}
           onLoad={onLoad}
           onUnmount={onUnmount}
-          options={defaultOptions}>
+          options={defaultOptions}
+          onClick={() => setActiveMarker(null)}>
           {myPlaces.map((place, idx) => (
-            <Marker key={uuidv4()} position={place.pos} icon={EcoPointIcon} />
+            <Marker
+              key={idx}
+              position={place.pos}
+              icon={EcoPointIcon}
+              onClick={() => handleActiveMarker(idx)}>
+              {activeMarker === idx ? (
+                <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+                  <div>
+                    {/*{title[idx]}*/}
+                    <h1>
+                      <b>Эко-точка</b>
+                    </h1>
+                    <p>По адресу: {name[idx]}</p>
+                  </div>
+                </InfoWindow>
+              ) : null}
+            </Marker>
           ))}
         </GoogleMap>
       </div>
