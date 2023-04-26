@@ -18,9 +18,9 @@ const containerStyle = {
 const defaultOptions = {
   panControl: true,
   mapTypeControl: false,
-  zoomControl: true,
+  zoomControl: false,
   scaleControl: false,
-  streetViewControl: false,
+  streetViewControl: true,
   rotateControl: false,
   clickableIcons: false,
   keyboardShortcuts: false,
