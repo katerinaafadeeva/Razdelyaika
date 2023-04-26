@@ -255,11 +255,11 @@ router.get('/ecoPoint', async (req, res) => {
 });
 
 router.post('/ecoPoint', async (req, res) => {
-  const { pointName, eventRevText } = req.body;
+  const { pointName, pointAddress } = req.body;
   try {
     const newEcoPoint = await EcoPoint.create({
       pointName,
-      eventRevText,
+      pointAddress,
     });
     if (newEcoPoint) {
       res.json(newEcoPoint);

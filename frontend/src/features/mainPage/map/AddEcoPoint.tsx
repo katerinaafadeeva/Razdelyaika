@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
+import { useAppDispatch } from '../../../store';
+import { addEcoPoint } from './mapSlice';
 
 function AddEcoPoint(): JSX.Element {
   const [ecoPointName, setEcoPointName] = useState('');
   const [ecoPointAdress, setEcoPointAdress] = useState('');
   //  console.log(ecoPointAdress);
+
+  const dispatch = useAppDispatch();
   const onHandleSubmitForm = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    const ecoPoint = {
+      pointName: ecoPointName,
+      pointAddress: ecoPointAdress,
+    };
+    dispatch(addEcoPoint(ecoPoint));
   };
 
   return (

@@ -36,3 +36,5 @@ export type EcoPoint = {
   pointName: string;
   pointAddress: string;
 };
+
+export type EcoPointId = EcoPoint['id'];
