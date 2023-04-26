@@ -67,7 +67,7 @@ const defaultTheme = [
     elementType: 'geometry.stroke',
     stylers: [
       {
-        visibility: 'off',
+        visibility: 'false',
       },
     ],
   },
@@ -76,7 +76,7 @@ const defaultTheme = [
     elementType: 'labels',
     stylers: [
       {
-        visibility: 'off',
+        visibility: 'on',
       },
     ],
   },

@@ -8,6 +8,10 @@ const initialState: State = {
 };
 
 export const getEcoPoint = createAsyncThunk('map/getEcoPoint', () => api.getEcoPoint());
+export const addEcoPoint = createAsyncThunk(
+  'map/addEcoPoint',
+  (ecoPoint: { pointName: string; pointAddress: string }) => api.addEcoPoint(ecoPoint)
+);
 
 const ecoPointSlice = createSlice({
   name: 'map',
@@ -19,6 +23,12 @@ const ecoPointSlice = createSlice({
         state.ecoPoints = action.payload;
       })
       .addCase(getEcoPoint.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(addEcoPoint.fulfilled, (state, action) => {
+        state.ecoPoints = [...state.ecoPoints, action.payload];
+      })
+      .addCase(addEcoPoint.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },

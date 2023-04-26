@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import EcoPointIcon from './image/tree.png';
 import defaultTheme from './theme/Theme';
+import AddEcoPoint from './AddEcoPoint';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 const containerStyle = {
@@ -18,13 +19,13 @@ const containerStyle = {
 const defaultOptions = {
   panControl: true,
   mapTypeControl: false,
-  zoomControl: false,
+  zoomControl: true,
   scaleControl: false,
   streetViewControl: true,
   rotateControl: false,
   clickableIcons: false,
   keyboardShortcuts: false,
-  scrollwheel: false,
+  scrollwheel: true,
   disableDoubleClickZoom: false,
   fullscreenControl: false,
   styles: defaultTheme,
@@ -97,6 +98,7 @@ function MapCard(): JSX.Element {
 
   return isLoaded ? (
     <div className="map__card">
+      <AddEcoPoint />
       <div className="map__card__body" id="map">
         <GoogleMap
           mapContainerStyle={containerStyle}
