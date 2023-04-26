@@ -1,9 +1,14 @@
 import { Imgs } from '../features/shop/types/Img';
 import { Product, productId } from '../features/shop/types/Products';
-import { Event, EventAdd, EventId, EventUpd } from '../features/events/types/Event';
+import {
+  Event,
+  EventAdd,
+  EventId,
+  EventUpd,
+} from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
 import { Comment } from '../features/events/comment/types/Comment';
-import { EcoPoint } from '../features/mainPage/map/types/Map';
+import { EcoPoint } from '../features/mainPage/map/types/map';
 
 export const registration = async (obj: User): Promise<User | Message> => {
   const res = await fetch('/auth/signup', {
@@ -57,7 +62,8 @@ export const getProducts = async (): Promise<Product[]> =>
   fetch('/api/shop').then((res) => res.json());
 
 // Events
-export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
+export const getEvents = (): Promise<Event[]> =>
+  fetch('/api/events').then((res) => res.json());
 
 export const addNewEvent = async (
   data: any
