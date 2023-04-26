@@ -2,17 +2,17 @@ import React from 'react';
 import './style/error.css';
 // import man from './images/man.png';
 import forest from './images/forest.png';
+import { Link } from 'react-router-dom';
 
 function ErrorPage(): JSX.Element {
   return (
     <section
       className="bg-primary relative z-10 py-[120px]"
-      style={{ minHeight: '100vh', backgroundColor: '#309959' }}
-    >
+      style={{ minHeight: '100vh', backgroundColor: '#309959' }}>
       <div className="container mx-auto">
         <div className="-mx-4 flex">
           <div className="w-full px-4">
-            <div className="mx-auto max-w-[400px] text-center">
+            <div className="mx-auto max-w-[400px] text-center text_box shadow_t">
               <h2 className="mb-2 text-[50px] font-bold leading-none text-white sm:text-[80px] md:text-[100px]">
                 404
               </h2>
@@ -20,14 +20,15 @@ function ErrorPage(): JSX.Element {
                 Oops! Мы не нашли такую страничку
               </h4>
 
-              <a
-                href="/"
-                className="hover:text-primary inline-block rounded-lg border border-white px-8 py-3 text-center text-base font-semibold text-white transition hover:bg-white"
-              >
+              <Link
+                to="/"
+                className="hover:text-primary inline-block rounded-lg border border-white px-8 py-3 text-center text-base font-semibold text-white transition hover:bg-white noneSdw">
                 домой
-              </a>
+              </Link>
             </div>
-            <img src={forest} alt="..."></img>
+            <div className="shw__div">
+              <img src={forest} alt="..." />
+            </div>
           </div>
         </div>
       </div>
