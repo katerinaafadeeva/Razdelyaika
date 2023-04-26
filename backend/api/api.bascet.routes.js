@@ -16,7 +16,6 @@ const {
 //       where: { userId: req.session.userId, status: 'активен' },
 //       raw: true,
 //     });
-//     // console.log('addedInOrder', order);
 //     if (order) {
 //       const prodInOrder = await Product.findAll({
 //         raw: true,
@@ -65,6 +64,7 @@ router.get('/cart', async (req, res) => {
         {
           model: Product,
           // include: { model: ProductSize, include: { model: Size } },
+          // include: [{ model: ProductImgs, attributes: 'productImg' }],
         },
       ],
     });
@@ -75,7 +75,6 @@ router.get('/cart', async (req, res) => {
 });
 
 router.post('/cart', async (req, res) => {
-  console.log('req.body', req.body);
   try {
     const { productId } = req.body;
     const activeOrder = await Order.findOne({
@@ -97,14 +96,12 @@ router.post('/cart', async (req, res) => {
 
 router.delete('/cart/:addedProdId', async (req, res) => {
   const { addedProdId } = req.params;
-  console.log('addedProdId', addedProdId);
   try {
     const delAddProd = await AddedProduct.destroy({
       where: { productId: addedProdId },
     });
-    console.log('was deleted', delAddProd);
     if (delAddProd > 0) {
-      res.json(delAddProd);
+      res.json(addedProdId);
     } else {
       res.json('Failed res');
     }

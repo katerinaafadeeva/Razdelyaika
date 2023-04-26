@@ -29,7 +29,13 @@ router.get('/shop', async (req, res) => {
       raw: true,
       order: [['id', 'ASC']],
     });
-    res.json(products);
+    const filteredProducts = [];
+    products.filter((product) => {
+      if (!filteredProducts.some((element) => element.id === product.id)) {
+        filteredProducts.push(product);
+      }
+    });
+    res.json(filteredProducts);
   } catch (error) {
     res.json({ message: error.message });
   }
@@ -41,7 +47,7 @@ router.get('/events', async (req, res) => {
       include: [{ model: eventPhoto }],
       raw: true,
     });
-
+    console.log(events);
     res.json(events);
   } catch (error) {
     res.json({ message: error.message });
@@ -144,8 +150,6 @@ router.post('/events', async (req, res) => {
   // const { eventName, eventDescription, eventAddress, eventDate } = req.body;
   try {
     const { eventName, description, address, time } = req.body;
-    console.log('body', req.body);
-    console.log('files', req.files);
     const event = await Event.create({
       eventName,
       eventDescription: description,
@@ -162,7 +166,6 @@ router.post('/events', async (req, res) => {
       raw: true,
       include: [{ model: eventPhoto, attributes: ['file'] }],
     });
-    console.log('forSlider', forSlider);
     res.json(forSlider);
   } catch (error) {
     res.json({ message: error.message });

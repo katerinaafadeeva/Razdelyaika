@@ -13,7 +13,6 @@ function Uploader(): JSX.Element {
   };
 
   function delAddedImg(e: React.MouseEvent<HTMLButtonElement>): void {
-    console.log(new Date(e.currentTarget.name).getTime());
     dispatch(delProdImg(new Date(e.currentTarget.name).getTime()));
   }
 

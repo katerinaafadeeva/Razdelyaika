@@ -113,7 +113,7 @@
     var(--bs-modal-header-border-color);
   border-top-left-radius: var(--bs-modal-inner-border-radius);
   border-top-right-radius: var(--bs-modal-inner-border-radius);
-  background-color: #2f9959;
+  /* background-color: #2f9959; */
 }
 .modal-header .btn-close {
   padding: calc(var(--bs-modal-header-padding-y) * 0.5)
@@ -302,7 +302,7 @@
 
 .modal-dialog {
   left: 50% !important;
-  top: 60% !important;
+  top: 40% !important;
   transform: translate(-50%, -50%) !important;
   margin: 100px 0 0 0 !important;
 }
@@ -319,6 +319,6 @@
 }
 
 .headerCross {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
 }

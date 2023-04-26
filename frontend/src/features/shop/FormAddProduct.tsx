@@ -17,7 +17,6 @@ function FormAddProduct(): JSX.Element {
   ) => {
     event.preventDefault();
     const data = new FormData(event.target as HTMLFormElement);
-    console.log('data', data);
     dispatch(addProduct(data));
   };
 

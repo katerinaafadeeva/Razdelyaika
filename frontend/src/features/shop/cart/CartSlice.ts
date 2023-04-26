@@ -51,7 +51,7 @@ const productsSlice = createSlice({
           state.error = `${action.payload}`;
         }
         state.addedProds = state.addedProds.filter(
-          (addedProd) => addedProd.id !== Number(action.payload)
+          (addedProd) => addedProd.productId !== Number(action.payload)
         );
       })
       .addCase(removeCartItem.rejected, (state, action) => {

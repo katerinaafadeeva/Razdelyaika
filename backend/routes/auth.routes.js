@@ -4,7 +4,6 @@ const { User, Order } = require('../db/models');
 
 router.post('/signin', async (req, res) => {
   const { email, password } = req.body;
-  // console.log(Number(req.session.userId), '>>>>>>>>>>');
   try {
     if (email && password) {
       const user = await User.findOne({ where: { email } });
@@ -18,7 +17,6 @@ router.post('/signin', async (req, res) => {
         });
       } else {
         res.status(403).json({ message: 'Ваш email пароль не соответствуют' });
-        // console.log(message);
       }
     } else {
       res.status(403).json({ message: 'Заполните все поля' });

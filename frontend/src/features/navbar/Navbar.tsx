@@ -115,12 +115,12 @@ function Navbar(): JSX.Element {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink
+                      {/* <NavLink
                         to="/containers"
                         className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
                       >
                         Контейнеры
-                      </NavLink>
+                      </NavLink> */}
                     </li>
                     {'id' in user && (
                       <>
