@@ -114,14 +114,14 @@ function Navbar(): JSX.Element {
                         Магазин
                       </NavLink>
                     </li>
-                    <li>
-                      {/* <NavLink
+                    {/* <li>
+                      <NavLink
                         to="/containers"
                         className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
                       >
                         Контейнеры
-                      </NavLink> */}
-                    </li>
+                      </NavLink>
+                    </li> */}
                     {'id' in user && (
                       <>
                         <li>
