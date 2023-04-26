@@ -22,6 +22,7 @@ import { YMaps } from '@pbe/react-yandex-maps';
 import Cart from '../features/shop/cart/Cart';
 import ErrorPage from '../features/Error/ErrorPage';
 import { getEcoPoint } from '../features/mainPage/map/mapSlice';
+import Footer from '../features/footer/Footer';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -73,6 +74,7 @@ function App(): JSX.Element {
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
+      <Footer />
     </div>
   );
 }
