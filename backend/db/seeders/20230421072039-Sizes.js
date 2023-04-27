@@ -12,6 +12,21 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
+          sizeText: '27-29',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          sizeText: '29-31',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          sizeText: 'XS',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
           sizeText: 'S',
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -22,7 +37,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          sizeText: 'L',
+          sizeText: 'XL',
           createdAt: new Date(),
           updatedAt: new Date(),
         },

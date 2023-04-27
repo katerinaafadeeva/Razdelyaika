@@ -1,10 +1,14 @@
 import React, { useRef, useState } from 'react';
+import { RootState } from '../../store';
+import { useSelector } from 'react-redux';
+import EventCard from '../events/EventCard';
 import SwiperCore, { Virtual, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './styles/styles.css';
+
 import { RootState } from '../../store';
 import { useSelector } from 'react-redux';
 import EventCard from '../events/EventCard';
