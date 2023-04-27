@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../../store';
 import { addEcoPoint } from './mapSlice';
-import './styles/Map.css';
+import './styles/map.css';
 
 function AddEcoPoint(): JSX.Element {
   const [ecoPointName, setEcoPointName] = useState('');
@@ -35,7 +35,8 @@ function AddEcoPoint(): JSX.Element {
       </div>
       <button
         type="submit"
-        className="text-primary border-primary hover:bg-primary hover:border-primary inline-flex items-center justify-center rounded-md border py-4 px-10 text-center text-base transition hover:text-white lg:px-8 xl:px-10">
+        className="text-primary border-primary hover:bg-primary hover:border-primary inline-flex items-center justify-center rounded-md border py-4 px-10 text-center text-base transition hover:text-white lg:px-8 xl:px-10"
+      >
         Добавить контейнер
       </button>
     </form>
