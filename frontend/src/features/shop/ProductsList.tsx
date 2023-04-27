@@ -8,6 +8,7 @@ import FormAddProduct from './FormAddProduct';
 
 function ProductsList(): JSX.Element {
   const { products } = useSelector((store: RootState) => store.productsState);
+  const { user } = useSelector((store: RootState) => store.auth);
   const [showModal, setShowModal] = useState(false);
 
   const showModalWindow = (): void => {
@@ -23,7 +24,7 @@ function ProductsList(): JSX.Element {
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-          <FormAddProduct />
+          {Object.values(user).includes(1) && <FormAddProduct />}
         </div>
       </section>
       <Outlet />

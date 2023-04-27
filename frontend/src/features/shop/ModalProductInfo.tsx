@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import '../modals/modalsStyle.css';
 import { Product } from './types/Products';
-import { useAppDispatch } from '../../store';
+import { RootState, useAppDispatch } from '../../store';
 import { addToCart } from '../shop/cart/CartSlice';
+import { useSelector } from 'react-redux';
 // import SolutionModal from './SolutionModal';
 
 function GeneralModal({
@@ -20,6 +21,7 @@ function GeneralModal({
       dispatch(addToCart(productId));
     }
   };
+  const { user } = useSelector((store: RootState) => store.auth);
   return (
     <div className="modal generalModal">
       <div className="modal-dialog" tabIndex={-1}>
@@ -66,17 +68,27 @@ function GeneralModal({
                 </Link> */}
                   </div>
                   <div className="btns-group">
-                    <button
-                      // onClick={handleRemoveProduct}
-                      type="button"
-                      className="btn-del-product"
-                    >
-                      Удалить запись
-                    </button>
-                    <div>
-                      <button className="btn-cart" onClick={addProductToCart}>
-                        В корзину
+                    {Object.values(user).includes(1) ? (
+                      <button
+                        // onClick={handleRemoveProduct}
+                        type="button"
+                        className="btn-del-product"
+                      >
+                        Удалить запись
                       </button>
+                    ) : (
+                      <></>
+                    )}
+
+                    <div>
+                      {Object.values(user).includes(1) ? (
+                        <></>
+                      ) : (
+                        <button className="btn-cart" onClick={addProductToCart}>
+                          В корзину
+                        </button>
+                      )}
+
                       <select className="size-selector">
                         {/* <option>{product['ProductSizes.Size.sizeText']}</option>
               <option>{product['ProductSizes.Size.sizeText']}</option> */}

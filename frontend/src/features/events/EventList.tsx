@@ -10,7 +10,7 @@ function EventList(): JSX.Element {
   const { events } = useSelector((store: RootState) => store.eventState);
   const { user } = useSelector((store: RootState) => store.auth);
 
-  console.log('user', Object.values(user));
+ 
   return (
     <>
       <div>
