@@ -109,13 +109,14 @@ function Navbar(): JSX.Element {
                     </li> */}
                     {'id' in user && (
                       <>
-                        <li>
-                          <NavLink
-                            to="/cart"
-                            className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
-                          >
-                            Корзина{'  '}
-                            {addedProds.length > 0 && (
+                        {user.id !== 1 ? (
+                          <li>
+                            <NavLink
+                              to="/cart"
+                              className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
+                            >
+                              Корзина
+                              {addedProds.length > 0 && (
                               <div
                                 style={{
                                   width: '20px',
@@ -130,8 +131,11 @@ function Navbar(): JSX.Element {
                                 {addedProds.length}
                               </div>
                             )}
-                          </NavLink>
-                        </li>
+                            </NavLink>
+                          </li>
+                        ) : (
+                          <></>
+                        )}
                         <li>
                           <NavLink
                             to="/"

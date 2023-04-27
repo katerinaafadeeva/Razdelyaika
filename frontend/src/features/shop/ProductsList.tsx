@@ -10,6 +10,7 @@ import { getSizes } from './productsSlice';
 function ProductsList(): JSX.Element {
   const dispatch = useAppDispatch();
   const { products } = useSelector((store: RootState) => store.productsState);
+  const { user } = useSelector((store: RootState) => store.auth);
   const [showModal, setShowModal] = useState(false);
 
   const showModalWindow = (): void => {
@@ -31,7 +32,7 @@ function ProductsList(): JSX.Element {
               <h1>Менча нет</h1>
             )}
           </div>
-          <FormAddProduct />
+          {Object.values(user).includes(1) && <FormAddProduct />}
         </div>
       </section>
       <Outlet />

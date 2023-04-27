@@ -1,4 +1,4 @@
-import { EcoPoint } from './map';
+import { EcoPoint } from './Map';
 
 export type State = {
   ecoPoints: EcoPoint[];

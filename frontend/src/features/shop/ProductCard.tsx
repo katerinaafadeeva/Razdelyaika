@@ -13,6 +13,8 @@ import { useSelector } from 'react-redux';
 
 function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
+  const { user } = useSelector((store: RootState) => store.auth);
+
 
   const [showModal, setShowModal] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);

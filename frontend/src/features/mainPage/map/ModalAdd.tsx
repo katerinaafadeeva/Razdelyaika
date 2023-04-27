@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AddEcoPoint from './AddEcoPoint';
-import './styles/Map.css';
+import './styles/map.css';
 
 function ModalAdd(): JSX.Element {
   const [status, setStatus] = useState(false);

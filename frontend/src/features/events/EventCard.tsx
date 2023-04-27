@@ -2,13 +2,16 @@ import React from 'react';
 import { Event } from './types/Event';
 import { Link } from 'react-router-dom';
 
-import { useAppDispatch } from '../../store';
+import { RootState, useAppDispatch } from '../../store';
 import { removeEvent } from './eventSlice';
 
 import './style/style.css';
+import { useSelector } from 'react-redux';
 
 function EventCard({ event }: { event: Event }): JSX.Element {
   const dispatch = useAppDispatch();
+  const { user } = useSelector((store: RootState) => store.auth);
+
   const onHandleClickDel = (): void => {
     dispatch(removeEvent(event.id));
   };
@@ -19,7 +22,7 @@ function EventCard({ event }: { event: Event }): JSX.Element {
         <div className="mb-8 overflow-hidden rounded min__h">
           <img src={`${event['eventPhotos.file']}`} alt="event_image" className="w-full min__h" />
         </div>
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <h3>
             <Link
               to={`/events/${event.id}`}
@@ -32,9 +35,13 @@ function EventCard({ event }: { event: Event }): JSX.Element {
             {event.eventDate}
           </span>
           {/* <p className="text-body-color text-base">{event.eventAddress}</p> */}
-          <button type="button" onClick={onHandleClickDel}>
-            DELETE
-          </button>
+          {Object.values(user).includes(1) ? (
+            <button type="button" onClick={onHandleClickDel}>
+              DELETE
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

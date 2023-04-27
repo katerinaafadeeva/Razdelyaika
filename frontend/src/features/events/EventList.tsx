@@ -8,7 +8,9 @@ import SwiperTest from '../swiper/SwiperTest';
 
 function EventList(): JSX.Element {
   const { events } = useSelector((store: RootState) => store.eventState);
+  const { user } = useSelector((store: RootState) => store.auth);
 
+ 
   return (
     <>
       <div>
@@ -41,7 +43,9 @@ function EventList(): JSX.Element {
         </section>
         <SwiperTest />
       </div>
-      <AddEvent />
+      {Object.values(user).includes(1) && <AddEvent />}
+      {/* {'id' in user === 1 && <AddEvent />} */}
+      {/* {user.id === 1 ? <AddEvent /> : <></>} */}
     </>
   );
 }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import '../modals/modalsStyle.css';
 import { Product } from './types/Products';
-import { useAppDispatch } from '../../store';
+import { RootState, useAppDispatch } from '../../store';
 import { addToCart } from '../shop/cart/CartSlice';
+import { useSelector } from 'react-redux';
 import SwiperInProdModal from './SwiperInProdModal';
 import { v4 as uuidv4 } from 'uuid';
 // import SolutionModal from './SolutionModal';
@@ -15,7 +16,6 @@ function ModalProductInfo({
   product: Product;
 }): JSX.Element {
   const dispatch = useAppDispatch();
-
   const addProductToCart = (): void => {
     const productId = product.id;
     if (productId) {
@@ -23,7 +23,8 @@ function ModalProductInfo({
     }
     showModalWindow();
   };
-
+  
+  const { user } = useSelector((store: RootState) => store.auth);
   const foo = product['ProductSizes.Size.sizeText'];
   console.log('sizes in modal', foo);
 
@@ -75,11 +76,22 @@ function ModalProductInfo({
                 </Link> */}
                   </div>
                   <div className="btns-group">
-                    <div>
-                      <button className="btn-cart" onClick={addProductToCart}>
-                        В корзину
+                    {Object.values(user).includes(1) ? (
+                      <button type="button" className="btn-del-product">
+                        Удалить запись
                       </button>
-                      {foo?.length ? (
+                    ) : (
+                      <></>
+                    )}
+
+                    <div>
+                      {Object.values(user).includes(1) ? (
+                        <></>
+                      ) : (
+                        <button className="btn-cart" onClick={addProductToCart}>
+                          В корзину
+                        </button>
+                        {foo?.length ? (
                         <select className="size-selector">
                           {foo.map((size: string) => (
                             <option key={uuidv4()}>{size}</option>
@@ -88,6 +100,8 @@ function ModalProductInfo({
                       ) : (
                         <></>
                       )}
+                      )}
+                      {/* (<div><p>пожалуйста,войдите в систему</p></div>) */}
                     </div>
                   </div>
                 </div>
