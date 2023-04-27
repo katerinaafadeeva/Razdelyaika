@@ -8,6 +8,7 @@ import CommentList from './comment/CommentList';
 function EventItemDiscription(): JSX.Element {
   const events = useSelector((store: RootState) => store.eventState.events);
   const { eventId } = useParams();
+  const { user } = useSelector((store: RootState) => store.auth);
 
   const [event] = events?.filter((el) => el.id === Number(eventId));
 
@@ -18,8 +19,6 @@ function EventItemDiscription(): JSX.Element {
           <div className="w-full px-4 lg:w-6/12">
             <div className="-mx-3 flex items-center sm:-mx-4">
               <div className="w-full px-3 sm:px-4 xl:w-1/2">
-
-
                 <div className="py-3 sm:py-4">
                   <img src={`${event['eventPhotos.file']}`}></img>
                   {/* <img
@@ -635,7 +634,8 @@ function EventItemDiscription(): JSX.Element {
           </div>
         </div>
       </div>
-      <EventEdit />
+      {Object.values(user).includes(1) ? <EventEdit /> : <></>}
+
       <CommentList eventId={Number(eventId)} />
     </section>
   );
