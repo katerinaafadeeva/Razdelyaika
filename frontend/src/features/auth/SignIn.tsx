@@ -102,7 +102,7 @@ function SignIn(): JSX.Element {
                     <input
                       type="password"
                       autoComplete="off"
-                      placeholder="Password"
+                      placeholder="Пароль"
                       className="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
                       onChange={(e) => setPassword(e.target.value)}
                       name="password"
@@ -138,6 +138,16 @@ function SignIn(): JSX.Element {
                     </h1>
                   )}
                 </div>
+                <p className="text-base text-[#adadad]">
+                  Мусор грустит, когда его не сортируют <br></br>
+                  <NavLink
+                    to="/signup"
+                    // href="javascript:void(0)"
+                    className="text-primary hover:underline"
+                  >
+                    Не расстравивай мусор и присоединяйся!
+                  </NavLink>
+                </p>
                 {/* <p className="mb-6 text-base text-[#adadad]">Connect With</p> */}
                 {/* <ul className="-mx-2 mb-12 flex justify-between">
                   <li className="w-full px-2">

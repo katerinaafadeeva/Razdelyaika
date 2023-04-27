@@ -35,15 +35,15 @@ const authSlice = createSlice({
       .addCase(registrationUser.fulfilled, (state, action) => {
         state.user = action.payload;
       })
-      .addCase(registrationUser.rejected, (state, action) => {
-        state.error = action.error.message;
-      })
+      // .addCase(registrationUser.rejected, (state, action) => {
+      //   state.error = action.error.message;
+      // })
       .addCase(verificationUser.fulfilled, (state, action) => {
         state.user = action.payload ?? {};
       })
-      .addCase(verificationUser.rejected, (state, action) => {
-        state.error = action.error.message;
-      })
+      // .addCase(verificationUser.rejected, (state, action) => {
+      //   state.error = action.error.message;
+      // })
       .addCase(logoutUser.fulfilled, (state, action) => {
         state.user = {};
       })

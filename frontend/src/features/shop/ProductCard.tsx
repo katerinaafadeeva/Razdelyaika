@@ -10,6 +10,7 @@ import ModalProductInfo from './ModalProductInfo';
 import ModalUpdateProduct from './ModalUpdateProduct';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector } from 'react-redux';
+import ProdDelSolutModal from '../modals/ProdDelSolutModal';
 
 function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -26,7 +27,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
 
   const showModalUpdate = async (): Promise<void> => {
     const productId = product.id;
-    // await dispatch(productId);
+    await dispatch(getProdImgs(productId));
     setShowUpdate((prev) => !prev);
   };
 
@@ -42,6 +43,11 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
     if (productId) {
       dispatch(addToCart(productId));
     }
+  };
+
+  const [solut, setSolut] = useState(false);
+  const showSolutModal = (): void => {
+    setSolut((prev) => !prev);
   };
 
   const foo = product['ProductSizes.Size.sizeText'];
@@ -67,7 +73,6 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
             </p>
           </div>
           <div className="btns-group">
-
             {Object.values(user).includes(1) ? (
               <>
                 <button
@@ -120,10 +125,15 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
           product={product}
         />
       )}
+      {solut && (
+        <ProdDelSolutModal
+          showSolutModal={showSolutModal}
+          handleRemoveProduct={handleRemoveProduct}
+        />
+      )}
       {showModal && (
         <ModalProductInfo showModalWindow={showModalWindow} product={product} />
       )}
-
     </>
   );
 }

@@ -7,10 +7,11 @@ import { RootState, useAppDispatch } from '../../../store';
 import { getComment } from '../eventSlice';
 
 function CommentList({ eventId }: { eventId: number }): JSX.Element {
+  const { user } = useSelector((store: RootState) => store.auth);
+
   const commentsIsBase = useSelector(
     (store: RootState) => store.eventState.eventComments
   );
-
   const comments = commentsIsBase.filter(
     (comment) => comment.eventId === eventId
   );
@@ -24,11 +25,32 @@ function CommentList({ eventId }: { eventId: number }): JSX.Element {
               className="card v-card v-sheet theme--light elevation-2"
               style={{ height: '280px' }}
             >
-              <span className="headline">Оставить коментарий</span>
-              <div className="sign-in-wrapper">
-                <FormAddComment />
-                <p className="error-message"></p>
-              </div>
+              {'id' in user ? (
+                <>
+                  <span className="headline">Оставить коментарий</span>
+                  <FormAddComment />
+                </>
+              ) : (
+                <div className="sign-in-wrapper">
+                  <p style={{ paddingLeft: '70px', fontSize: '20px' }}>
+                    Чтобы оставить комментарий -{' '}
+                    <a
+                      href="/signup"
+                      style={{ color: '#238349', fontWeight: '500' }}
+                    >
+                      зарегистрируйтесь
+                    </a>{' '}
+                    или{' '}
+                    <a
+                      href="/signin"
+                      style={{ color: '#238349', fontWeight: '500' }}
+                    >
+                      войдите
+                    </a>
+                  </p>
+                  <p className="error-message"></p>
+                </div>
+              )}
             </div>
             <div>
               {comments?.map((comment) => (

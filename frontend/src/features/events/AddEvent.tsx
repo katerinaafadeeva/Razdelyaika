@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../store';
 import { addEvent } from './eventSlice';
-import Uploader from '../uploader/Uploader';
+import EventUploader from '../uploader/EventUploader';
 
 function AddEvent(): JSX.Element {
   const dispatch = useAppDispatch();
   const [eventName, setEventName] = useState('');
   const [eventDescription, setEventDescription] = useState('');
+  const [eventLink, setEventLink] = useState('');
   const [eventAddress, setEventAddress] = useState('');
   const [eventDate, setEventDate] = useState('');
 
   const onHandleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const data = new FormData(e.target as HTMLFormElement);
+    console.log('data', data);
     // const newEvent = { eventName, eventDescription, eventAddress, eventDate };
     // dispatch(addEvent(newEvent));
     dispatch(addEvent(data));
@@ -31,6 +33,7 @@ function AddEvent(): JSX.Element {
             </label>
             <input
               type="text"
+              required
               name="eventName"
               placeholder="Название"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
@@ -45,7 +48,8 @@ function AddEvent(): JSX.Element {
             </label>
             <input
               type="text"
-              name="description"
+              required
+              name="eventDescription"
               placeholder="Опишите мероприятие"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               value={eventDescription}
@@ -55,11 +59,26 @@ function AddEvent(): JSX.Element {
               htmlFor=""
               className="mb-3 block text-base font-medium text-black"
             >
+              Дополнительные ссылки
+            </label>
+            <input
+              type="text"
+              name="detailsLink"
+              placeholder="Ссылка на сторонний ресурс"
+              className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
+              value={eventLink}
+              onChange={(e) => setEventLink(e.target.value)}
+            />
+            <label
+              htmlFor=""
+              className="mb-3 block text-base font-medium text-black"
+            >
               Адрес проведения
             </label>
             <input
               type="text"
-              name="address"
+              name="eventAddress"
+              required
               placeholder="Адрес"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               value={eventAddress}
@@ -74,12 +93,13 @@ function AddEvent(): JSX.Element {
             <input
               type="datetime-local"
               name="time"
+              required
               placeholder="Дата"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               value={eventDate}
               onChange={(e) => setEventDate(e.target.value)}
             />
-            <Uploader />
+            <EventUploader />
           </div>
         </div>
       </div>

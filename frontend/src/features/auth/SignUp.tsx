@@ -96,7 +96,7 @@ function SignUp(): JSX.Element {
                     <input
                       type="text"
                       autoComplete="off"
-                      placeholder="Name"
+                      placeholder="Имя пользователя"
                       className="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
                       name="userName"
                       onChange={(e) => setName(e.target.value)}
@@ -118,7 +118,7 @@ function SignUp(): JSX.Element {
                     <input
                       type="password"
                       autoComplete="off"
-                      placeholder="Password"
+                      placeholder="Пароль"
                       className="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
                       onChange={(e) => setPassword(e.target.value)}
                       name="password"
@@ -129,7 +129,7 @@ function SignUp(): JSX.Element {
                     <input
                       type="password"
                       autoComplete="off"
-                      placeholder="Repeat Password"
+                      placeholder="Повторите пароль"
                       className="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
                       onChange={(e) => setPassword2(e.target.value)}
                       name="password2"
@@ -142,7 +142,8 @@ function SignUp(): JSX.Element {
                       value="Sign In"
                       className="bordder-primary w-full cursor-pointer rounded-md border bg-primary py-3 px-5 text-base text-white transition hover:bg-opacity-90"
                     >
-                      Войти
+                      Присоединится
+
                     </button>
                   </div>
                   {error && (

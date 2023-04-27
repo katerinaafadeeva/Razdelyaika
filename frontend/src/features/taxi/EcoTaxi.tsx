@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import GeneralModal from '../modals/GeneralModal';
 import image from './images/taxipng.png';
 import './styles/taxi.css';
 import { NavLink } from 'react-router-dom';

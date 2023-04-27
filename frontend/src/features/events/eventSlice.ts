@@ -6,6 +6,7 @@ import { Comment, CommentId } from './comment/types/Comment';
 
 const initialState: State = {
   events: [],
+  imgs: {},
   eventComments: [],
   error: undefined,
 };
@@ -57,7 +58,16 @@ export const editEvent = createAsyncThunk(
 const eventsSlice = createSlice({
   name: 'events',
   initialState,
-  reducers: {},
+  reducers: {
+    addEventImg: (state, action) => {
+      state.imgs = action.payload;
+    },
+    delEventImg: (state, action) => {
+      state.imgs = Object.values(state.imgs).filter(
+        (img) => Number(img.lastModified) !== action.payload
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getEvent.fulfilled, (state, action) => {
@@ -116,5 +126,7 @@ const eventsSlice = createSlice({
       });
   },
 });
+
+export const { addEventImg, delEventImg } = eventsSlice.actions;
 
 export default eventsSlice.reducer;
