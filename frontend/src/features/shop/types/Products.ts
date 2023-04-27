@@ -1,5 +1,5 @@
 export type Product = {
-  id?: number;
+  id: number;
   productName: string;
   productDescript: string;
   productPrice: number;
@@ -8,6 +8,7 @@ export type Product = {
   ['ProductImgs.id']?: number;
   ['ProductImgs.productImgId']?: number;
   ['ProductImgs.productImg']?: string;
+  ['ProductSizes.Size.sizeText']?: string[];
 };
 
 export type prodImg = {};

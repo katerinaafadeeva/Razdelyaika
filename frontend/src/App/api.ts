@@ -1,4 +1,4 @@
-import { Imgs } from '../features/shop/types/Img';
+import { Imgs, ProdImgs } from '../features/shop/types/Img';
 import { Product, productId } from '../features/shop/types/Products';
 import {
   Event,
@@ -60,6 +60,9 @@ export const logout = async (): Promise<Message> => {
 
 export const getProducts = async (): Promise<Product[]> =>
   fetch('/api/shop').then((res) => res.json());
+
+export const getSizes = async (): Promise<string[]> =>
+  fetch('/api/sizes').then((res) => res.json());
 
 // Events
 export const getEvents = (): Promise<Event[]> =>
@@ -153,6 +156,9 @@ export const getParamEvent = async (): Promise<Event> =>
 export const getParamProducts = async (): Promise<Product> =>
   fetch('/api/shop/:id').then((res) => res.json());
 
+export const getProdImgs = async (productId: number): Promise<ProdImgs> =>
+  fetch(`/api/product/${productId}`).then((res) => res.json());
+
 // api add product :
 type RequestInit = {};
 export const addProduct = async (data: any): Promise<Product> => {
@@ -172,6 +178,7 @@ export async function removeProduct(productId: number): Promise<number> {
   });
   return res.json();
 }
+
 // api for updating the product:
 
 export const updatedProduct = async (updatedProduct: {

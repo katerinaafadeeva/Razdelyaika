@@ -1,19 +1,17 @@
 import React, { useRef, useState } from 'react';
-import SwiperCore, { Virtual, Navigation, Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-SwiperCore.use([Virtual, Navigation, Pagination]);
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
-import './styles/styles.css';
 import { RootState } from '../../store';
 import { useSelector } from 'react-redux';
 import EventCard from '../events/EventCard';
+import SwiperCore, { Virtual, Navigation, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import './styles/styles.css';
+SwiperCore.use([Virtual, Navigation, Pagination]);
+
 function SwiperTest(): JSX.Element {
-  const [swiperRef, setSwiperRef] = useState<any>(0);
+  // const [swiperRef, setSwiperRef] = useState<any>(0);
   //  const appendNumber = useRef(500);
   //  const prependNumber = useRef(1);
 
@@ -44,7 +42,7 @@ function SwiperTest(): JSX.Element {
   return (
     <>
       <Swiper
-        onSwiper={setSwiperRef}
+        // onSwiper={setSwiperRef}
         slidesPerView={3}
         // centeredSlides={true}
         spaceBetween={30}

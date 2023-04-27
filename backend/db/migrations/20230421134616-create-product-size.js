@@ -26,7 +26,6 @@ module.exports = {
         },
       },
       avaliability: {
-        allowNull: false,
         type: Sequelize.INTEGER,
       },
       createdAt: {

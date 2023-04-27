@@ -9,6 +9,7 @@ import { logoutUser, verificationUser } from '../auth/userSlice';
 function Navbar(): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
+  const { addedProds } = useSelector((store: RootState) => store.cartState);
 
   return (
     <>
@@ -129,7 +130,22 @@ function Navbar(): JSX.Element {
                             to="/cart"
                             className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
                           >
-                            Корзина
+                            Корзина{'  '}
+                            {addedProds.length > 0 && (
+                              <div
+                                style={{
+                                  width: '20px',
+                                  height: '20px',
+                                  borderRadius: '50%',
+                                  backgroundColor: 'white',
+                                  textAlign: 'center',
+                                  margin: 'auto',
+                                  color: '#2f9959',
+                                }}
+                              >
+                                {addedProds.length}
+                              </div>
+                            )}
                           </NavLink>
                         </li>
                         <li>
