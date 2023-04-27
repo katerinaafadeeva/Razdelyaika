@@ -8,7 +8,7 @@ import EcoPointIcon from './image/tree.png';
 import defaultTheme from './theme/Theme';
 import AddEcoPoint from './AddEcoPoint';
 import { removeEcoPoint } from './mapSlice';
-import './styles/Map.css';
+import './styles/map.css';
 import ModalAdd from './ModalAdd';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
