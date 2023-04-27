@@ -8,10 +8,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './styles/styles.css';
-
-import { RootState } from '../../store';
-import { useSelector } from 'react-redux';
-import EventCard from '../events/EventCard';
 SwiperCore.use([Virtual, Navigation, Pagination]);
 
 function SwiperTest(): JSX.Element {
@@ -27,10 +23,17 @@ function SwiperTest(): JSX.Element {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-        }}>
+        }}
+      >
         Прошедшие
       </span>
-      <Swiper onSwiper={setSwiperRef} slidesPerView={3} spaceBetween={30} navigation={true} virtual>
+      <Swiper
+        onSwiper={setSwiperRef}
+        slidesPerView={3}
+        spaceBetween={30}
+        navigation={true}
+        virtual
+      >
         {events.map((event, index) =>
           event.isActive === false ? (
             <SwiperSlide key={event.id} virtualIndex={index}>
