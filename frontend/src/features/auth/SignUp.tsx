@@ -95,6 +95,7 @@ function SignUp(): JSX.Element {
                   <div className="mb-6">
                     <input
                       type="text"
+                      autoComplete="off"
                       placeholder="Name"
                       className="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
                       name="userName"
@@ -105,6 +106,7 @@ function SignUp(): JSX.Element {
                   <div className="mb-6">
                     <input
                       type="text"
+                      autoComplete="off"
                       placeholder="Email"
                       className="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
                       name="email"
@@ -115,6 +117,7 @@ function SignUp(): JSX.Element {
                   <div className="mb-6">
                     <input
                       type="password"
+                      autoComplete="off"
                       placeholder="Password"
                       className="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
                       onChange={(e) => setPassword(e.target.value)}
@@ -125,6 +128,7 @@ function SignUp(): JSX.Element {
                   <div className="mb-6">
                     <input
                       type="password"
+                      autoComplete="off"
                       placeholder="Repeat Password"
                       className="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
                       onChange={(e) => setPassword2(e.target.value)}

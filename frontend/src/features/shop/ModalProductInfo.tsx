@@ -4,9 +4,11 @@ import { Product } from './types/Products';
 import { RootState, useAppDispatch } from '../../store';
 import { addToCart } from '../shop/cart/CartSlice';
 import { useSelector } from 'react-redux';
+import SwiperInProdModal from './SwiperInProdModal';
+import { v4 as uuidv4 } from 'uuid';
 // import SolutionModal from './SolutionModal';
 
-function GeneralModal({
+function ModalProductInfo({
   showModalWindow,
   product,
 }: {
@@ -19,34 +21,41 @@ function GeneralModal({
     if (productId) {
       dispatch(addToCart(productId));
     }
+    showModalWindow();
   };
+  
   const { user } = useSelector((store: RootState) => store.auth);
+  const foo = product['ProductSizes.Size.sizeText'];
+  console.log('sizes in modal', foo);
+
   return (
     <div className="modal generalModal">
       <div className="modal-dialog" tabIndex={-1}>
         <div className="modal-content">
           <div className="modal-header">
             <div className="headerCross">
-              <div></div>
               <button
                 type="button"
                 className="close"
                 data-dismiss="modal"
                 aria-label="Close"
                 onClick={showModalWindow}
-                style={{ fontSize: '1.8rem' }}
+                style={{
+                  fontSize: '1.8rem',
+                }}
               >
                 <span aria-hidden="true">&times;</span>
               </button>
-              <div className="w-full px-4 " onClick={showModalWindow}>
-                {' '}
+              <div className="w-full px-4 ">
+                {/* onClick={showModalWindow} */}{' '}
                 <div className="overflow-hidden rounded-lg bg-white">
                   {' '}
-                  <img
+                  <SwiperInProdModal />
+                  {/* <img
                     src={`${product['ProductImgs.productImg']}`}
                     alt="merch_img"
                     className="w-full"
-                  />
+                  /> */}
                   <div className="p-8 text-center sm:p-9 md:p-7 xl:p-9">
                     <h3>{product.productName}</h3>
                     <p className="text-body-color mb-7 text-base leading-relaxed">
@@ -82,75 +91,21 @@ function GeneralModal({
                         <button className="btn-cart" onClick={addProductToCart}>
                           В корзину
                         </button>
+                        {foo?.length ? (
+                        <select className="size-selector">
+                          {foo.map((size: string) => (
+                            <option key={uuidv4()}>{size}</option>
+                          ))}
+                        </select>
+                      ) : (
+                        <></>
                       )}
-
+                      )}
                       {/* (<div><p>пожалуйста,войдите в систему</p></div>) */}
-
-                      <select className="size-selector">
-                        {/* <option>{product['ProductSizes.Size.sizeText']}</option>
-              <option>{product['ProductSizes.Size.sizeText']}</option> */}
-                        {/* <option>L</option> */}
-                      </select>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* <div className="modal-header">
-            <div className="headerCross">
-              <h5 className="modal-title formHeader">
-                General Modal Window for any shit
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-                onClick={showModalWindow}
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <form action="/authentication/login" method="POST" id="formLog">
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label" />
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  placeholder="Email"
-                  // required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="password" className="form-label" />
-
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  name="password"
-                  placeholder="Password"
-                  // required
-                />
-              </div>
-              <div className="testing">
-                <h1>Lorem for procrutka testing</h1>
-                <h1>Lorem for procrutka testing</h1>
-                <h1>Lorem for procrutka testing</h1>
-                <h1>Lorem for procrutka testing</h1>
-                <h1>Lorem for procrutka testing</h1>
-                <h1>Lorem for procrutka testing</h1>
-                <h1>Lorem for procrutka testing</h1>
-                <h1>Lorem for procrutka testing</h1>
-                <h1>Lorem for procrutka testing</h1>
-                <h1>Lorem for procrutka testing</h1>
-                <h1>Lorem for procrutka testing</h1>
-                <h1>Lorem for procrutka testing</h1>
-                <h1>Lorem for procrutka testing</h1>
-              </div>
-            </form>
-          </div> */}
             </div>
           </div>
         </div>
@@ -159,4 +114,4 @@ function GeneralModal({
   );
 }
 
-export default GeneralModal;
+export default ModalProductInfo;

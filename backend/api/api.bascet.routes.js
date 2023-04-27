@@ -84,7 +84,7 @@ router.post('/cart', async (req, res) => {
     const addedProduct = await AddedProduct.create({
       productId,
       orderId: activeOrder.id,
-      count: 119,
+      count: 1,
     });
     if (addedProduct) {
       res.json(addedProduct);

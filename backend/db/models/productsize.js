@@ -25,7 +25,6 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       avaliability: {
-        allowNull: false,
         type: DataTypes.INTEGER,
       },
     },

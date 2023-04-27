@@ -11,6 +11,15 @@ function EventItemDiscription(): JSX.Element {
   const { user } = useSelector((store: RootState) => store.auth);
 
   const [event] = events?.filter((el) => el.id === Number(eventId));
+  //  const popUp = (): void => {
+  //    Store.addNotification({
+  //      title: 'Wonderful!',
+  //      message: () => <div>123</div>,
+  //      type: 'success',
+  //      container: 'top-right',
+  //      dismiss: { duration: 0 },
+  //    });
+  //  };
 
   return (
     <section className="overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
