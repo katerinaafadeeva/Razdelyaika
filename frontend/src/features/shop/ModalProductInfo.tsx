@@ -23,7 +23,7 @@ function ModalProductInfo({
     }
     showModalWindow();
   };
-  
+
   const { user } = useSelector((store: RootState) => store.auth);
   const foo = product['ProductSizes.Size.sizeText'];
   console.log('sizes in modal', foo);
@@ -76,30 +76,27 @@ function ModalProductInfo({
                 </Link> */}
                   </div>
                   <div className="btns-group">
-                    {Object.values(user).includes(1) ? (
-                      <button type="button" className="btn-del-product">
-                        Удалить запись
-                      </button>
-                    ) : (
-                      <></>
-                    )}
-
                     <div>
                       {Object.values(user).includes(1) ? (
                         <></>
                       ) : (
-                        <button className="btn-cart" onClick={addProductToCart}>
-                          В корзину
-                        </button>
-                        {foo?.length ? (
-                        <select className="size-selector">
-                          {foo.map((size: string) => (
-                            <option key={uuidv4()}>{size}</option>
-                          ))}
-                        </select>
-                      ) : (
-                        <></>
-                      )}
+                        <>
+                          <button
+                            className="btn-cart"
+                            onClick={addProductToCart}
+                          >
+                            В корзину
+                          </button>
+                          {foo?.length ? (
+                            <select className="size-selector">
+                              {foo.map((size: string) => (
+                                <option key={uuidv4()}>{size}</option>
+                              ))}
+                            </select>
+                          ) : (
+                            <></>
+                          )}
+                        </>
                       )}
                       {/* (<div><p>пожалуйста,войдите в систему</p></div>) */}
                     </div>
