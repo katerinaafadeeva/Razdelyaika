@@ -7,9 +7,13 @@ import { RootState, useAppDispatch } from '../../../store';
 import { getComment } from '../eventSlice';
 
 function CommentList({ eventId }: { eventId: number }): JSX.Element {
-  const commentsIsBase = useSelector((store: RootState) => store.eventState.eventComments);
+  const commentsIsBase = useSelector(
+    (store: RootState) => store.eventState.eventComments
+  );
 
-  const comments = commentsIsBase.filter((comment) => comment.eventId === eventId);
+  const comments = commentsIsBase.filter(
+    (comment) => comment.eventId === eventId
+  );
 
   return (
     <>
@@ -18,7 +22,8 @@ function CommentList({ eventId }: { eventId: number }): JSX.Element {
           <div className="comments">
             <div
               className="card v-card v-sheet theme--light elevation-2"
-              style={{ height: '280px' }}>
+              style={{ height: '280px' }}
+            >
               <span className="headline">Оставить коментарий</span>
               <div className="sign-in-wrapper">
                 <FormAddComment />
