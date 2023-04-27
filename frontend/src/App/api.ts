@@ -8,7 +8,7 @@ import {
 } from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
 import { Comment } from '../features/events/comment/types/Comment';
-import { EcoPoint } from '../features/mainPage/map/types/map';
+import { EcoPoint } from '../features/mainPage/map/types/Map';
 
 export const registration = async (obj: User): Promise<User | Message> => {
   const res = await fetch('/auth/signup', {

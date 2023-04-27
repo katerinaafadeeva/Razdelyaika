@@ -18,35 +18,39 @@ function EventItemDiscription(): JSX.Element {
           <div className="w-full px-4 lg:w-6/12">
             <div className="-mx-3 flex items-center sm:-mx-4">
               <div className="w-full px-3 sm:px-4 xl:w-1/2">
+
+
                 <div className="py-3 sm:py-4">
-                  <img
+                  <img src={`${event['eventPhotos.file']}`}></img>
+                  {/* <img
                     src="https://cdn.tailgrids.com/2.0/image/marketing/images/about/about-01/image-1.jpg"
                     alt=""
                     className="w-full rounded-2xl"
-                  />
+                  /> */}
                 </div>
                 <div className="py-3 sm:py-4">
-                  <img
+                  {/* <img
                     src="https://cdn.tailgrids.com/2.0/image/marketing/images/about/about-01/image-2.jpg"
                     alt=""
                     className="w-full rounded-2xl"
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="w-full px-3 sm:px-4 xl:w-1/2">
                 <div className="relative z-10 my-4">
-                  <img
+                  {/* <img
                     src="https://cdn.tailgrids.com/2.0/image/marketing/images/about/about-01/image-3.jpg"
                     alt=""
                     className="w-full rounded-2xl"
-                  />
+                  /> */}
                   <span className="absolute -right-7 -bottom-7 z-[-1]">
                     <svg
                       width="134"
                       height="106"
                       viewBox="0 0 134 106"
                       fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <circle
                         cx="1.66667"
                         cy="104"
@@ -618,9 +622,15 @@ function EventItemDiscription(): JSX.Element {
               <span className="text-primary mb-2 block text-lg font-semibold">
                 {event?.eventDate}
               </span>
-              <h2 className="text-dark mb-8 text-3xl font-bold sm:text-4xl">{event?.eventName}</h2>
-              <p className="text-body-color mb-8 text-base">{event?.eventDescription}</p>
-              <p className="text-body-color mb-12 text-base">{event?.eventAddress}</p>
+              <h2 className="text-dark mb-8 text-3xl font-bold sm:text-4xl">
+                {event?.eventName}
+              </h2>
+              <p className="text-body-color mb-8 text-base">
+                {event?.eventDescription}
+              </p>
+              <p className="text-body-color mb-12 text-base">
+                {event?.eventAddress}
+              </p>
             </div>
           </div>
         </div>

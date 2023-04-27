@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { State } from './types/State';
 import * as api from '../../../App/api';
-import { EcoPointId } from './types/map';
+import { EcoPointId } from './types/Map';
 
 const initialState: State = {
   ecoPoints: [],
