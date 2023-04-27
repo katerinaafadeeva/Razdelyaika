@@ -23,6 +23,7 @@ import Cart from '../features/shop/cart/Cart';
 import ErrorPage from '../features/Error/ErrorPage';
 import { getEcoPoint } from '../features/mainPage/map/mapSlice';
 import Footer from '../features/footer/Footer';
+import Error from '../features/Error/Error';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -71,7 +72,8 @@ function App(): JSX.Element {
           <Route path={`/events/:eventId`} element={<EventItemDiscription />} />
           <Route path="/containers" element={<ContainersList />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="*" element={<ErrorPage />} />
+          {/* <Route path="*" element={<ErrorPage />} /> */}
+          <Route path="*" element={<Error />} />
         </Route>
       </Routes>
       <Footer />

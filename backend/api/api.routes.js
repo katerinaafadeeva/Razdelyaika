@@ -297,8 +297,11 @@ router.post('/events', async (req, res) => {
 
 router.delete('/events/:eventId', async (req, res) => {
   const { eventId } = req.params;
+
   try {
-    const delEvent = await Event.destroy({ where: { id: Number(eventId) } });
+    const delEvent = await Event.destroy({
+      where: { id: Number(eventId), userId: req.session.userId },
+    });
     if (delEvent > 0) {
       res.json(eventId);
     } else {

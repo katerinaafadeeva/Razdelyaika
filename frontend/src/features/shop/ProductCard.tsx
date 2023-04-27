@@ -15,7 +15,6 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
 
-
   const [showModal, setShowModal] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
 
@@ -68,31 +67,63 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
             </p>
           </div>
           <div className="btns-group">
-            <div>
-              <button className="btn-cart" onClick={addProductToCart}>
-                В корзину
-              </button>
-              {foo?.length ? (
-                <select className="size-selector">
-                  {foo.map((size: string) => (
-                    <option key={uuidv4()}>{size}</option>
-                  ))}
-                </select>
-              ) : (
-                <></>
-              )}
-            </div>
-            <button onClick={showModalUpdate} type="button" className="btn-del-product">
-              Редактировать
-            </button>
-            <button onClick={handleRemoveProduct} type="button" className="btn-del-product">
-              Удалить запись
-            </button>
+
+            {Object.values(user).includes(1) ? (
+              <>
+                <button
+                  onClick={showModalUpdate}
+                  type="button"
+                  className="btn-del-product"
+                >
+                  Редактировать
+                </button>
+                <button
+                  onClick={handleRemoveProduct}
+                  type="button"
+                  className="btn-del-product"
+                >
+                  Удалить запись
+                </button>
+              </>
+            ) : (
+              <div>
+                {'id' in user && !Object.values(user).includes(1) ? (
+                  <>
+                    <button className="btn-cart" onClick={addProductToCart}>
+                      В корзину
+                    </button>
+                    {foo?.length ? (
+                      <select className="size-selector">
+                        {foo.map((size: string) => (
+                          <option key={uuidv4()}>{size}</option>
+                        ))}
+                      </select>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                ) : (
+                  <a href="/signin">
+                    <button className="btn-cart" onClick={addProductToCart}>
+                      купить продукт
+                    </button>
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
-      {showModal && <ModalProductInfo showModalWindow={showModalWindow} product={product} />}
-      {showUpdate && <ModalUpdateProduct showModalUpdate={showModalUpdate} product={product} />}
+      {showUpdate && (
+        <ModalUpdateProduct
+          showModalUpdate={showModalUpdate}
+          product={product}
+        />
+      )}
+      {showModal && (
+        <ModalProductInfo showModalWindow={showModalWindow} product={product} />
+      )}
+
     </>
   );
 }

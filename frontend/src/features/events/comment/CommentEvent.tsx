@@ -12,12 +12,16 @@ import { RootState, useAppDispatch } from '../../../store';
 function CommentEvent({ comment }: { comment: Comment }): JSX.Element {
   const [name, setName] = useState(comment['User.userName']);
   const userName = useSelector((state: RootState) => state.auth.user);
+  const { user } = useSelector((store: RootState) => store.auth);
 
   const date = comment.createdAt.replace(/[-]/gi, '.').slice(0, 10);
 
   useEffect(() => {
     setName(comment['User.userName']);
   }, [comment, name]);
+
+  console.log('user', user);
+  console.log('comment', comment);
 
   const dispatch = useAppDispatch();
   const onHandleClickDelete = (): void => {
@@ -44,15 +48,20 @@ function CommentEvent({ comment }: { comment: Comment }): JSX.Element {
               {comment['User.userName']}
             </span>
           }
-
           <span className="displayName caption">{date}</span>
-          <button
-            onClick={() => {
-              onHandleClickDelete();
-            }}
-            className="displayName caption">
-            Удалить
-          </button>
+          {Object.values(user)[0] === comment.userId ||
+          Object.values(user).includes(1) ? (
+            <button
+              onClick={() => {
+                onHandleClickDelete();
+              }}
+              className="displayName caption"
+            >
+              Удалить
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
 
         <div className="wrapper comment">

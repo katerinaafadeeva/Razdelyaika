@@ -157,12 +157,12 @@ function Navbar(): JSX.Element {
                   <NavLink
                     to="/signin"
                     className="text-dark hover:text-primary py-3 px-7 text-base font-medium navitem">
-                    Login
+                    Войти
                   </NavLink>
                   <NavLink
                     to="/signup"
                     className="bg-primary rounded-lg py-3 px-7 text-base font-medium text-white hover:bg-opacity-90 navitem">
-                    Sign Up
+                    Регистрация
                   </NavLink>
                 </div>
               )}
