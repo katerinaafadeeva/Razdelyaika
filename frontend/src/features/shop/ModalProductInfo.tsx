@@ -14,7 +14,6 @@ function GeneralModal({
   product: Product;
 }): JSX.Element {
   const dispatch = useAppDispatch();
-
   const addProductToCart = (): void => {
     const productId = product.id;
     if (productId) {
@@ -69,11 +68,7 @@ function GeneralModal({
                   </div>
                   <div className="btns-group">
                     {Object.values(user).includes(1) ? (
-                      <button
-                        // onClick={handleRemoveProduct}
-                        type="button"
-                        className="btn-del-product"
-                      >
+                      <button type="button" className="btn-del-product">
                         Удалить запись
                       </button>
                     ) : (
@@ -88,6 +83,8 @@ function GeneralModal({
                           В корзину
                         </button>
                       )}
+
+                      {/* (<div><p>пожалуйста,войдите в систему</p></div>) */}
 
                       <select className="size-selector">
                         {/* <option>{product['ProductSizes.Size.sizeText']}</option>

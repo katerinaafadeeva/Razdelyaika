@@ -11,6 +11,7 @@ import ModalProductInfo from './ModalProductInfo';
 function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
+  
 
   const [showModal, setShowModal] = useState(false);
 

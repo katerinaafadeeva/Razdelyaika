@@ -635,8 +635,15 @@ function EventItemDiscription(): JSX.Element {
         </div>
       </div>
       {Object.values(user).includes(1) ? <EventEdit /> : <></>}
-
-      <CommentList eventId={Number(eventId)} />
+      {'id' in user ? (
+        <CommentList eventId={Number(eventId)} />
+      ) : (
+        <p style={{ paddingLeft: '70px', fontSize: '20px' }}>
+          Чтобы оставить комментарий - <a href="/signup">зарегистрируйтесь</a>{' '}
+          или <a href="/signin">войдите</a>
+        </p>
+      )}
+      {/* <CommentList eventId={Number(eventId)} /> */}
     </section>
   );
 }
