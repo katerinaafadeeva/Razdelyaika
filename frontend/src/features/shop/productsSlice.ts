@@ -8,7 +8,8 @@ import { Product } from './types/Products';
 const initialState: State = {
   products: [],
   imgs: {},
-  
+  sizes: [],
+  prodImgs: [],
   error: undefined,
 };
 
@@ -16,9 +17,18 @@ export const getProducts = createAsyncThunk('shop/getProducts', () =>
   api.getProducts()
 );
 
+export const getSizes = createAsyncThunk('products/getSizes', () =>
+  api.getSizes()
+);
+
 export const getParamProducts = createAsyncThunk(
   'shop/getProduct/:id',
   () => api.getParamProducts
+);
+
+export const getProdImgs = createAsyncThunk(
+  'shop/getProdImgs/:id',
+  (productId: number) => api.getProdImgs(productId)
 );
 
 export const addProduct = createAsyncThunk('/shop/addProduct', (data: any) =>
@@ -59,7 +69,7 @@ const productsSlice = createSlice({
     },
     delProdImg: (state, action) => {
       state.imgs = Object.values(state.imgs).filter(
-        (img) => new Date(img.lastModifiedDate).getTime() !== action.payload
+        (img) => Number(img.lastModified) !== action.payload
       );
     },
     clearImgState: (state, action) => {
@@ -70,6 +80,15 @@ const productsSlice = createSlice({
     builder
       .addCase(getProducts.fulfilled, (state, action) => {
         state.products = action.payload;
+      })
+      .addCase(getSizes.fulfilled, (state, action) => {
+        state.sizes = action.payload;
+      })
+      .addCase(getProdImgs.fulfilled, (state, action) => {
+        state.prodImgs = action.payload;
+      })
+      .addCase(getProdImgs.rejected, (state, action) => {
+        state.error = action.error.message;
       })
       .addCase(addProduct.fulfilled, (state, action) => {
         state.products = [...state.products, action.payload];

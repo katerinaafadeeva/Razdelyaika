@@ -11,3 +11,5 @@ export type Img = {
 export type Imgs = {
   [key: number]: Img;
 };
+
+export type ProdImgs = string[];

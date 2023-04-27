@@ -7,13 +7,16 @@ function MainPage(): JSX.Element {
     <>
       <div className="full-screen">
         <div className="full-screen__body">
-          <p className="text__main_p">
-            <span className="text__main">Разделяй</span> мусор
-          </p>
-          <p className="text__main_p"> уже сегодня</p>
-          <a href="/containers">
-            <button className="cst__btn">Правила сортировки</button>
-          </a>
+          <div className="separatediv">
+            <p className="text__main_p">
+              <span className="text__main">Разделяй</span> мусор
+            </p>
+            <p className="text__main_p"> уже сегодня</p>
+            <a href="/containers">
+              <button className="cst__btn">Правила сортировки</button>
+            </a>
+          </div>
+
           <ImgGroup />
         </div>
       </div>

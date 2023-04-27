@@ -135,6 +135,8 @@ function MapCard(): JSX.Element {
     dispatch(removeEcoPoint(Number(pointId)));
   };
 
+  const { user } = useSelector((store: RootState) => store.auth);
+
   return isLoaded ? (
     <div className="map__card">
       <div className="chel_container marquee">
@@ -183,7 +185,7 @@ function MapCard(): JSX.Element {
         </GoogleMap>
       </div>
       <div className="modalic">
-        <ModalAdd />
+        {Object.values(user).includes(1) && <ModalAdd />}
       </div>
     </div>
   ) : (
