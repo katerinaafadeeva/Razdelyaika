@@ -10,11 +10,11 @@ import ModalProductInfo from './ModalProductInfo';
 import ModalUpdateProduct from './ModalUpdateProduct';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector } from 'react-redux';
+import ProdDelSolutModal from '../modals/ProdDelSolutModal';
 
 function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
-
 
   const [showModal, setShowModal] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
@@ -27,7 +27,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
 
   const showModalUpdate = async (): Promise<void> => {
     const productId = product.id;
-    // await dispatch(productId);
+    await dispatch(getProdImgs(productId));
     setShowUpdate((prev) => !prev);
   };
 
@@ -45,6 +45,11 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
     if (productId) {
       dispatch(addToCart(productId));
     }
+  };
+
+  const [solut, setSolut] = useState(false);
+  const showSolutModal = (): void => {
+    setSolut((prev) => !prev);
   };
 
   const foo = product['ProductSizes.Size.sizeText'];
@@ -95,7 +100,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
               Редактировать
             </button>
             <button
-              onClick={handleRemoveProduct}
+              onClick={showSolutModal}
               type="button"
               className="btn-del-product"
             >
@@ -111,6 +116,12 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
         <ModalUpdateProduct
           showModalUpdate={showModalUpdate}
           product={product}
+        />
+      )}
+      {solut && (
+        <ProdDelSolutModal
+          showSolutModal={showSolutModal}
+          handleRemoveProduct={handleRemoveProduct}
         />
       )}
     </>

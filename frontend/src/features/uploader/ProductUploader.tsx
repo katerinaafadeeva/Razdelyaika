@@ -5,9 +5,10 @@ import { addProdImg, delProdImg } from '../shop/productsSlice';
 import { RootState, useAppDispatch } from '../../store';
 import { Imgs } from '../shop/types/Img';
 
-function Uploader(): JSX.Element {
+function ProductUploader(): JSX.Element {
   const { imgs } = useSelector((store: RootState) => store.productsState);
   const dispatch = useAppDispatch();
+  const { prodImgs } = useSelector((store: RootState) => store.productsState);
 
   const addImgsToState = (e: React.ChangeEvent<HTMLInputElement>): void => {
     dispatch(addProdImg(e.target.files));
@@ -28,8 +29,11 @@ function Uploader(): JSX.Element {
               type="button"
               name={file.lastModified}
               onClick={delAddedImg}
+              style={{
+                fontSize: '1.8rem',
+              }}
             >
-              Удалить
+              &times;
             </button>
           </div>
         ))}
@@ -45,4 +49,4 @@ function Uploader(): JSX.Element {
   );
 }
 
-export default Uploader;
+export default ProductUploader;

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 // import { RootState } from '../../redux/store';
 // import { State } from './types/State';
@@ -83,9 +83,7 @@ function SignIn(): JSX.Element {
                 </div>
                 <div>
                   <div className="mb-6">
-                    <h1 className="mb-6 text-base text-[#adadad]">
-                      Autorization
-                    </h1>
+                    <h1 className="mb-6 text-base text-[#adadad]">Войти</h1>
                   </div>
                   <div className="mb-6">
                     <input
@@ -102,7 +100,7 @@ function SignIn(): JSX.Element {
                     <input
                       type="password"
                       autoComplete="off"
-                      placeholder="Password"
+                      placeholder="Пароль"
                       className="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
                       onChange={(e) => setPassword(e.target.value)}
                       name="password"
@@ -120,6 +118,16 @@ function SignIn(): JSX.Element {
                   </div>
                   {error && <h1 className="ErrorLogin2">{error}</h1>}
                 </div>
+                <p className="text-base text-[#adadad]">
+                  Мусор грустит, когда его не сортируют <br></br>
+                  <NavLink
+                    to="/signup"
+                    // href="javascript:void(0)"
+                    className="text-primary hover:underline"
+                  >
+                    Не расстравивай мусор и присоединяйся!
+                  </NavLink>
+                </p>
                 {/* <p className="mb-6 text-base text-[#adadad]">Connect With</p> */}
                 {/* <ul className="-mx-2 mb-12 flex justify-between">
                   <li className="w-full px-2">

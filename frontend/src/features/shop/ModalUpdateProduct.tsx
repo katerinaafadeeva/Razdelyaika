@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { useAppDispatch } from '../../store';
+import { RootState, useAppDispatch } from '../../store';
 
 import { useParams } from 'react-router-dom';
 import { updateProduct } from './productsSlice';
 import { Product } from './types/Products';
+import { useSelector } from 'react-redux';
+import ProductUploader from '../uploader/ProductUploader';
 
 const ModalUpdateProduct = ({
   showModalUpdate,
@@ -15,20 +17,25 @@ const ModalUpdateProduct = ({
   const dispatch = useAppDispatch();
 
   const { productId } = useParams();
-  const [updproductName, setUpdProductName] = useState('');
-  const [updproductPrice, setUpdProductPrice] = useState(0);
-  const [updproductDescript, setUpdproductDescript] = useState('');
+  const [updproductName, setUpdProductName] = useState(product.productName);
+  const [updproductPrice, setUpdProductPrice] = useState(
+    String(product.productPrice)
+  );
+  const [updproductDescript, setUpdproductDescript] = useState(
+    product.productDescript
+  );
+  const { sizes } = useSelector((store: RootState) => store.productsState);
 
   const handleUpdateProduct = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    dispatch(
-      updateProduct({
-        id: Number(productId),
-        productName: updproductName,
-        productPrice: updproductPrice,
-        productDescript: updproductDescript,
-      })
-    );
+    // dispatch(
+    //   updateProduct({
+    //     id: Number(productId),
+    //     productName: updproductName,
+    //     productPrice: updproductPrice,
+    //     productDescript: updproductDescript,
+    //   })
+    // );
   };
   return (
     <div className="modal generalModal">
@@ -70,7 +77,7 @@ const ModalUpdateProduct = ({
                           className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
                           value={updproductName}
                           required
-                          // onChange={(e) => setProductName(e.target.value)}
+                          onChange={(e) => setUpdProductName(e.target.value)}
                           name="name"
                         />
                         <label
@@ -85,7 +92,7 @@ const ModalUpdateProduct = ({
                           className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD] raz"
                           value={`${updproductPrice}`}
                           required
-                          // onChange={(e) => setProductPrice(e.target.value)}
+                          onChange={(e) => setUpdProductPrice(e.target.value)}
                           name="price"
                         />
                         <label
@@ -98,7 +105,9 @@ const ModalUpdateProduct = ({
                           placeholder="Описание"
                           className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
                           value={updproductDescript}
-                          // onChange={(e) => setproductDescript(e.target.value)}
+                          onChange={(e) =>
+                            setUpdproductDescript(e.target.value)
+                          }
                           name="description"
                         />
                         <label
@@ -107,23 +116,17 @@ const ModalUpdateProduct = ({
                         >
                           Доступные размеры
                         </label>
-                        {/* {sizes.map((size) => (
+                        {sizes.map((size) => (
                           <>
                             <label>{size}</label>
                             <input
                               type="checkbox"
                               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD] raz"
                               defaultValue={size}
-                              // checked={newproductSize.includes(size) ? }
-                              // onChange={(e) =>
-                              //   setProductSize((prev) =>
-                              //     prev.includes(size) ? prev : [...prev, size]
-                              //   )
-                              // }
                               name="sizes"
                             />
                           </>
-                        ))} */}
+                        ))}
                         {/* <input
                           style={{ display: 'none' }}
                           required
@@ -134,12 +137,12 @@ const ModalUpdateProduct = ({
                             .join()}
                           name="imgs"
                         /> */}
-                        {/* <Uploader /> */}
+                        <ProductUploader />
                         <button
                           type="submit"
                           className="bg-primary inline-flex items-center justify-center rounded-full py-4 px-5 text-center text-base font-normal text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
                         >
-                          Добавить
+                          Изменить
                         </button>
                       </form>
                     </div>
