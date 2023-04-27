@@ -146,10 +146,7 @@ router.post('/shop', async (req, res) => {
 
     if (sizes) {
       const sizesDB = await Promise.all(
-        sizes.map(
-          async (size) =>
-            await Size.findOne({ where: { sizeText: size }, raw: true })
-        )
+        sizes.map(async (size) => await Size.findOne({ where: { sizeText: size }, raw: true }))
       );
       console.log('sizesDB', sizesDB);
 
@@ -169,15 +166,11 @@ router.post('/shop', async (req, res) => {
 
     if (newProduct) {
       if (Array.isArray(req.files.file)) {
-        const imgsForDB = req.files.file.filter((file) =>
-          imgs.split(',').includes(file.name)
-        );
+        const imgsForDB = req.files.file.filter((file) => imgs.split(',').includes(file.name));
         const uploadPathes = imgsForDB.map((file) =>
           path.join(__dirname, '..', 'public', 'photos', `${file.name}`)
         );
-        const pathesForDB = imgsForDB.map((file) =>
-          path.join('photos', `${file.name}`)
-        );
+        const pathesForDB = imgsForDB.map((file) => path.join('photos', `${file.name}`));
         await Promise.all(
           pathesForDB.map(async (patheForDB) => {
             await ProductImg.create({
@@ -196,10 +189,7 @@ router.post('/shop', async (req, res) => {
         });
         const PWR = await Product.findAll({
           where: { id: newProduct.id },
-          include: [
-            { model: ProductImg },
-            { model: ProductSize, include: [{ model: Size }] },
-          ],
+          include: [{ model: ProductImg }, { model: ProductSize, include: [{ model: Size }] }],
           raw: true,
           order: [['id', 'ASC']],
         });
@@ -211,9 +201,9 @@ router.post('/shop', async (req, res) => {
           productDescript: PWR[0].productDescript,
           productPrice: PWR[0].productPrice,
           'ProductImgs.productImg': PWR[0]['ProductImgs.productImg'],
-          'ProductSizes.Size.sizeText': PWR.map(
-            (el) => el['ProductSizes.Size.sizeText']
-          ).filter((size, ind, arr) => arr.indexOf(size) === ind),
+          'ProductSizes.Size.sizeText': PWR.map((el) => el['ProductSizes.Size.sizeText']).filter(
+            (size, ind, arr) => arr.indexOf(size) === ind
+          ),
         };
         console.log(product);
         res.json(product);
@@ -221,13 +211,7 @@ router.post('/shop', async (req, res) => {
         // const imgForDB = req.files.file.filter((file) =>
         //   imgs.includes(file.name)
         // );
-        const uploadPath = path.join(
-          __dirname,
-          '..',
-          'public',
-          'photos',
-          `${req.files.file.name}`
-        );
+        const uploadPath = path.join(__dirname, '..', 'public', 'photos', `${req.files.file.name}`);
         const patheForDB = path.join('photos', `${req.files.file.name}`);
         await ProductImg.create({
           productImgId: newProduct.id,
@@ -241,10 +225,7 @@ router.post('/shop', async (req, res) => {
 
         const PWR = await Product.findAll({
           where: { id: newProduct.id },
-          include: [
-            { model: ProductImg },
-            { model: ProductSize, include: [{ model: Size }] },
-          ],
+          include: [{ model: ProductImg }, { model: ProductSize, include: [{ model: Size }] }],
           raw: true,
           order: [['id', 'ASC']],
         });
@@ -261,9 +242,9 @@ router.post('/shop', async (req, res) => {
           productDescript: PWR[0].productDescript,
           productPrice: PWR[0].productPrice,
           'ProductImgs.productImg': PWR[0]['ProductImgs.productImg'],
-          'ProductSizes.Size.sizeText': PWR.map(
-            (el) => el['ProductSizes.Size.sizeText']
-          ).filter((size, ind, arr) => arr.indexOf(size) === ind),
+          'ProductSizes.Size.sizeText': PWR.map((el) => el['ProductSizes.Size.sizeText']).filter(
+            (size, ind, arr) => arr.indexOf(size) === ind
+          ),
         };
         res.json(productToFront);
       }
@@ -334,8 +315,7 @@ router.delete('/events/:eventId', async (req, res) => {
 router.put('/events/:eventId', async (req, res) => {
   try {
     const { eventId } = req.params;
-    const { eventName, eventDescription, eventAddress, eventDate, isActive } =
-      req.body;
+    const { eventName, eventDescription, eventAddress, eventDate, isActive } = req.body;
 
     const eventEdit = await Event.findOne({ where: { id: eventId } });
     eventEdit.eventName = eventName;
@@ -438,8 +418,10 @@ router.delete('/ecoPoint/:pointId', async (req, res) => {
     const delEcoPoint = await EcoPoint.destroy({
       where: { id: Number(pointId) },
     });
+    console.log(delEcoPoint);
+
     if (delEcoPoint > 0) {
-      res.json(delEcoPoint);
+      res.json(pointId);
     } else {
       res.json('Failed res deleted');
     }

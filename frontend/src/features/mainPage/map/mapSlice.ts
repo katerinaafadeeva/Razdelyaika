@@ -40,7 +40,7 @@ const ecoPointSlice = createSlice({
         if (Number.isNaN(+action.payload)) {
           state.error = `${action.payload}`;
         }
-        state.ecoPoints = state.ecoPoints.filter((point) => point.id !== Number(action.payload));
+        state.ecoPoints = state.ecoPoints.filter((point) => point.id !== +action.payload);
       })
       .addCase(removeEcoPoint.rejected, (state, action) => {
         state.error = action.error.message;

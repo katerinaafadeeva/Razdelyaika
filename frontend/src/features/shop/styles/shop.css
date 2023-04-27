@@ -88,3 +88,10 @@
   transform: scale(1.05);
   transition: 0.7s;
 }
+
+.min__h {
+  min-height: 700px !important;
+}
+
+.min__w {
+}

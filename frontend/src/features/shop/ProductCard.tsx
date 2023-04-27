@@ -37,9 +37,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
     }
   };
 
-  const addProductToCart: React.MouseEventHandler<HTMLButtonElement> = (
-    event
-  ): void => {
+  const addProductToCart: React.MouseEventHandler<HTMLButtonElement> = (event): void => {
     const productId = product.id;
     if (productId) {
       dispatch(addToCart(productId));
@@ -50,13 +48,13 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
 
   return (
     <>
-      <div className="w-full px-4 md:w-1/2 xl:w-1/3">
-        <div className="mb-10 overflow-hidden rounded-lg bg-white">
+      <div className="w-full px-4 md:w-1/2 xl:w-1/3 ">
+        <div className="mb-10 overflow-hidden rounded-lg bg-white ">
           <button>
             <img
               src={`${product['ProductImgs.productImg']}`}
               alt="merch_img"
-              className="w-full"
+              className="w-full min__h"
               onClick={showModalWindow}
             />
           </button>
@@ -64,14 +62,12 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
             <button>
               <h3 onClick={showModalWindow}>{product.productName}</h3>
             </button>
-            <p
-              className="text-body-color mb-7 text-base leading-relaxed"
-              onClick={showModalWindow}
-            >
-              {product.productPrice}₽
+            <p className="text-body-color mb-7 text-base leading-relaxed" onClick={showModalWindow}>
+              {product.productPrice}
             </p>
           </div>
           <div className="btns-group">
+
             {Object.values(user).includes(1) ? (
               <>
                 <button
@@ -127,6 +123,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
       {showModal && (
         <ModalProductInfo showModalWindow={showModalWindow} product={product} />
       )}
+
     </>
   );
 }
