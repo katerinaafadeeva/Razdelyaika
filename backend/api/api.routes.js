@@ -169,15 +169,11 @@ router.post('/shop', async (req, res) => {
 
     if (newProduct) {
       if (Array.isArray(req.files.file)) {
-        const imgsForDB = req.files.file.filter((file) =>
-          imgs.split(',').includes(file.name)
-        );
+        const imgsForDB = req.files.file.filter((file) => imgs.split(',').includes(file.name));
         const uploadPathes = imgsForDB.map((file) =>
           path.join(__dirname, '..', 'public', 'photos', `${file.name}`)
         );
-        const pathesForDB = imgsForDB.map((file) =>
-          path.join('photos', `${file.name}`)
-        );
+        const pathesForDB = imgsForDB.map((file) => path.join('photos', `${file.name}`));
         await Promise.all(
           pathesForDB.map(async (patheForDB) => {
             await ProductImg.create({
@@ -221,13 +217,7 @@ router.post('/shop', async (req, res) => {
         // const imgForDB = req.files.file.filter((file) =>
         //   imgs.includes(file.name)
         // );
-        const uploadPath = path.join(
-          __dirname,
-          '..',
-          'public',
-          'photos',
-          `${req.files.file.name}`
-        );
+        const uploadPath = path.join(__dirname, '..', 'public', 'photos', `${req.files.file.name}`);
         const patheForDB = path.join('photos', `${req.files.file.name}`);
         await ProductImg.create({
           productImgId: newProduct.id,
@@ -331,8 +321,7 @@ router.delete('/events/:eventId', async (req, res) => {
 router.put('/events/:eventId', async (req, res) => {
   try {
     const { eventId } = req.params;
-    const { eventName, eventDescription, eventAddress, eventDate, isActive } =
-      req.body;
+    const { eventName, eventDescription, eventAddress, eventDate, isActive } = req.body;
 
     const eventEdit = await Event.findOne({ where: { id: eventId } });
     eventEdit.eventName = eventName;
@@ -407,6 +396,36 @@ router.get('/ecoPoint', async (req, res) => {
     const ecoPoints = await EcoPoint.findAll({ raw: true });
     if (ecoPoints) {
       res.json(ecoPoints);
+    }
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
+router.post('/ecoPoint', async (req, res) => {
+  const { pointName, pointAddress } = req.body;
+  try {
+    const newEcoPoint = await EcoPoint.create({
+      pointName,
+      pointAddress,
+    });
+    if (newEcoPoint) {
+      res.json(newEcoPoint);
+    }
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+});
+
+router.delete('/ecoPoint/:pointId', async (req, res) => {
+  const { pointId } = req.params;
+  console.log(pointId);
+  try {
+    const delEcoPoint = await EcoPoint.destroy({ where: { id: Number(pointId) } });
+    if (delEcoPoint > 0) {
+      res.json(delEcoPoint);
+    } else {
+      res.json('Failed res deleted');
     }
   } catch (error) {
     res.json({ message: error.message });

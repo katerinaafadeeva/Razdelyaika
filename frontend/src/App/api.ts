@@ -8,7 +8,7 @@ import {
 } from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
 import { Comment } from '../features/events/comment/types/Comment';
-import { EcoPoint } from '../features/mainPage/map/types/Map';
+import { EcoPoint } from '../features/mainPage/map/types/map';
 
 export const registration = async (obj: User): Promise<User | Message> => {
   const res = await fetch('/auth/signup', {
@@ -149,6 +149,28 @@ export const removeComment = async (commentId: number): Promise<number> => {
 
 export const getEcoPoint = async (): Promise<EcoPoint[]> =>
   fetch('/api/ecoPoint').then((res) => res.json());
+
+export const addEcoPoint = async (newEcoPoint: {
+  pointName: string;
+  pointAddress: string;
+}): Promise<EcoPoint> => {
+  const res = await fetch('/api/ecoPoint', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newEcoPoint),
+  });
+  return res.json();
+};
+
+export const removeEcoPoint = async (poinId: number): Promise<number> => {
+  const res = await fetch(`/api/ecoPoint/${poinId}`, {
+    method: 'DELETE',
+  });
+  const date = await res.json();
+  return date;
+};
 
 export const getParamEvent = async (): Promise<Event> =>
   fetch('/api/events/:id').then((res) => res.json());

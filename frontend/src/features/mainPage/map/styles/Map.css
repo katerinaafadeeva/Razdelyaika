@@ -1,0 +1,62 @@
+.top_map {
+  flex-direction: column;
+  padding: 50px 15px;
+  text-transform: uppercase;
+  color: #309959;
+  margin-left: 28vw;
+}
+
+.chel_container {
+  background-color: #f4f680;
+  background-position: center center;
+  border-color: transparent;
+  border-style: solid;
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.chel_text {
+  color: #a5d3f4;
+  font-size: 60px;
+  font-family: 'Raleway', Arial, sans-serif;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background-position: center center;
+  border-color: transparent;
+  border-style: solid;
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 60px;
+}
+.marquee span {
+  display: inline-block;
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+.modalic {
+  z-index: 1000;
+}
+
+.btn_modalic {
+  position: absolute;
+  top: 44vh !important;
+  right: 3vw;
+}

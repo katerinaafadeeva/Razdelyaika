@@ -30,9 +30,10 @@ export type Point = {
   };
 };
 
-//type
 export type EcoPoint = {
   id: number;
   pointName: string;
   pointAddress: string;
 };
+
+export type EcoPointId = EcoPoint['id'];

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Comment } from './types/Comment';
 import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '../../../store';
-import { User } from '../../auth/types/types';
+
 import { removeComment } from '../eventSlice';
 
+import { ReactNotifications, Store } from 'react-notifications-component';
+
+import 'animate.css';
+import 'react-notifications-component/dist/theme.css';
+import { RootState, useAppDispatch } from '../../../store';
 function CommentEvent({ comment }: { comment: Comment }): JSX.Element {
   const [name, setName] = useState(comment['User.userName']);
   const userName = useSelector((state: RootState) => state.auth.user);
@@ -42,7 +46,11 @@ function CommentEvent({ comment }: { comment: Comment }): JSX.Element {
           }
 
           <span className="displayName caption">{date}</span>
-          <button onClick={onHandleClickDelete} className="displayName caption">
+          <button
+            onClick={() => {
+              onHandleClickDelete();
+            }}
+            className="displayName caption">
             Удалить
           </button>
         </div>
@@ -53,7 +61,6 @@ function CommentEvent({ comment }: { comment: Comment }): JSX.Element {
         <div className="actions"></div>
         <div className="v-dialog__container" style={{ display: 'block' }}></div>
       </div>
-
       <div className="answers"></div>
     </div>
   );
