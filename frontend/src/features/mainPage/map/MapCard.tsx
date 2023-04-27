@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  InfoWindow,
+  Marker,
+  useJsApiLoader,
+} from '@react-google-maps/api';
 import Geocode from 'react-geocode';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../../store';
@@ -63,9 +68,9 @@ function MapCard(): JSX.Element {
   const [title, setTitle] = useState<string[]>([]);
 
   const [activeMarker, setActiveMarker] = useState(null);
-  const [myPlaces, setMyPlaces] = useState<{ pos: { lat: number; lng: number }; name: string }[]>(
-    []
-  );
+  const [myPlaces, setMyPlaces] = useState<
+    { pos: { lat: number; lng: number }; name: string }[]
+  >([]);
 
   const getAdressBase = (): void => {
     ecoPoint.ecoPoints.forEach((point) => {
@@ -96,7 +101,12 @@ function MapCard(): JSX.Element {
   }, [ecoPoint]);
 
   useEffect(() => {
-    setMyPlaces(lats.map((lat, idx) => ({ pos: { lat, lng: lngs[idx] }, name: name[idx] })));
+    setMyPlaces(
+      lats.map((lat, idx) => ({
+        pos: { lat, lng: lngs[idx] },
+        name: name[idx],
+      }))
+    );
   }, [lngs, lats]);
 
   useEffect(() => {
@@ -125,12 +135,14 @@ function MapCard(): JSX.Element {
     dispatch(removeEcoPoint(Number(pointId)));
   };
 
+  const { user } = useSelector((store: RootState) => store.auth);
+
   return isLoaded ? (
     <div className="map__card">
       <div className="chel_container marquee">
         <span className="chel_text">
-          • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК •
-          РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК
+          • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ
+          ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК
         </span>
       </div>
       <p className="text__main_p top_map">Наши Эко-Точки</p>
@@ -142,13 +154,15 @@ function MapCard(): JSX.Element {
           onLoad={onLoad}
           onUnmount={onUnmount}
           options={defaultOptions}
-          onClick={() => setActiveMarker(null)}>
+          onClick={() => setActiveMarker(null)}
+        >
           {myPlaces.map((place, idx) => (
             <Marker
               key={idx}
               position={place.pos}
               icon={EcoPointIcon}
-              onClick={() => handleActiveMarker(idx)}>
+              onClick={() => handleActiveMarker(idx)}
+            >
               {activeMarker === idx ? (
                 <InfoWindow onCloseClick={() => setActiveMarker(null)}>
                   <div>
@@ -157,7 +171,10 @@ function MapCard(): JSX.Element {
                       <b>Эко-точка</b>
                     </h1>
                     <p>По адресу: {name[idx]}</p>
-                    <button type="button" onClick={() => onHandleClickDelete(Number(idx))}>
+                    <button
+                      type="button"
+                      onClick={() => onHandleClickDelete(Number(idx))}
+                    >
                       Удалить
                     </button>
                   </div>
@@ -168,7 +185,7 @@ function MapCard(): JSX.Element {
         </GoogleMap>
       </div>
       <div className="modalic">
-        <ModalAdd />
+        {Object.values(user).includes(1) && <ModalAdd />}
       </div>
     </div>
   ) : (
