@@ -9,7 +9,7 @@
   padding: 50px 15px;
   text-transform: uppercase;
 }
-.text__main_p {
+.text__main_p1 {
   padding-bottom: 100px;
 }
 .text__main_taxi:first-child {
@@ -156,8 +156,8 @@
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system, system-ui, 'Segoe UI', Helvetica, Arial,
-    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  font-family: -apple-system, system-ui, 'Segoe UI', Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji';
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
@@ -170,7 +170,7 @@
   touch-action: manipulation;
   vertical-align: middle;
   white-space: nowrap;
- margin-top: 30px;
+  margin-top: 30px;
 }
 
 .calltaxi-btn:focus:not(:focus-visible):not(.focus-visible) {
