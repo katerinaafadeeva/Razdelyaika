@@ -16,13 +16,8 @@ function EventCard({ event }: { event: Event }): JSX.Element {
   return (
     <div className="w-full px-4 md:w-1/2 lg:w-1/3 forSlicer">
       <div className="mx-auto mb-10 max-w-[550px]">
-        <div className="mb-8 overflow-hidden rounded">
-          <img
-            src={`${event['eventPhotos.file']}`}
-            alt="event_image"
-            className="w-full"
-            style={{ maxWidth: '500px' }}
-          />
+        <div className="mb-8 overflow-hidden rounded min__h">
+          <img src={`${event['eventPhotos.file']}`} alt="event_image" className="w-full min__h" />
         </div>
         <div>
           <h3>
