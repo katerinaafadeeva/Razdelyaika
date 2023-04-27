@@ -115,10 +115,10 @@ function SignIn(): JSX.Element {
                       value="Sign In"
                       className="bordder-primary w-full cursor-pointer rounded-md border bg-primary py-3 px-5 text-base text-white transition hover:bg-opacity-90"
                     >
-                      Sign In
+                      Войти красиво
                     </button>
                   </div>
-                  <p className="text-base text-[#adadad]">
+                  {/* <p className="text-base text-[#adadad]">
                     Еще нет аккаунта?
                     <br></br>
                     <NavLink
@@ -128,7 +128,7 @@ function SignIn(): JSX.Element {
                     >
                       Зарегистрируйтесь
                     </NavLink>
-                  </p>
+                  </p> */}
                   {error && (
                     <h1
                       className="ErrorLogin2"
@@ -145,7 +145,7 @@ function SignIn(): JSX.Element {
                     // href="javascript:void(0)"
                     className="text-primary hover:underline"
                   >
-                    Не расстравивай мусор и присоединяйся!
+                    Не расстравивайте мусор и присоединяйтесь!
                   </NavLink>
                 </p>
                 {/* <p className="mb-6 text-base text-[#adadad]">Connect With</p> */}
