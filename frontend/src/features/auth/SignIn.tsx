@@ -83,7 +83,9 @@ function SignIn(): JSX.Element {
                 </div>
                 <div>
                   <div className="mb-6">
-                    <h1 className="mb-6 text-base text-[#adadad]">Войти</h1>
+                    <h1 className="mb-6 text-base text-[#adadad]">
+                      Aвторизация
+                    </h1>
                   </div>
                   <div className="mb-6">
                     <input
@@ -116,7 +118,25 @@ function SignIn(): JSX.Element {
                       Sign In
                     </button>
                   </div>
-                  {error && <h1 className="ErrorLogin2">{error}</h1>}
+                  <p className="text-base text-[#adadad]">
+                    Еще нет аккаунта?
+                    <br></br>
+                    <NavLink
+                      to="/signin"
+                      // href="javascript:void(0)"
+                      className="text-primary hover:underline"
+                    >
+                      Зарегистрируйтесь
+                    </NavLink>
+                  </p>
+                  {error && (
+                    <h1
+                      className="ErrorLogin2"
+                      style={{ backgroundColor: '#808000', color: 'black' }}
+                    >
+                      {error}
+                    </h1>
+                  )}
                 </div>
                 <p className="text-base text-[#adadad]">
                   Мусор грустит, когда его не сортируют <br></br>

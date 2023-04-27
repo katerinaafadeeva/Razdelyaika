@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import image from './images/taxipng.png';
 import './styles/taxi.css';
+import { NavLink } from 'react-router-dom';
 
 function EcoTaxi(): JSX.Element {
   const [showModal, setShowModal] = useState(false);
@@ -30,9 +31,12 @@ function EcoTaxi(): JSX.Element {
               и волонтеры сделают это за тебя!
             </p>
 
-            <a href="https://ecotaxi.wastezero.ru/" className="calltaxi-btn">
+            <NavLink
+              to="https://ecotaxi.wastezero.ru/"
+              className="calltaxi-btn"
+            >
               вызвать эко-такси
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>

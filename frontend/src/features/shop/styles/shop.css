@@ -23,6 +23,9 @@
   width: 50%;
 }
 
+.infoDivBuying {
+  font-size: 14px;
+}
 .btn-cart {
   background-color: white;
   color: black;
@@ -84,4 +87,11 @@
 .mb-10:hover {
   transform: scale(1.05);
   transition: 0.7s;
+}
+
+.min__h {
+  min-height: 700px !important;
+}
+
+.min__w {
 }

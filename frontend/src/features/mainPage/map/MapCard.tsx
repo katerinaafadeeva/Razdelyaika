@@ -1,11 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  GoogleMap,
-  InfoWindow,
-  Marker,
-  useJsApiLoader,
-} from '@react-google-maps/api';
+import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
 import Geocode from 'react-geocode';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../../store';
@@ -65,53 +60,43 @@ function MapCard(): JSX.Element {
   const [lats, setLats] = useState<number[]>([]);
   const [lngs, setLngs] = useState<number[]>([]);
   const [name, setName] = useState<string[]>([]);
-  const [title, setTitle] = useState<string[]>([]);
 
   const [activeMarker, setActiveMarker] = useState(null);
   const [myPlaces, setMyPlaces] = useState<
-    { pos: { lat: number; lng: number }; name: string }[]
+    { pos: { lat: number; lng: number }; name: string; id: number; title: string }[]
   >([]);
 
-  const getAdressBase = (): void => {
-    ecoPoint.ecoPoints.forEach((point) => {
-      setAdress((prev) => [...prev, point.pointAddress, point.pointName]);
-    });
-  };
+  const newAdresses = ecoPoint.ecoPoints.map((point) => point.pointAddress);
+  const newPlaces = lats.map((lat, idx) => ({
+    pos: { lat, lng: lngs[idx] },
+    name: name[idx],
+    id: ecoPoint.ecoPoints[idx]?.id,
+    title: ecoPoint.ecoPoints[idx]?.pointName,
+  }));
 
   const getCoordinates = async (adresses: string[]): Promise<void> => {
-    await adresses.forEach((element) => {
-      Geocode.fromAddress(element).then(
-        (response) => {
-          const { lat, lng } = response.results[0].geometry.location;
-          setLats((prev) => [...prev, lat]);
-          setLngs((prev) => [...prev, lng]);
-          setName((prev) => [...prev, element]);
-        },
-
-        (error) => {
-          console.error(error);
-        }
-      );
-    });
+    for (let i = 0; i < adresses.length; i += 1) {
+      const some = await Geocode.fromAddress(adresses[i]);
+      const { lat, lng } = some.results[0].geometry.location;
+      setLats((prev) => [...prev, lat]);
+      setLngs((prev) => [...prev, lng]);
+      setName((prev) => [...prev, adresses[i]]);
+    }
   };
 
   const rndId = uuidv4();
   useEffect(() => {
-    getAdressBase();
+    setAdress(newAdresses);
   }, [ecoPoint]);
 
   useEffect(() => {
-    setMyPlaces(
-      lats.map((lat, idx) => ({
-        pos: { lat, lng: lngs[idx] },
-        name: name[idx],
-      }))
-    );
+    setMyPlaces(newPlaces);
   }, [lngs, lats]);
 
   useEffect(() => {
     getCoordinates(adress);
-  }, [adress, title]);
+    // geoCode();
+  }, [adress, ecoPoint]);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -134,6 +119,7 @@ function MapCard(): JSX.Element {
   const onHandleClickDelete = (pointId: number): void => {
     dispatch(removeEcoPoint(Number(pointId)));
   };
+  console.log(myPlaces, newAdresses);
 
   const { user } = useSelector((store: RootState) => store.auth);
 
@@ -141,8 +127,8 @@ function MapCard(): JSX.Element {
     <div className="map__card">
       <div className="chel_container marquee">
         <span className="chel_text">
-          • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ
-          ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК
+          • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК •
+          РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК
         </span>
       </div>
       <p className="text__main_p top_map">Наши Эко-Точки</p>
@@ -154,27 +140,22 @@ function MapCard(): JSX.Element {
           onLoad={onLoad}
           onUnmount={onUnmount}
           options={defaultOptions}
-          onClick={() => setActiveMarker(null)}
-        >
-          {myPlaces.map((place, idx) => (
+          onClick={() => setActiveMarker(null)}>
+          {myPlaces?.map((place, idx) => (
             <Marker
-              key={idx}
+              key={place.id}
               position={place.pos}
               icon={EcoPointIcon}
-              onClick={() => handleActiveMarker(idx)}
-            >
+              onClick={() => handleActiveMarker(idx)}>
               {activeMarker === idx ? (
                 <InfoWindow onCloseClick={() => setActiveMarker(null)}>
                   <div>
                     {/*{title[idx]}*/}
                     <h1>
-                      <b>Эко-точка</b>
+                      <b>Эко-точка {place.title}</b>
                     </h1>
                     <p>По адресу: {name[idx]}</p>
-                    <button
-                      type="button"
-                      onClick={() => onHandleClickDelete(Number(idx))}
-                    >
+                    <button type="button" onClick={() => onHandleClickDelete(place.id)}>
                       Удалить
                     </button>
                   </div>
@@ -192,7 +173,5 @@ function MapCard(): JSX.Element {
     <></>
   );
 }
-
-//fff
 
 export default React.memo(MapCard);

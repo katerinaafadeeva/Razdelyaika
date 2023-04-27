@@ -12,7 +12,6 @@ function CommentList({ eventId }: { eventId: number }): JSX.Element {
   const commentsIsBase = useSelector(
     (store: RootState) => store.eventState.eventComments
   );
-
   const comments = commentsIsBase.filter(
     (comment) => comment.eventId === eventId
   );

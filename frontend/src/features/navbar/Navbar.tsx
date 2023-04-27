@@ -173,8 +173,7 @@ function Navbar(): JSX.Element {
                 <div className="justify-end pr-16 sm:flex lg:pr-0">
                   <NavLink
                     to="/signin"
-                    className="text-dark hover:text-primary py-3 px-7 text-base font-medium navitem"
-                  >
+                    className="text-dark hover:text-primary py-3 px-7 text-base font-medium navitem">
                     Войти
                   </NavLink>
                   <NavLink

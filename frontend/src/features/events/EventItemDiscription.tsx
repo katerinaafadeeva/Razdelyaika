@@ -654,7 +654,6 @@ function EventItemDiscription(): JSX.Element {
           </a>
         </p>
       )} */}
-      {/* <CommentList eventId={Number(eventId)} /> */}
     </section>
   );
 }

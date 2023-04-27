@@ -4,6 +4,10 @@
   text-transform: uppercase;
   color: #309959;
   margin-left: 28vw;
+  font-size: 64px;
+  margin-left: 5vw;
+  position: relative;
+  left: 22vw;
 }
 
 .chel_container {
@@ -57,6 +61,6 @@
 
 .btn_modalic {
   position: absolute;
-  top: 44vh !important;
+  top: 47vh !important;
   right: 3vw;
 }
