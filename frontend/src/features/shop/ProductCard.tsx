@@ -38,7 +38,9 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
     }
   };
 
-  const addProductToCart: React.MouseEventHandler<HTMLButtonElement> = (event): void => {
+  const addProductToCart: React.MouseEventHandler<HTMLButtonElement> = (
+    event
+  ): void => {
     const productId = product.id;
     if (productId) {
       dispatch(addToCart(productId));
@@ -68,7 +70,10 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
             <button>
               <h3 onClick={showModalWindow}>{product.productName}</h3>
             </button>
-            <p className="text-body-color mb-7 text-base leading-relaxed" onClick={showModalWindow}>
+            <p
+              className="text-body-color mb-7 text-base leading-relaxed"
+              onClick={showModalWindow}
+            >
               {product.productPrice}
             </p>
           </div>
@@ -83,7 +88,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
                   Редактировать
                 </button>
                 <button
-                  onClick={handleRemoveProduct}
+                  onClick={showSolutModal}
                   type="button"
                   className="btn-del-product"
                 >
