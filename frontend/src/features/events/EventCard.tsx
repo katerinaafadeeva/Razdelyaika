@@ -29,8 +29,7 @@ function EventCard({ event }: { event: Event }): JSX.Element {
             <Link
               to={`/events/${event.id}`}
               // onClick={}
-              className="text-dark hover:text-primary mb-4 inline-block text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
-            >
+              className="text-dark hover:text-primary mb-4 inline-block text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl">
               {event.eventName}
             </Link>
           </h3>
