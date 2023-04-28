@@ -21,7 +21,7 @@ function EventCard({ event }: { event: Event }): JSX.Element {
   const showSolutModal = (): void => {
     setSolut((prev) => !prev);
   };
-
+  const admin = 1;
   return (
     <>
       <div className="w-full px-4 md:w-1/2 lg:w-1/3 forSlicer">
@@ -47,13 +47,14 @@ function EventCard({ event }: { event: Event }): JSX.Element {
               {event.eventDate}
             </span>
             {/* <p className="text-body-color text-base">{event.eventAddress}</p> */}
-            {Object.values(user).includes(1) ? (
+            {'id' in user && Number(user?.id) === admin ? (
               <button type="button" onClick={showSolutModal}>
                 DELETE
               </button>
             ) : (
-              <></>
-            )}
+              <p></p>
+            )}{' '}
+            :
           </div>
         </div>
       </div>

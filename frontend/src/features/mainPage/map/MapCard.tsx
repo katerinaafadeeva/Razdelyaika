@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  InfoWindow,
+  Marker,
+  useJsApiLoader,
+} from '@react-google-maps/api';
 import Geocode from 'react-geocode';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../../store';
@@ -8,7 +13,7 @@ import EcoPointIcon from './image/tree.png';
 import defaultTheme from './theme/Theme';
 import AddEcoPoint from './AddEcoPoint';
 import { removeEcoPoint } from './mapSlice';
-import './styles/map.css';
+import './styles/Map.css';
 import ModalAdd from './ModalAdd';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -63,7 +68,12 @@ function MapCard(): JSX.Element {
 
   const [activeMarker, setActiveMarker] = useState(null);
   const [myPlaces, setMyPlaces] = useState<
-    { pos: { lat: number; lng: number }; name: string; id: number; title: string }[]
+    {
+      pos: { lat: number; lng: number };
+      name: string;
+      id: number;
+      title: string;
+    }[]
   >([]);
 
   const newAdresses = ecoPoint.ecoPoints.map((point) => point.pointAddress);
@@ -121,7 +131,7 @@ function MapCard(): JSX.Element {
   };
 
   const { user } = useSelector((store: RootState) => store.auth);
-
+  const admin = 1;
   return isLoaded ? (
     <div className="map__card">
       <div className="chel_container marquee">
@@ -139,13 +149,15 @@ function MapCard(): JSX.Element {
           onLoad={onLoad}
           onUnmount={onUnmount}
           options={defaultOptions}
-          onClick={() => setActiveMarker(null)}>
+          onClick={() => setActiveMarker(null)}
+        >
           {myPlaces?.map((place, idx) => (
             <Marker
               key={place.id}
               position={place.pos}
               icon={EcoPointIcon}
-              onClick={() => handleActiveMarker(idx)}>
+              onClick={() => handleActiveMarker(idx)}
+            >
               {activeMarker === idx ? (
                 <InfoWindow onCloseClick={() => setActiveMarker(null)}>
                   <div>
@@ -154,9 +166,16 @@ function MapCard(): JSX.Element {
                       <b>Эко-точка {place.title}</b>
                     </h1>
                     <p>По адресу: {name[idx]}</p>
-                    <button type="button" onClick={() => onHandleClickDelete(place.id)}>
-                      Удалить
-                    </button>
+                    {'id' in user && Number(user?.id) === admin ? (
+                      <button
+                        type="button"
+                        onClick={() => onHandleClickDelete(place.id)}
+                      >
+                        Удалить
+                      </button>
+                    ) : (
+                      <p></p>
+                    )}
                   </div>
                 </InfoWindow>
               ) : null}
