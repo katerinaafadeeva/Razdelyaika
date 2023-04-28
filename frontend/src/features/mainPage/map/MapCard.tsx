@@ -130,7 +130,7 @@ function MapCard(): JSX.Element {
           НАШИ ЭКО-ТОЧКИ • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК
         </span>
       </div>
-      <p className="text__main_p top_map">Наши Эко-Точки</p>
+      {/*<p className="text__main_p top_map">Наши Эко-Точки</p>*/}
       <div className="map__card__body" id="map">
         <GoogleMap
           mapContainerStyle={containerStyle}

@@ -35,3 +35,12 @@
 
 .min__w {
 }
+
+.addEventForm {
+  margin-left: 600px;
+}
+
+.addEventForm button {
+  margin-left: 70px;
+  margin-bottom: 20px;
+}
