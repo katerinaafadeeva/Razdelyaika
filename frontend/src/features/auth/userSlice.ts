@@ -10,14 +10,21 @@ const initialState: State = {
 
 export const registrationUser = createAsyncThunk(
   'auth/registration',
-  (action: User) => api.registration(action)
+  (action: User) => api.registration(action),
 );
 
 export const loginUser = createAsyncThunk('auth/signin', (action: User) =>
-  api.login(action)
+  api.login(action),
 );
-export const verificationUser = createAsyncThunk('auth/checkUser', () =>
-  api.session()
+export const verificationUser = createAsyncThunk('/auth/checkUser', () =>
+  api.session(),
+);
+export const verificationUser2 = createAsyncThunk(
+  'checkUser',
+  (action: User) => {
+    api.session2();
+  },
+
 );
 
 export const logoutUser = createAsyncThunk('auth/logout', () => api.logout());
@@ -39,11 +46,18 @@ const authSlice = createSlice({
       //   state.error = action.error.message;
       // })
       .addCase(verificationUser.fulfilled, (state, action) => {
+        console.log(action.payload, 'slice');
         state.user = action.payload ?? {};
       })
-      // .addCase(verificationUser.rejected, (state, action) => {
-      //   state.error = action.error.message;
+      .addCase(verificationUser2.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      // .addCase(verificationUser2.fulfilled, (state, action) => {
+      //   state.user = action.payload ?? {};
       // })
+      .addCase(verificationUser.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
       .addCase(logoutUser.fulfilled, (state, action) => {
         state.user = {};
       })

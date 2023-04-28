@@ -37,6 +37,8 @@ export const login = async (obj: User): Promise<User | Message> => {
   return res.json();
 };
 export const session = async (): Promise<User | Message> => {
+  console.log('session');
+
   const res = await fetch('/auth/checkUser', {
     credentials: 'include',
   });
@@ -44,6 +46,22 @@ export const session = async (): Promise<User | Message> => {
     const { message } = await res.json();
     throw message;
   }
+  const data = res.json();
+  console.log(data);
+
+  return data;
+};
+export const session2 = async (): Promise<User | Message> => {
+  const res = await fetch('http://localhost:4000', {
+    credentials: 'include',
+  });
+  if (!res.ok) {
+    const { message } = await res.json();
+    throw message;
+  }
+  const data = res.json();
+  console.log(data, 'llllllllloooooollllll');
+
   return res.json();
 };
 
@@ -69,7 +87,7 @@ export const getEvents = (): Promise<Event[]> =>
   fetch('/api/events').then((res) => res.json());
 
 export const addNewEvent = async (
-  data: any
+  data: any,
 ): // (newEvent: {
 //   eventName: string;
 //   eventDescription: string;
