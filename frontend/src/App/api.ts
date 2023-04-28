@@ -1,6 +1,11 @@
 import { Imgs, ProdImgs } from '../features/shop/types/Img';
 import { Product, productId } from '../features/shop/types/Products';
-import { Event, EventAdd, EventId, EventUpd } from '../features/events/types/Event';
+import {
+  Event,
+  EventAdd,
+  EventId,
+  EventUpd,
+} from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
 import { Comment } from '../features/events/comment/types/Comment';
 import { EcoPoint } from '../features/mainPage/map/types/Map';
@@ -60,7 +65,8 @@ export const getSizes = async (): Promise<string[]> =>
   fetch('/api/sizes').then((res) => res.json());
 
 // Events
-export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
+export const getEvents = (): Promise<Event[]> =>
+  fetch('/api/events').then((res) => res.json());
 
 export const addNewEvent = async (
   data: any
@@ -200,18 +206,19 @@ export async function removeProduct(productId: number): Promise<number> {
 
 // api for updating the product:
 
-export const updatedProduct = async (updatedProduct: {
-  id: productId;
-  productName: string;
-  productPrice: number;
-  productDescript: string;
+export const updatedProduct = async ({
+  data,
+  productId,
+}: {
+  data: any;
+  productId: number;
 }): Promise<Product> => {
-  const res = await fetch(`/api/shop/${updatedProduct.id}`, {
+  const res = await fetch(`/api/shop/${productId}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(updatedProduct),
+    // headers: {
+    //   'Content-Type': 'application/json',
+    // },
+    body: data,
   });
   return res.json();
 };

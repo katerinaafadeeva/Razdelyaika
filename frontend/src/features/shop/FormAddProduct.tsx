@@ -11,6 +11,8 @@ function FormAddProduct(): JSX.Element {
   const [newproductName, setProductName] = useState('');
   const [newproductPrice, setProductPrice] = useState('');
   const [newproductDescript, setproductDescript] = useState('');
+  const [newproductImgs, setproductImgs] = useState('');
+
   // const [newproductSize, setProductSize] = useState<string[]>([]);
   const { imgs } = useSelector((store: RootState) => store.productsState);
   const { sizes } = useSelector((store: RootState) => store.productsState);
@@ -28,7 +30,13 @@ function FormAddProduct(): JSX.Element {
     const data = new FormData(event.target as HTMLFormElement);
     // console.log('data', data);
     dispatch(addProduct(data));
-    
+    setProductName('');
+    setProductPrice('');
+    setproductDescript('');
+    setproductImgs('');
+
+    // setUpdEventDate('');
+    // setUpdEventLink('');
   };
 
   const changeCheck: React.ChangeEventHandler<HTMLInputElement> = (
@@ -113,6 +121,7 @@ function FormAddProduct(): JSX.Element {
             ))}
             <input
               style={{ display: 'none' }}
+              onChange={(e) => setproductImgs(e.target.value)}
               required
               type="text"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD] raz"

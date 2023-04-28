@@ -49,14 +49,20 @@ export const removeProduct = createAsyncThunk(
 
 // added update fn:
 
+// export const updateProduct = createAsyncThunk(
+//   '/shop/updateProduct',
+//   (updatedProduct: {
+//     id: number;
+//     productName: string;
+//     productPrice: number;
+//     productDescript: string;
+//   }) => api.updatedProduct(updatedProduct)
+// );
+
 export const updateProduct = createAsyncThunk(
   '/shop/updateProduct',
-  (updatedProduct: {
-    id: number;
-    productName: string;
-    productPrice: number;
-    productDescript: string;
-  }) => api.updatedProduct(updatedProduct)
+  ({ data, productId }: { data: any; productId: number }) =>
+    api.updatedProduct({ data, productId })
 );
 
 // slicers:
