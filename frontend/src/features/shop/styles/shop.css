@@ -110,3 +110,14 @@
 .cart_my_cart {
   min-height: 64vh;
 }
+
+.change_btn_admin {
+  margin: 20px 0px 0px 120px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 45px;
+  z-index: 100000;
+}
