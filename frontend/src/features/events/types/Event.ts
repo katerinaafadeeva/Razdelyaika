@@ -25,5 +25,6 @@ export type EventUpd = {
   eventDescription: string;
   eventAddress: string;
   eventDate: string;
+  detailsLink: string;
   isActive: boolean;
 };

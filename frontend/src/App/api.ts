@@ -194,18 +194,19 @@ export async function removeProduct(productId: number): Promise<number> {
 
 // api for updating the product:
 
-export const updatedProduct = async (updatedProduct: {
-  id: productId;
-  productName: string;
-  productPrice: number;
-  productDescript: string;
+export const updatedProduct = async ({
+  data,
+  productId,
+}: {
+  data: any;
+  productId: number;
 }): Promise<Product> => {
-  const res = await fetch(`/api/shop/${updatedProduct.id}`, {
+  const res = await fetch(`/api/shop/${productId}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(updatedProduct),
+    // headers: {
+    //   'Content-Type': 'application/json',
+    // },
+    body: data,
   });
   return res.json();
 };

@@ -31,6 +31,7 @@ function EventDelSolutionModal({
                             type="submit"
                             value="Sign In"
                             className="bordder-primary w-full cursor-pointer rounded-md border bg-primary py-3 px-5 text-base text-white transition hover:bg-opacity-90"
+                            onClick={onHandleClickDel}
                           >
                             Отсортировать и удалить
                           </button>

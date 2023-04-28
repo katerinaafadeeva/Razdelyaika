@@ -114,7 +114,10 @@ router.post('/shop', async (req, res) => {
 
     if (sizes) {
       const sizesDB = await Promise.all(
-        sizes.map(async (size) => await Size.findOne({ where: { sizeText: size }, raw: true }))
+        sizes.map(
+          async (size) =>
+            await Size.findOne({ where: { sizeText: size }, raw: true })
+        )
       );
 
       const sizesId = sizesDB.map((sizeId) => sizeId.id);
@@ -132,11 +135,15 @@ router.post('/shop', async (req, res) => {
 
     if (newProduct) {
       if (Array.isArray(req.files.file)) {
-        const imgsForDB = req.files.file.filter((file) => imgs.split(',').includes(file.name));
+        const imgsForDB = req.files.file.filter((file) =>
+          imgs.split(',').includes(file.name)
+        );
         const uploadPathes = imgsForDB.map((file) =>
           path.join(__dirname, '..', 'public', 'photos', `${file.name}`)
         );
-        const pathesForDB = imgsForDB.map((file) => path.join('photos', `${file.name}`));
+        const pathesForDB = imgsForDB.map((file) =>
+          path.join('photos', `${file.name}`)
+        );
         await Promise.all(
           pathesForDB.map(async (patheForDB) => {
             await ProductImg.create({
@@ -155,7 +162,10 @@ router.post('/shop', async (req, res) => {
         });
         const PWR = await Product.findAll({
           where: { id: newProduct.id },
-          include: [{ model: ProductImg }, { model: ProductSize, include: [{ model: Size }] }],
+          include: [
+            { model: ProductImg },
+            { model: ProductSize, include: [{ model: Size }] },
+          ],
           raw: true,
           order: [['id', 'ASC']],
         });
@@ -166,13 +176,22 @@ router.post('/shop', async (req, res) => {
           productDescript: PWR[0].productDescript,
           productPrice: PWR[0].productPrice,
           'ProductImgs.productImg': PWR[0]['ProductImgs.productImg'],
-          'ProductSizes.Size.sizeText': PWR.map((el) => el['ProductSizes.Size.sizeText']).filter(
-            (size, ind, arr) => arr.indexOf(size) === ind
-          ),
+          'ProductSizes.Size.sizeText': PWR.map(
+            (el) => el['ProductSizes.Size.sizeText']
+          ).filter((size, ind, arr) => arr.indexOf(size) === ind),
         };
         res.json(product);
       } else {
-        const uploadPath = path.join(__dirname, '..', 'public', 'photos', `${req.files.file.name}`);
+        // const imgForDB = req.files.file.filter((file) =>
+        //   imgs.includes(file.name)
+        // );
+        const uploadPath = path.join(
+          __dirname,
+          '..',
+          'public',
+          'photos',
+          `${req.files.file.name}`
+        );
         const patheForDB = path.join('photos', `${req.files.file.name}`);
         await ProductImg.create({
           productImgId: newProduct.id,
@@ -186,7 +205,10 @@ router.post('/shop', async (req, res) => {
 
         const PWR = await Product.findAll({
           where: { id: newProduct.id },
-          include: [{ model: ProductImg }, { model: ProductSize, include: [{ model: Size }] }],
+          include: [
+            { model: ProductImg },
+            { model: ProductSize, include: [{ model: Size }] },
+          ],
           raw: true,
           order: [['id', 'ASC']],
         });
@@ -197,9 +219,9 @@ router.post('/shop', async (req, res) => {
           productDescript: PWR[0].productDescript,
           productPrice: PWR[0].productPrice,
           'ProductImgs.productImg': PWR[0]['ProductImgs.productImg'],
-          'ProductSizes.Size.sizeText': PWR.map((el) => el['ProductSizes.Size.sizeText']).filter(
-            (size, ind, arr) => arr.indexOf(size) === ind
-          ),
+          'ProductSizes.Size.sizeText': PWR.map(
+            (el) => el['ProductSizes.Size.sizeText']
+          ).filter((size, ind, arr) => arr.indexOf(size) === ind),
         };
         res.json(productToFront);
       }
@@ -270,11 +292,12 @@ router.post('/events', async (req, res) => {
 
 router.delete('/events/:eventId', async (req, res) => {
   const { eventId } = req.params;
-
+  console.log(eventId);
   try {
     const delEvent = await Event.destroy({
-      where: { id: Number(eventId), userId: req.session.userId },
+      where: { id: Number(eventId) },
     });
+    console.log('delEvent', delEvent);
     if (delEvent > 0) {
       res.json(eventId);
     } else {
@@ -288,7 +311,8 @@ router.delete('/events/:eventId', async (req, res) => {
 router.put('/events/:eventId', async (req, res) => {
   try {
     const { eventId } = req.params;
-    const { eventName, eventDescription, eventAddress, eventDate, isActive } = req.body;
+    const { eventName, eventDescription, eventAddress, eventDate, isActive } =
+      req.body;
 
     const eventEdit = await Event.findOne({ where: { id: eventId } });
     eventEdit.eventName = eventName;
@@ -406,11 +430,173 @@ router.delete('/ecoPoint/:pointId', async (req, res) => {
 router.put('/shop/:productId', async (req, res) => {
   try {
     const { productId } = req.params;
-    const { productName, productDescript, productPrice } = req.body;
-    const product = await Product.findOne({ where: { id: productId } });
-    product.productName = productName;
-    product.productDescript = productDescript;
-    product.productPrice = productPrice;
+
+    console.log('body', req.body);
+    console.log('files.file', req.files.file);
+    console.log('productId', productId);
+
+    const { name, price, description, sizes } = req.body;
+    const product = await Product.findOne({
+      where: { id: productId },
+      raw: true,
+    });
+
+    if (sizes) {
+      const sizesDB = await Promise.all(
+        sizes.map(
+          async (size) =>
+            await Size.findOne({ where: { sizeText: size }, raw: true })
+        )
+      );
+      console.log('sizesDB', sizesDB);
+
+      const sizesId = sizesDB.map((sizeId) => sizeId.id);
+      // console.log('sizesId', sizesId);
+
+      await Promise.all(
+        sizesId.map(async (sizeId, ind) => {
+          await ProductSize.destroy({ where: { productSizeId: productId } });
+          await ProductSize.create({
+            productSizeId: productId,
+            sizeId: Number(sizeId),
+          });
+        })
+      );
+    }
+
+    if (req.files.file) {
+      if (Array.isArray(req.files.file)) {
+        const imgsForDB = req.files.file.map(
+          (file) =>
+            // imgs.split(',').includes(file.name)
+            file.name
+        );
+
+        console.log('imgsForDB', imgsForDB);
+
+        const uploadPathes = imgsForDB.map((file) =>
+          path.join(__dirname, '..', 'public', 'photos', `${file}`)
+        );
+        const pathesForDB = imgsForDB.map((file) =>
+          path.join('photos', `${file}`)
+        );
+
+        await ProductImg.destroy({
+          where: { productImgId: productId },
+        });
+
+        await Promise.all(
+          pathesForDB.map(async (patheForDB) => {
+            await ProductImg.create({
+              productImgId: productId,
+              productImg: patheForDB,
+            });
+          })
+        );
+
+        // Use the mv() method to place the file somewhere on your server
+        uploadPathes.forEach(async (uploadPath, index) => {
+          await imgsForDB[index].mv(uploadPath, (err) => {
+            if (err) {
+              return res.status(500).send(err);
+            }
+          });
+        });
+        const PWR = await Product.findAll({
+          where: { id: productId },
+          include: [
+            { model: ProductImg },
+            { model: ProductSize, include: [{ model: Size }] },
+          ],
+          raw: true,
+          order: [['id', 'ASC']],
+        });
+        console.log('PWR', PWR);
+
+        product.productName = name;
+        product.productDescript = description;
+        product.productPrice = price;
+        product.save();
+
+        const productToFront = {
+          id: productId,
+          productName: PWR[0].productName,
+          productDescript: PWR[0].productDescript,
+          productPrice: PWR[0].productPrice,
+          'ProductImgs.productImg': PWR[0]['ProductImgs.productImg'],
+          'ProductSizes.Size.sizeText': PWR.map(
+            (el) => el['ProductSizes.Size.sizeText']
+          ).filter((size, ind, arr) => arr.indexOf(size) === ind),
+        };
+        await Product.destroy({ where: { id: productId } });
+        res.json(productToFront);
+      } else {
+        // const imgForDB = req.files.file.filter((file) =>
+        //   imgs.includes(file.name)
+        // );
+        const uploadPath = path.join(
+          __dirname,
+          '..',
+          'public',
+          'photos',
+          `${req.files.file.name}`
+        );
+        const patheForDB = path.join('photos', `${req.files.file.name}`);
+
+        await ProductImg.destroy({
+          where: { productImgId: productId },
+        });
+
+        await ProductImg.create({
+          productImgId: productId,
+          productImg: patheForDB,
+        });
+        await req.files.file.mv(uploadPath, (err) => {
+          if (err) {
+            return res.status(500).send(err);
+          }
+        });
+
+        const PWR = await Product.findAll({
+          where: { id: productId },
+          include: [
+            { model: ProductImg },
+            { model: ProductSize, include: [{ model: Size }] },
+          ],
+          raw: true,
+          order: [['id', 'ASC']],
+        });
+
+        console.log('PWR', PWR);
+        // const product = await Product.findOne({
+        //   where: { id: newProduct.id },
+        //   raw: true,
+        //   include: [{ model: ProductImg, attributes: ['productImg'] }],
+        // });
+
+        product.productName = name;
+        product.productDescript = description;
+        product.productPrice = price;
+        product.save();
+
+        const productToFront = {
+          id: productId,
+          productName: product.productName,
+          productDescript: product.productDescript,
+          productPrice: product.productPrice,
+          'ProductImgs.productImg': PWR[0]['ProductImgs.productImg'],
+          'ProductSizes.Size.sizeText': PWR.map(
+            (el) => el['ProductSizes.Size.sizeText']
+          ).filter((size, ind, arr) => arr.indexOf(size) === ind),
+        };
+        res.json(productToFront);
+      }
+    }
+
+    // console.log('product', product);
+    product.productName = name;
+    product.productDescript = description;
+    product.productPrice = price;
     product.save();
 
     res.json(product);

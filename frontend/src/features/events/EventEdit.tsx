@@ -4,20 +4,28 @@ import { editEvent } from './eventSlice';
 import { useParams } from 'react-router-dom';
 import { EventUpd } from './types/Event';
 import { useSelector } from 'react-redux';
+import { Event } from './types/Event';
 
 function EventEdit(): JSX.Element {
   const dispatch = useAppDispatch();
+  const events = useSelector((store: RootState) => store.eventState.events);
+
   const { eventId } = useParams();
   const { user } = useSelector((store: RootState) => store.auth);
+  const [event] = events?.filter((el) => el.id === Number(eventId));
 
-  const [eventName, setEventName] = useState('');
-  const [eventDescription, setEventDescription] = useState('');
-  const [eventAddress, setEventAddress] = useState('');
-  const [eventDate, setEventDate] = useState('');
-  const [isActive, setIsActive] = useState(true);
+  console.log('event', event);
+  console.log('eventId', eventId);
+
+  const [updeventName, setUpdEventName] = useState(event?.eventName);
+  const [updeventDescr, setUpdEventDescr] = useState(event?.eventDescription);
+  const [updeventAddress, setUpdEventAddress] = useState(event?.eventAddress);
+  const [updeventLink, setUpdEventLink] = useState(event?.eventLink);
+  const [updeventDate, setUpdEventDate] = useState(event?.eventDate);
+  const [isActiveUpd, setIsActiveUpd] = useState(true);
 
   const onHandleClickStatus = (): void => {
-    setIsActive((prev) => !prev);
+    setIsActiveUpd((prev) => !prev);
   };
 
   const onSubmitCheck = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -26,23 +34,23 @@ function EventEdit(): JSX.Element {
     dispatch(
       editEvent({
         id: Number(eventId),
-        eventName: eventName,
-        eventDescription: eventDescription,
-        eventAddress: eventAddress,
-        eventDate: eventDate,
-        isActive: isActive,
+        eventName: updeventName,
+        eventDescription: updeventDescr,
+        eventAddress: updeventAddress,
+        eventDate: updeventDate,
+        detailsLink: updeventLink,
+        isActive: isActiveUpd,
       })
     );
-    setEventName('');
-    setEventDescription('');
-    setEventAddress('');
-    setEventDate('');
-    setIsActive(true);
+    setUpdEventName('');
+    setUpdEventDescr('');
+    setUpdEventAddress('');
+    setUpdEventDate('');
+    setUpdEventLink('');
+    setIsActiveUpd(true);
   };
 
-
   return (
-
     <form onSubmit={onSubmitCheck}>
       <div className="-mx-4 flex flex-wrap">
         <div className="w-full px-4 md:w-1/2 lg:w-1/3">
@@ -57,8 +65,8 @@ function EventEdit(): JSX.Element {
               type="text"
               placeholder="Название"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
-              value={eventName}
-              onChange={(e) => setEventName(e.target.value)}
+              value={updeventName}
+              onChange={(e) => setUpdEventName(e.target.value)}
             />
             <label
               htmlFor=""
@@ -70,8 +78,22 @@ function EventEdit(): JSX.Element {
               type="text"
               placeholder="Опишите мероприятие"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
-              value={eventDescription}
-              onChange={(e) => setEventDescription(e.target.value)}
+              value={updeventDescr}
+              onChange={(e) => setUpdEventDescr(e.target.value)}
+            />
+            <label
+              htmlFor=""
+              className="mb-3 block text-base font-medium text-black"
+            >
+              Дополнительные ссылки
+            </label>
+            <input
+              type="text"
+              name="detailsLink"
+              // placeholder="Ссылка на сторонний ресурс"
+              className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
+              value={updeventLink}
+              onChange={(e) => setUpdEventLink(e.target.value)}
             />
             <label
               htmlFor=""
@@ -83,8 +105,8 @@ function EventEdit(): JSX.Element {
               type="text"
               placeholder="Адрес"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
-              value={eventAddress}
-              onChange={(e) => setEventAddress(e.target.value)}
+              value={updeventAddress}
+              onChange={(e) => setUpdEventAddress(e.target.value)}
             />
             <label
               htmlFor=""
@@ -96,8 +118,8 @@ function EventEdit(): JSX.Element {
               type="date"
               placeholder="Дата"
               className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
-              value={eventDate}
-              onChange={(e) => setEventDate(String(e.target.value))}
+              value={updeventDate}
+              onChange={(e) => setUpdEventDate(String(e.target.value))}
             />
             <label
               htmlFor="checkboxLabelTwo"

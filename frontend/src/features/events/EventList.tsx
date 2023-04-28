@@ -29,7 +29,7 @@ function EventList(): JSX.Element {
                   <span
                     className="text-primary mb-2 block text-lg font-semibold"
                     style={{ marginTop: '5vh' }}>
-                    сейчас
+                    В ближайшем будущем
                   </span>
                 </div>
               </div>

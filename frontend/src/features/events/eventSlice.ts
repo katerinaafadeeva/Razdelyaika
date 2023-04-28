@@ -50,6 +50,7 @@ export const editEvent = createAsyncThunk(
     eventName: string;
     eventDescription: string;
     eventAddress: string;
+    detailsLink: string;
     eventDate: string;
     isActive: boolean;
   }) => api.updateEvent(updateEvent)
