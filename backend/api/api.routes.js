@@ -1,7 +1,5 @@
 const router = require('express').Router();
 
-// const { log } = require('console');
-// const { log } = require('console');
 const {
   Product,
   Event,
@@ -272,23 +270,51 @@ router.delete('/shop/:productId', async (req, res) => {
 router.post('/events', async (req, res) => {
   // const { eventName, eventDescription, eventAddress, eventDate } = req.body;
   try {
-    const { eventName, description, address, time } = req.body;
+    const { eventName, eventDescription, eventAddress, time, detailsLink } =
+      req.body;
+
+    console.log(req.body);
+
     const event = await Event.create({
       eventName,
-      eventDescription: description,
-      eventAddress: address,
+      eventDescription,
+      detailsLink,
+      eventAddress,
       eventDate: time.replace('T', ' '),
       isActive: true,
     });
+
+    console.log('event', event);
+
+    const uploadPath = path.join(
+      __dirname,
+      '..',
+      'public',
+      'photos',
+      `${req.files.file.name}`
+    );
+
+    console.log('uploadPath', uploadPath);
+
     await eventPhoto.create({
       eventId: event.id,
       file: path.join('photos', `${req.files.file.name}`),
     });
+
+    await req.files.file.mv(uploadPath, (err) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+    });
+
     const forSlider = await Event.findOne({
       where: { id: event.id },
       raw: true,
       include: [{ model: eventPhoto, attributes: ['file'] }],
     });
+
+    console.log('forSlider', forSlider);
+
     res.json(forSlider);
   } catch (error) {
     res.json({ message: error.message });
@@ -297,8 +323,11 @@ router.post('/events', async (req, res) => {
 
 router.delete('/events/:eventId', async (req, res) => {
   const { eventId } = req.params;
+
   try {
-    const delEvent = await Event.destroy({ where: { id: Number(eventId) } });
+    const delEvent = await Event.destroy({
+      where: { id: Number(eventId), userId: req.session.userId },
+    });
     if (delEvent > 0) {
       res.json(eventId);
     } else {

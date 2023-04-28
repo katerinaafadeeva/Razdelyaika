@@ -13,6 +13,9 @@ import { useSelector } from 'react-redux';
 import Notification from '../notification/Notification';
 import { setType } from '../notification/notificationSlice';
 
+import ProdDelSolutModal from '../modals/ProdDelSolutModal';
+
+
 function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
@@ -28,7 +31,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
 
   const showModalUpdate = async (): Promise<void> => {
     const productId = product.id;
-    // await dispatch(productId);
+    await dispatch(getProdImgs(productId));
     setShowUpdate((prev) => !prev);
   };
 
@@ -39,11 +42,18 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
     }
   };
 
-  const addProductToCart: React.MouseEventHandler<HTMLButtonElement> = (event): void => {
+  const addProductToCart: React.MouseEventHandler<HTMLButtonElement> = (
+    event
+  ): void => {
     const productId = product.id;
     if (productId) {
       dispatch(addToCart(productId));
     }
+  };
+
+  const [solut, setSolut] = useState(false);
+  const showSolutModal = (): void => {
+    setSolut((prev) => !prev);
   };
 
   const foo = product['ProductSizes.Size.sizeText'];
@@ -69,45 +79,76 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
             <button>
               <h3 onClick={showModalWindow}>{product.productName}</h3>
             </button>
-            <p className="text-body-color mb-7 text-base leading-relaxed" onClick={showModalWindow}>
+            <p
+              className="text-body-color mb-7 text-base leading-relaxed"
+              onClick={showModalWindow}
+            >
               {product.productPrice}
             </p>
           </div>
-          <div className="btns-group">
-            <div>
-              <button className="button mr-2" onClick={() => btnClickHandler('success')}>
-                Add success notification
-              </button>
-              <button className="button mr-2" onClick={() => btnClickHandler('danger')}>
-                Add danger notification
-              </button>
-              <button className="button mr-2" onClick={() => btnClickHandler('warning')}>
-                Add warning notification
-              </button>
-              <button className="btn-cart" onClick={addProductToCart}>
-                В корзину
-              </button>
-              {foo?.length ? (
-                <select className="size-selector">
-                  {foo.map((size: string) => (
-                    <option key={uuidv4()}>{size}</option>
-                  ))}
-                </select>
-              ) : (
-                <></>
-              )}
-            </div>
-            <button onClick={showModalUpdate} type="button" className="btn-del-product">
-              Редактировать
-            </button>
-            <button onClick={handleRemoveProduct} type="button" className="btn-del-product">
-              Удалить запись
-            </button>
+
+            {Object.values(user).includes(1) ? (
+              <>
+                <button
+                  onClick={showModalUpdate}
+                  type="button"
+                  className="btn-del-product"
+                >
+                  Редактировать
+                </button>
+                <button
+                  onClick={showSolutModal}
+                  type="button"
+                  className="btn-del-product"
+                >
+                  Удалить запись
+                </button>
+              </>
+            ) : (
+              <div>
+                {'id' in user && !Object.values(user).includes(1) ? (
+                  <>
+                    <button className="btn-cart" onClick={addProductToCart}>
+                      В корзину
+                    </button>
+                    {foo?.length ? (
+                      <select className="size-selector">
+                        {foo.map((size: string) => (
+                          <option key={uuidv4()}>{size}</option>
+                        ))}
+                      </select>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                ) : (
+                  <a href="/signin">
+                    <button className="btn-cart" onClick={addProductToCart}>
+                      купить продукт
+                    </button>
+                  </a>
+                )}
+              </div>
+            )}
+
           </div>
         </div>
       </div>
-      {showModal && <ModalProductInfo showModalWindow={showModalWindow} product={product} />}
-      {showUpdate && <ModalUpdateProduct showModalUpdate={showModalUpdate} product={product} />}
+      {showUpdate && (
+        <ModalUpdateProduct
+          showModalUpdate={showModalUpdate}
+          product={product}
+        />
+      )}
+      {solut && (
+        <ProdDelSolutModal
+          showSolutModal={showSolutModal}
+          handleRemoveProduct={handleRemoveProduct}
+        />
+      )}
+      {showModal && (
+        <ModalProductInfo showModalWindow={showModalWindow} product={product} />
+      )}
     </>
   );
 }

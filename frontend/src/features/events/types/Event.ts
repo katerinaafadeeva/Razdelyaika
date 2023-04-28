@@ -4,7 +4,7 @@ export type Event = {
   eventDescription: string;
   eventAddress: string;
   eventDate: string;
-  // detailsLink: string;
+  detailsLink: string;
   isActive: boolean;
   [key: string]: any;
 };

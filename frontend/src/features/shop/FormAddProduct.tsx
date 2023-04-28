@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { RootState, useAppDispatch } from '../../store';
 import { clearImgState, addProduct, getSizes } from './productsSlice';
-import Uploader from '../uploader/Uploader';
+import Uploader from '../uploader/ProductUploader';
 import { useSelector } from 'react-redux';
 import './style.css';
 
@@ -28,6 +28,7 @@ function FormAddProduct(): JSX.Element {
     const data = new FormData(event.target as HTMLFormElement);
     // console.log('data', data);
     dispatch(addProduct(data));
+    
   };
 
   const changeCheck: React.ChangeEventHandler<HTMLInputElement> = (

@@ -11,6 +11,7 @@ function EventItemDiscription(): JSX.Element {
   const { user } = useSelector((store: RootState) => store.auth);
 
   const [event] = events?.filter((el) => el.id === Number(eventId));
+  console.log('event', [event]);
   //  const popUp = (): void => {
   //    Store.addNotification({
   //      title: 'Wonderful!',
@@ -29,12 +30,7 @@ function EventItemDiscription(): JSX.Element {
             <div className="-mx-3 flex items-center sm:-mx-4">
               <div className="w-full px-3 sm:px-4 xl:w-1/2">
                 <div className="py-3 sm:py-4">
-                  <img src={`${event['eventPhotos.file']}`}></img>
-                  {/* <img
-                    src="https://cdn.tailgrids.com/2.0/image/marketing/images/about/about-01/image-1.jpg"
-                    alt=""
-                    className="w-full rounded-2xl"
-                  /> */}
+                  {event ? <img src={`${event['eventPhotos.file']}`} /> : <></>}
                 </div>
                 <div className="py-3 sm:py-4">
                   {/* <img
@@ -644,15 +640,20 @@ function EventItemDiscription(): JSX.Element {
         </div>
       </div>
       {Object.values(user).includes(1) ? <EventEdit /> : <></>}
-      {'id' in user ? (
-        <CommentList eventId={Number(eventId)} />
-      ) : (
+      {/* {'id' in user ? ( */}
+      <CommentList eventId={Number(eventId)} />
+      {/* ) : (
         <p style={{ paddingLeft: '70px', fontSize: '20px' }}>
-          Чтобы оставить комментарий - <a href="/signup">зарегистрируйтесь</a>{' '}
-          или <a href="/signin">войдите</a>
+          Чтобы оставить комментарий -{' '}
+          <a href="/signup" style={{ color: '#238349', fontWeight: '500' }}>
+            зарегистрируйтесь
+          </a>{' '}
+          или{' '}
+          <a href="/signin" style={{ color: '#238349', fontWeight: '500' }}>
+            войдите
+          </a>
         </p>
-      )}
-      {/* <CommentList eventId={Number(eventId)} /> */}
+      )} */}
     </section>
   );
 }
