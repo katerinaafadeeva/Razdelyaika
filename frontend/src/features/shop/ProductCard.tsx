@@ -62,7 +62,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
     <>
       <div className="w-full px-4 md:w-1/2 xl:w-1/3 ">
         <div className="mb-10 overflow-hidden rounded-lg bg-white ">
-          <button>
+          <button className="card_img_product">
             <img
               src={`${product['ProductImgs.productImg']}`}
               alt="merch_img"
@@ -89,7 +89,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
               </button>
             </>
           ) : (
-            <div>
+            <div className="btn_buy_card">
               {'id' in user && !Object.values(user).includes(1) ? (
                 <>
                   <button className="btn-cart" onClick={addProductToCart}>

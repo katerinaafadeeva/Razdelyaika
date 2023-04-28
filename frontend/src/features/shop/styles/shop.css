@@ -30,6 +30,7 @@
   background-color: white;
   color: black;
   border: 2px solid #4caf50;
+  margin: 0 auto;
 }
 
 .btn-cart:hover {
@@ -87,4 +88,25 @@
 .mb-10:hover {
   transform: scale(1.05);
   transition: 0.7s;
+}
+
+.card_img_product {
+  padding: 5px;
+  max-width: 413px;
+  /*border: 1px solid black;*/
+  min-height: 610px;
+}
+
+.btn_buy_card {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.cart_btn_bye {
+  margin: 100px 0px 0px 1120px;
+}
+
+.cart_my_cart {
+  min-height: 64vh;
 }
