@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../../store';
 import { addEcoPoint } from './mapSlice';
-import './styles/map.css';
+import './styles/Map.css';
 
 function AddEcoPoint(): JSX.Element {
   const [ecoPointName, setEcoPointName] = useState('');
