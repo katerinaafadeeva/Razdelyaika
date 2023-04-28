@@ -29,7 +29,7 @@
   margin-left: 5vw;
 }
 
-.cst__btn {
+.cst__btn1 {
   font-family: 'Raleway', Arial, sans-serif;
   font-weight: 700;
   border-width: 1px;
@@ -50,11 +50,11 @@
     border-color 0.2s ease-in-out;
 }
 
-.text__main_taxi:first-child {
+.text__main_taxi1:first-child {
   margin-top: 18vh;
 }
 
-.star {
+.star1 {
   position: absolute;
   width: 125px;
   height: 125px;
@@ -63,7 +63,7 @@
   top: 18vh;
 }
 
-.star__text {
+.star__text1 {
   position: absolute;
   width: 230px;
   height: 190px;
@@ -81,7 +81,7 @@
 
   color: #ffffff;
 }
-.star__text_mt {
+.star__text_mt1 {
   position: absolute;
   width: 230px;
   height: 190px;
