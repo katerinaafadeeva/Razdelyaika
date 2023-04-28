@@ -6,6 +6,7 @@ import ecoPointSlice from './features/mainPage/map/mapSlice';
 
 import authSlice from './features/auth/userSlice';
 import CartSlice from './features/shop/cart/CartSlice';
+import notificationSlice from './features/notification/notificationSlice';
 
 // Слайсы - это отдельные модули нашего приложения. У каждого слайса - свой редьюсер:
 
@@ -16,6 +17,7 @@ const store = configureStore({
     ecoPointState: ecoPointSlice,
     cartState: CartSlice,
     auth: authSlice,
+    notification: notificationSlice,
   },
 });
 
