@@ -8,6 +8,8 @@
   flex-direction: column;
   padding: 50px 15px;
   text-transform: uppercase;
+  min-height: 64vh;
+  margin: 0 170px;
 }
 .text__main_p1 {
   padding-bottom: 100px;
