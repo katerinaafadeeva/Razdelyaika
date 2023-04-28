@@ -4,26 +4,32 @@
   display: flex;
   flex-direction: column;
   color: aliceblue;
+  background-color: #309959;
 }
 
 .full-screen__body {
-  background-color: #309959;
-  position: relative;
+  /*position: relative;
   z-index: 2;
   display: flex;
   flex: 1 1 auto;
   justify-content: flex-start;
-  /*align-items: center;*/
+  align-items: center;
   flex-direction: column;
   padding: 120px 15px;
-  text-transform: uppercase;
+  text-transform: uppercase;*/
+  margin: 0 auto;
+  max-width: 1220px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .separatediv {
+  margin-top: 27vh;
+  margin-right: 400px;
   /* background-color: black; */
-  width: 50%;
-  display: flex;
-  flex-direction: column;
+  /*width: 50%;*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
 }
 
 .text__main {
@@ -31,18 +37,19 @@
 }
 .text__main_p {
   padding: 0;
-  font-size: 60px;
+  font-size: 72px;
 }
 
 .cst__btn {
+  margin-top: 40px;
   font-family: 'Raleway', Arial, sans-serif;
   font-weight: 700;
   border-width: 1px;
   border-radius: 4px;
-  position: absolute;
+  /*position: absolute;*/
   width: 240px;
   height: 52px;
-  margin-left: 5vw;
+  /*margin-left: 5vw;*/
   /* top: 53vh; */
   border-color: transparent;
   font-size: 18px;
@@ -54,20 +61,23 @@
 
 .star {
   position: absolute;
+  top: -100px;
   width: 125px;
   height: 125px;
-  left: 65vw;
+  transform: translate(-50%, 50%);
+  /*left: 65vw;*/
   /*right: 45vw;*/
-  top: 18vh;
+  /*top: 18vh;*/
+  z-index: -1;
 }
 
 .star__text {
-  position: absolute;
   width: 230px;
-  height: 190px;
-  left: 68vw;
+
+  z-index: 3;
+  /*left: 68vw;*/
   /*right: 45vw;*/
-  top: 25vh;
+  /*top: 25vh;*/
 
   /*font-family: 'Inter';
   font-style: normal;
@@ -80,12 +90,8 @@
   color: #ffffff;
 }
 .star__text_mt {
-  position: absolute;
+  margin-top: 10px;
   width: 230px;
-  height: 190px;
-  left: 68vw;
-  /*right: 45vw;*/
-  top: 45vh;
   color: #f4f680;
   text-decoration: none;
 }
@@ -113,4 +119,11 @@
 
 .ymaps-2-1-79-ground-pane {
   -webkit-filter: grayscale(100%);
+}
+
+.wrapper__image__group {
+  margin-top: 27vh;
+  font-size: 22px;
+  position: relative;
+  z-index: 3;
 }

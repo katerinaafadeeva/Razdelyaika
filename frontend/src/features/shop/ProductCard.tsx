@@ -40,9 +40,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
     }
   };
 
-  const addProductToCart: React.MouseEventHandler<HTMLButtonElement> = (
-    event
-  ): void => {
+  const addProductToCart: React.MouseEventHandler<HTMLButtonElement> = (event): void => {
     const productId = product.id;
     if (productId) {
       dispatch(addToCart(productId));
@@ -64,10 +62,9 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
 
   return (
     <>
-      {message && <Notification message={message} type={type} />}
       <div className="w-full px-4 md:w-1/2 xl:w-1/3 ">
         <div className="mb-10 overflow-hidden rounded-lg bg-white ">
-          <button>
+          <button className="card_img_product">
             <img
               src={`${product['ProductImgs.productImg']}`}
               alt="merch_img"
@@ -79,16 +76,15 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
             <button>
               <h3 onClick={showModalWindow}>{product.productName}</h3>
             </button>
-            <p
-              className="text-body-color mb-7 text-base leading-relaxed"
-              onClick={showModalWindow}
-            >
+            <p className="text-body-color mb-7 text-base leading-relaxed" onClick={showModalWindow}>
               {product.productPrice}
             </p>
           </div>
 
           {Object.values(user).includes(1) ? (
             <>
+
+            <div className="btn_buy_card">
               <button
                 onClick={showModalUpdate}
                 type="button"
@@ -142,21 +138,21 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
         </div>
       </div>
 
+
       {showUpdate && (
         <ModalUpdateProduct
           showModalUpdate={showModalUpdate}
           product={product}
         />
       )}
+
       {solut && (
         <ProdDelSolutModal
           showSolutModal={showSolutModal}
           handleRemoveProduct={handleRemoveProduct}
         />
       )}
-      {showModal && (
-        <ModalProductInfo showModalWindow={showModalWindow} product={product} />
-      )}
+      {showModal && <ModalProductInfo showModalWindow={showModalWindow} product={product} />}
     </>
   );
 }

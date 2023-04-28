@@ -23,21 +23,13 @@ function SwiperTest(): JSX.Element {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-        }}
-      >
+        }}>
         Прошедшие
       </span>
-      <Swiper
-        onSwiper={setSwiperRef}
-        slidesPerView={3}
-        spaceBetween={30}
-        navigation={true}
-        virtual
-      >
+      <Swiper onSwiper={setSwiperRef} slidesPerView={3} spaceBetween={30} navigation={true} virtual>
         {events.map((event, index) =>
           event.isActive === false ? (
             <SwiperSlide key={event.id} virtualIndex={index}>
-              {/*{slideContent}*/}
               <EventCard event={event} />
             </SwiperSlide>
           ) : (

@@ -3,11 +3,12 @@
   padding: 50px 15px;
   text-transform: uppercase;
   color: #309959;
-  margin-left: 28vw;
+  /*margin-left: 28vw;*/
   font-size: 64px;
-  margin-left: 5vw;
-  position: relative;
-  left: 22vw;
+  /*margin-left: 5vw;*/
+  /*position: relative;*/
+  /*left: 22vw;*/
+  margin: 0 auto;
 }
 
 .chel_container {
