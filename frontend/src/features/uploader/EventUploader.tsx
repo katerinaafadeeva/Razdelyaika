@@ -14,7 +14,6 @@ function EventUploader(): JSX.Element {
   };
 
   function delAddedImg(e: React.MouseEvent<HTMLButtonElement>): void {
-    // console.log('lastModified deleted file', e.currentTarget.name);
     dispatch(delEventImg(Number(e.currentTarget.name)));
   }
 

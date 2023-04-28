@@ -17,8 +17,6 @@ function FormAddProduct(): JSX.Element {
   const { imgs } = useSelector((store: RootState) => store.productsState);
   const { sizes } = useSelector((store: RootState) => store.productsState);
 
-  // console.log('newproductSize', newproductSize);
-
   useEffect(() => {
     dispatch(getSizes());
   }, []);
@@ -28,7 +26,6 @@ function FormAddProduct(): JSX.Element {
   ) => {
     event.preventDefault();
     const data = new FormData(event.target as HTMLFormElement);
-    // console.log('data', data);
     dispatch(addProduct(data));
     setProductName('');
     setProductPrice('');

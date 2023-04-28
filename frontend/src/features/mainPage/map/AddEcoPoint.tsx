@@ -6,7 +6,6 @@ import './styles/map.css';
 function AddEcoPoint(): JSX.Element {
   const [ecoPointName, setEcoPointName] = useState('');
   const [ecoPointAdress, setEcoPointAdress] = useState('');
-  //  console.log(ecoPointAdress);
 
   const dispatch = useAppDispatch();
   const onHandleSubmitForm = (e: React.FormEvent<HTMLFormElement>): void => {

@@ -10,6 +10,9 @@ import ModalProductInfo from './ModalProductInfo';
 import ModalUpdateProduct from './ModalUpdateProduct';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector } from 'react-redux';
+import Notification from '../notification/Notification';
+import { setType } from '../notification/notificationSlice';
+
 import ProdDelSolutModal from '../modals/ProdDelSolutModal';
 
 function ProductCard({ product }: { product: Product }): JSX.Element {
@@ -32,7 +35,6 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
   };
 
   const handleRemoveProduct = (): void => {
-    console.log(product);
     if (product.id) {
       dispatch(removeProduct(product.id));
     }
@@ -53,9 +55,16 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
   };
 
   const foo = product['ProductSizes.Size.sizeText'];
+  const { message, type } = useSelector(
+    (state: RootState) => state.notification
+  );
+  const btnClickHandler = (type: 'success' | 'danger' | 'warning'): void => {
+    dispatch(setType({ type }));
+  };
 
   return (
     <>
+      {message && <Notification message={message} type={type} />}
       <div className="w-full px-4 md:w-1/2 xl:w-1/3 ">
         <div className="mb-10 overflow-hidden rounded-lg bg-white ">
           <button>
@@ -77,53 +86,62 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
               {product.productPrice}
             </p>
           </div>
-          <div className="btns-group">
-            {Object.values(user).includes(1) ? (
-              <>
-                <button
-                  onClick={showModalUpdate}
-                  type="button"
-                  className="btn-del-product"
-                >
-                  Редактировать
-                </button>
-                <button
-                  onClick={showSolutModal}
-                  type="button"
-                  className="btn-del-product"
-                >
-                  Удалить запись
-                </button>
-              </>
-            ) : (
-              <div>
-                {'id' in user && !Object.values(user).includes(1) ? (
-                  <>
-                    <button className="btn-cart" onClick={addProductToCart}>
-                      В корзину
-                    </button>
-                    {foo?.length ? (
-                      <select className="size-selector">
-                        {foo.map((size: string) => (
-                          <option key={uuidv4()}>{size}</option>
-                        ))}
-                      </select>
-                    ) : (
-                      <></>
-                    )}
-                  </>
-                ) : (
-                  <a href="/signin">
-                    <button className="btn-cart" onClick={addProductToCart}>
-                      купить продукт
-                    </button>
-                  </a>
-                )}
-              </div>
-            )}
-          </div>
+
+          {Object.values(user).includes(1) ? (
+            <>
+              <button
+                onClick={showModalUpdate}
+                type="button"
+                className="btn-del-product"
+              >
+                Редактировать
+              </button>
+              <button
+                onClick={showSolutModal}
+                type="button"
+                className="btn-del-product"
+              >
+                Удалить запись
+              </button>
+              {foo?.length ? (
+                <select className="size-selector">
+                  {foo.map((size: string) => (
+                    <option key={uuidv4()}>{size}</option>
+                  ))}
+                </select>
+              ) : (
+                <></>
+              )}
+            </>
+          ) : (
+            <div>
+              {'id' in user && !Object.values(user).includes(1) ? (
+                <>
+                  <button className="btn-cart" onClick={addProductToCart}>
+                    В корзину
+                  </button>
+                  {foo?.length ? (
+                    <select className="size-selector">
+                      {foo.map((size: string) => (
+                        <option key={uuidv4()}>{size}</option>
+                      ))}
+                    </select>
+                  ) : (
+                    <></>
+                  )}
+                </>
+              ) : (
+                <a href="/signin">
+                  <button className="btn-cart" onClick={addProductToCart}>
+                    купить продукт
+                  </button>
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </div>
+
       {showUpdate && (
         <ModalUpdateProduct
           showModalUpdate={showModalUpdate}

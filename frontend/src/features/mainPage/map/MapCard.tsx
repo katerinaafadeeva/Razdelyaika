@@ -119,7 +119,6 @@ function MapCard(): JSX.Element {
   const onHandleClickDelete = (pointId: number): void => {
     dispatch(removeEcoPoint(Number(pointId)));
   };
-  console.log(myPlaces, newAdresses);
 
   const { user } = useSelector((store: RootState) => store.auth);
 

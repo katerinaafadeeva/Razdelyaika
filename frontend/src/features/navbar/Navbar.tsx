@@ -27,8 +27,8 @@ function Navbar(): JSX.Element {
               <NavLink to="/" className="block w-full py-5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="55"
-                  height="55"
+                  width="65"
+                  height="65"
                   viewBox="0 0 55 55"
                   fill="none"
                   className="w-full"
@@ -173,7 +173,8 @@ function Navbar(): JSX.Element {
                 <div className="justify-end pr-16 sm:flex lg:pr-0">
                   <NavLink
                     to="/signin"
-                    className="text-dark hover:text-primary py-3 px-7 text-base font-medium navitem">
+                    className="text-dark hover:text-primary py-3 px-7 text-base font-medium navitem"
+                  >
                     Войти
                   </NavLink>
                   <NavLink

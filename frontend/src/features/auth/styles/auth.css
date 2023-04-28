@@ -29,3 +29,12 @@
 .ErrorLogin2 {
   color: red;
 }
+
+.passwordControl {
+  position: relative;
+  top: 30%;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  background: url(../img/eye-solid.svg);
+}

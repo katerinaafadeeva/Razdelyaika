@@ -84,15 +84,6 @@ Promise<Event> => {
   };
   const res = await fetch('/api/events', params);
   return res.json();
-  // const res = await fetch('/api/events', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify(newEvent),
-  // });
-
-  // return res.json();
 };
 
 export const removeEvent = async (eventId: number): Promise<number> => {
@@ -165,13 +156,10 @@ export const addEcoPoint = async (newEcoPoint: {
 };
 
 export const removeEcoPoint = async (poinId: number): Promise<number> => {
-  console.log(poinId, '==========');
-
   const res = await fetch(`/api/ecoPoint/${poinId}`, {
     method: 'DELETE',
   });
   const date = await res.json();
-  console.log(date, '----');
   return date;
 };
 

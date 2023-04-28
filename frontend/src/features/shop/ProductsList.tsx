@@ -17,8 +17,6 @@ function ProductsList(): JSX.Element {
     setShowModal((prev) => !prev);
   };
 
-  console.log('products in productList', products);
-
   return (
     <>
       <section className="bg-[#F3F4F6] pt-20 pb-10 lg:pt-[120px] lg:pb-20">
