@@ -10,7 +10,11 @@ import ModalProductInfo from './ModalProductInfo';
 import ModalUpdateProduct from './ModalUpdateProduct';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector } from 'react-redux';
+import Notification from '../notification/Notification';
+import { setType } from '../notification/notificationSlice';
+
 import ProdDelSolutModal from '../modals/ProdDelSolutModal';
+
 
 function ProductCard({ product }: { product: Product }): JSX.Element {
   const dispatch = useAppDispatch();
@@ -53,9 +57,14 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
   };
 
   const foo = product['ProductSizes.Size.sizeText'];
+  const { message, type } = useSelector((state: RootState) => state.notification);
+  const btnClickHandler = (type: 'success' | 'danger' | 'warning'): void => {
+    dispatch(setType({ type }));
+  };
 
   return (
     <>
+      {message && <Notification message={message} type={type} />}
       <div className="w-full px-4 md:w-1/2 xl:w-1/3 ">
         <div className="mb-10 overflow-hidden rounded-lg bg-white ">
           <button>
@@ -77,7 +86,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
               {product.productPrice}
             </p>
           </div>
-          <div className="btns-group">
+
             {Object.values(user).includes(1) ? (
               <>
                 <button
@@ -121,6 +130,7 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
                 )}
               </div>
             )}
+
           </div>
         </div>
       </div>
