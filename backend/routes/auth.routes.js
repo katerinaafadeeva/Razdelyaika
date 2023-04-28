@@ -76,10 +76,17 @@ router.get('/logout', async (req, res) => {
 router.get('/checkUser', async (req, res) => {
   try {
     const userSession = req.session.userId;
-
+    const userSessionGoogle = req.session.passport.user.emails[0].value;
     if (userSession) {
       const user = await User.findOne({
-        where: { id: userSession },
+        where: { id: Number(userSession) },
+        attributes: { exclude: ['password'] },
+      });
+      res.status(201).json(user);
+    }
+    if (userSessionGoogle) {
+      const user = await User.findOne({
+        where: { email: userSessionGoogle },
         attributes: { exclude: ['password'] },
       });
       res.status(201).json(user);

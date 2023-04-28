@@ -63,8 +63,9 @@ router.get('/cart', async (req, res) => {
         { model: ProductSize, include: { model: Size } },
       ],
     });
+    // console.log(cards);
     const Prod = cards.filter(
-      (el) => el['AddedProducts.Order.userId'] === req.session.userId
+      (el) => el['AddedProducts.Order.userId'] === req.session.userId,
     );
     res.json(Prod);
   } catch (error) {

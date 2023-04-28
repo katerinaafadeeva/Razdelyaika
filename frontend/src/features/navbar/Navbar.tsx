@@ -1,14 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './styles/navbar.css';
 import { NavLink, Outlet } from 'react-router-dom';
 import { RootState, useAppDispatch } from '../../store';
 import { useSelector } from 'react-redux';
-import { User } from '../auth/types/types';
+import { User, UserGoogle } from '../auth/types/types';
 import { logoutUser, verificationUser } from '../auth/userSlice';
+import { Mycontext } from '../auth/Context';
 
 function Navbar(): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
+  const userObj = useContext(Mycontext) as UserGoogle;
+  console.log(userObj, '<<<<<<>>>>>>>>');
+  console.log(userObj?.displayName);
+  console.log(userObj?.id);
+  console.log(userObj);
+  
 
   return (
     <>

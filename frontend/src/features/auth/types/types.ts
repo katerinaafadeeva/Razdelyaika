@@ -5,6 +5,11 @@ export type User = {
   password: string;
   password2?: string;
 };
+export type UserGoogle = {
+  id?: string | undefined;
+  displayName?: string | null;
+  email?: [{ value: string; verified: boolean }] | undefined;
+};
 // export type UserLoga = {
 //   id?: number | undefined;
 //   userName?: string;

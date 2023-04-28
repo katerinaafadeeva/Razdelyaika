@@ -9,6 +9,9 @@ import { registrationUser } from './userSlice';
 import { State, User } from './types/types';
 import { NavLink, Outlet } from 'react-router-dom';
 
+const clientId: string =
+  '771328175847-nhmni9vbaivu7uimeqqrfrtea7h2ggjd.apps.googleusercontent.com';
+
 function SignUp(): JSX.Element {
   const [userName, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -22,6 +25,15 @@ function SignUp(): JSX.Element {
   const registr = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     dispatch(registrationUser({ userName, email, password, password2 }));
+  };
+  const onSuccess = (res: any) => {
+    console.log('Login gotov!!! user:', res.profileObj);
+  };
+  const onFileure = (res: any) => {
+    console.log('Login gotov!!! user:', res);
+  };
+  const GoogleLogin = () => {
+    window.open('http://localhost:4000/google', '_self');
   };
 
   if ('id' in user) {
@@ -144,7 +156,7 @@ function SignUp(): JSX.Element {
                   {error && <h1 className="ErrorLogin">{error}</h1>}
                 </div>
                 <p className="mb-6 text-base text-[#adadad]">Connect With</p>
-                {/* <ul className="-mx-2 mb-12 flex justify-between">
+                <ul className="-mx-2 mb-12 flex justify-between">
                   <li className="w-full px-2">
                     <a
                       // href="javascript:void(0)"
@@ -185,6 +197,7 @@ function SignUp(): JSX.Element {
                   </li>
                   <li className="w-full px-2">
                     <a
+                      onClick={GoogleLogin}
                       // href="javascript:void(0)"
                       className="flex h-11 items-center justify-center rounded-md bg-[#D64937] hover:bg-opacity-90"
                     >
@@ -202,13 +215,13 @@ function SignUp(): JSX.Element {
                       </svg>
                     </a>
                   </li>
-                </ul> */}
-                {/* <a
-                  href="javascript:void(0)"
+                </ul>
+                <a
+                  // href="javascript:void(0)"
                   className="mb-2 inline-block text-base text-[#adadad] hover:text-primary hover:underline"
                 >
                   Forget Password?
-                </a> */}
+                </a>
                 <p className="text-base text-[#adadad]">
                   Not a member yet?
                   <NavLink
@@ -217,7 +230,15 @@ function SignUp(): JSX.Element {
                     className="text-primary hover:underline"
                   >
                     Sign Up
-                  </NavLink>
+                  </NavLink>{' '}
+                  {/* <GoogleLogin
+                    onSuccess={(credentialResponse) => {
+                      console.log(credentialResponse);
+                    }}
+                    onError={() => {
+                      console.log('Login Failed');
+                    }}
+                  /> */}
                 </p>
               </div>
             </div>
