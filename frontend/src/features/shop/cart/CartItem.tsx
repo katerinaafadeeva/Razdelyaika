@@ -38,8 +38,7 @@ function CartItem({ addedProd }: { addedProd: Product }): JSX.Element {
       <td className="text-dark border-b border-r border-[#E8E8E8] bg-white py-5 px-2 text-center text-base font-medium">
         <button
           className="border-primary text-primary hover:bg-primary inline-block rounded border py-2 px-6 hover:text-white"
-          onClick={cartItemDelete}
-        >
+          onClick={cartItemDelete}>
           Удалить из корзины
         </button>
       </td>

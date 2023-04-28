@@ -28,3 +28,19 @@
   color: #0a4120b9;
   font-weight: 500;
 }
+
+.min__h {
+  min-height: 300px !important;
+}
+
+.min__w {
+}
+
+.addEventForm {
+  margin-left: 600px;
+}
+
+.addEventForm button {
+  margin-left: 70px;
+  margin-bottom: 20px;
+}

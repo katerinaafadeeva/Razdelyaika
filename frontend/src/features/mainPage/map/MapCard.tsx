@@ -136,11 +136,11 @@ function MapCard(): JSX.Element {
     <div className="map__card">
       <div className="chel_container marquee">
         <span className="chel_text">
-          • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ
-          ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК
+          • НАШИ ЭКО-ТОЧКИ • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК • НАШИ ЭКО-ТОЧКИ • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК •
+          НАШИ ЭКО-ТОЧКИ • РАЗДЕЛЯЕТ ВЕСЬ ЧЕЛЯБИНСК
         </span>
       </div>
-      <p className="text__main_p top_map">Наши Эко-Точки</p>
+      {/*<p className="text__main_p top_map">Наши Эко-Точки</p>*/}
       <div className="map__card__body" id="map">
         <GoogleMap
           mapContainerStyle={containerStyle}
@@ -183,9 +183,7 @@ function MapCard(): JSX.Element {
           ))}
         </GoogleMap>
       </div>
-      <div className="modalic">
-        {Object.values(user).includes(1) && <ModalAdd />}
-      </div>
+      <div className="modalic">{Object.values(user).includes(1) && <ModalAdd />}</div>
     </div>
   ) : (
     <></>
