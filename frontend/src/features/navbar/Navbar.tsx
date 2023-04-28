@@ -10,12 +10,11 @@ import { Mycontext } from '../auth/Context';
 function Navbar(): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
+
   const userObj = useContext(Mycontext) as UserGoogle;
-  console.log(userObj, '<<<<<<>>>>>>>>');
-  console.log(userObj?.displayName);
-  console.log(userObj?.id);
-  console.log(userObj);
-  
+
+  const { addedProds } = useSelector((store: RootState) => store.cartState);
+
 
   return (
     <>
@@ -33,8 +32,8 @@ function Navbar(): JSX.Element {
               <NavLink to="/" className="block w-full py-5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="55"
-                  height="55"
+                  width="65"
+                  height="65"
                   viewBox="0 0 55 55"
                   fill="none"
                   className="w-full"
@@ -121,24 +120,46 @@ function Navbar(): JSX.Element {
                         Магазин
                       </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                       <NavLink
                         to="/containers"
                         className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
                       >
                         Контейнеры
                       </NavLink>
-                    </li>
+                    </li> */}
                     {'id' in user && (
                       <>
-                        <li>
-                          <NavLink
-                            to="/cart"
-                            className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
-                          >
-                            Корзина
-                          </NavLink>
-                        </li>
+                        {user.id !== 1 ? (
+                          <li>
+                            <NavLink
+                              to="/cart"
+                              className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem"
+                            >
+                              Корзина
+                              {addedProds.length > 0 && (
+                                <div
+                                  style={{
+                                    width: '20px',
+                                    height: '20px',
+                                    borderRadius: '50%',
+                                    backgroundColor: 'white',
+                                    textAlign: 'center',
+                                    margin: 'auto',
+                                    color: '#2f9959',
+                                  }}
+                                >
+                                  {addedProds.length}
+                                </div>
+                              )}
+                            </NavLink>
+                          </li>
+                        ) : (
+                          <></>
+                        )}
+                        <p className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem">
+                          Не сори, {user?.userName}!
+                        </p>
                         <li>
                           <NavLink
                             to="/"
@@ -148,27 +169,24 @@ function Navbar(): JSX.Element {
                             Выход
                           </NavLink>
                         </li>
-                        <p className="text-dark hover:text-primary flex py-2 text-base font-medium lg:ml-12 lg:inline-flex navitem">
-                          {user.email}
-                        </p>
                       </>
                     )}
                   </ul>
                 </nav>
               </div>
               {!('id' in user) && (
-                <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
+                <div className="justify-end pr-16 sm:flex lg:pr-0">
                   <NavLink
                     to="/signin"
                     className="text-dark hover:text-primary py-3 px-7 text-base font-medium navitem"
                   >
-                    Login
+                    Войти
                   </NavLink>
                   <NavLink
                     to="/signup"
                     className="bg-primary rounded-lg py-3 px-7 text-base font-medium text-white hover:bg-opacity-90 navitem"
                   >
-                    Sign Up
+                    Создать аккаунт
                   </NavLink>
                 </div>
               )}

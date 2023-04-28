@@ -8,8 +8,18 @@ import CommentList from './comment/CommentList';
 function EventItemDiscription(): JSX.Element {
   const events = useSelector((store: RootState) => store.eventState.events);
   const { eventId } = useParams();
+  const { user } = useSelector((store: RootState) => store.auth);
 
   const [event] = events?.filter((el) => el.id === Number(eventId));
+  //  const popUp = (): void => {
+  //    Store.addNotification({
+  //      title: 'Wonderful!',
+  //      message: () => <div>123</div>,
+  //      type: 'success',
+  //      container: 'top-right',
+  //      dismiss: { duration: 0 },
+  //    });
+  //  };
 
   return (
     <section className="overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
@@ -19,34 +29,31 @@ function EventItemDiscription(): JSX.Element {
             <div className="-mx-3 flex items-center sm:-mx-4">
               <div className="w-full px-3 sm:px-4 xl:w-1/2">
                 <div className="py-3 sm:py-4">
-                  <img
-                    src="https://cdn.tailgrids.com/2.0/image/marketing/images/about/about-01/image-1.jpg"
-                    alt=""
-                    className="w-full rounded-2xl"
-                  />
+                  {event ? <img src={`${event['eventPhotos.file']}`} /> : <></>}
                 </div>
                 <div className="py-3 sm:py-4">
-                  <img
+                  {/* <img
                     src="https://cdn.tailgrids.com/2.0/image/marketing/images/about/about-01/image-2.jpg"
                     alt=""
                     className="w-full rounded-2xl"
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="w-full px-3 sm:px-4 xl:w-1/2">
                 <div className="relative z-10 my-4">
-                  <img
+                  {/* <img
                     src="https://cdn.tailgrids.com/2.0/image/marketing/images/about/about-01/image-3.jpg"
                     alt=""
                     className="w-full rounded-2xl"
-                  />
+                  /> */}
                   <span className="absolute -right-7 -bottom-7 z-[-1]">
                     <svg
                       width="134"
                       height="106"
                       viewBox="0 0 134 106"
                       fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <circle
                         cx="1.66667"
                         cy="104"
@@ -618,15 +625,34 @@ function EventItemDiscription(): JSX.Element {
               <span className="text-primary mb-2 block text-lg font-semibold">
                 {event?.eventDate}
               </span>
-              <h2 className="text-dark mb-8 text-3xl font-bold sm:text-4xl">{event?.eventName}</h2>
-              <p className="text-body-color mb-8 text-base">{event?.eventDescription}</p>
-              <p className="text-body-color mb-12 text-base">{event?.eventAddress}</p>
+              <h2 className="text-dark mb-8 text-3xl font-bold sm:text-4xl">
+                {event?.eventName}
+              </h2>
+              <p className="text-body-color mb-8 text-base">
+                {event?.eventDescription}
+              </p>
+              <p className="text-body-color mb-12 text-base">
+                {event?.eventAddress}
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <EventEdit />
+      {Object.values(user).includes(1) ? <EventEdit /> : <></>}
+      {/* {'id' in user ? ( */}
       <CommentList eventId={Number(eventId)} />
+      {/* ) : (
+        <p style={{ paddingLeft: '70px', fontSize: '20px' }}>
+          Чтобы оставить комментарий -{' '}
+          <a href="/signup" style={{ color: '#238349', fontWeight: '500' }}>
+            зарегистрируйтесь
+          </a>{' '}
+          или{' '}
+          <a href="/signin" style={{ color: '#238349', fontWeight: '500' }}>
+            войдите
+          </a>
+        </p>
+      )} */}
     </section>
   );
 }

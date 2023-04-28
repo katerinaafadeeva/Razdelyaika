@@ -1,10 +1,10 @@
 .navbar {
   background-color: #309959;
-  height: 70px;
+  height: 90px;
 }
 #navbarCollapse {
   background-color: #309959;
-  height: 70px;
+  /* height: 70px; */
 }
 
 .navitem {

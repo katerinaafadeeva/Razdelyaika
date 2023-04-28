@@ -1,28 +1,19 @@
 import { type } from 'os';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
+import { RootState, useAppDispatch } from '../../../store';
 import CartItem from './CartItem';
+import { getCartProducts } from './CartSlice';
 
 // type productPrice = any;
 
 function Cart(): JSX.Element {
-  const { products } = useSelector((store: RootState) => store.cartState);
-  // console.log(products.productPrice);
-  // function summ( ) {
-  //   const result = products?.reduce((a:number, b:number) => a + b.productPrice, 0);
-  // }
-  // console.log(summ);
-  // const [suum, setSumm] = useState(0);
+  const { addedProds } = useSelector((store: RootState) => store.cartState);
+  const dispatch = useAppDispatch();
 
-  const summa = (): string => {
-    let her = products?.reduce((a, b) => a + b.productPrice, 0);
-    if (her === 0) {
-      return 'Корзина пуста';
-    } else {
-      return '';
-    }
-  };
+  useEffect(() => {
+    dispatch(getCartProducts());
+  }, []);
 
   return (
     <section className="bg-white py-20 lg:py-[120px]">
@@ -40,6 +31,9 @@ function Cart(): JSX.Element {
                     <th className="w-1/6 min-w-[160px] border-l border-transparent py-4 px-3 text-lg font-semibold text-white lg:py-7 lg:px-4">
                       продукт
                     </th>
+                    {/* <th className="w-1/6 min-w-[160px] py-4 px-3 text-lg font-semibold text-white lg:py-7 lg:px-4">
+                      фото
+                    </th> */}
                     <th className="w-1/6 min-w-[160px] py-4 px-3 text-lg font-semibold text-white lg:py-7 lg:px-4">
                       описание
                     </th>
@@ -54,9 +48,9 @@ function Cart(): JSX.Element {
                     </th>
                     <th className="w-1/6 min-w-[160px] border-r border-transparent py-4 px-3 text-lg font-semibold text-white lg:py-7 lg:px-4"></th>
                   </tr>
-                  {products?.map((product) => (
+                  {addedProds?.map((addedProd) => (
                     // <tbody>
-                    <CartItem key={product.id} product={product} />
+                    <CartItem key={addedProd.id} addedProd={addedProd} />
                     // </tbody>
                   ))}
                 </thead>
@@ -64,13 +58,14 @@ function Cart(): JSX.Element {
             </div>
           </div>
           <div>
-            {products?.reduce((a, b) => a + b.productPrice, 0) ? (
+            {addedProds?.reduce((a, b) => a + b['Product.productPrice'], 0) ? (
               <h3>
-                Общая сумма: {products?.reduce((a, b) => a + b.productPrice, 0)}
+                Общая сумма:{' '}
+                {addedProds?.reduce((a, b) => a + b['Product.productPrice'], 0)}
                 ₽
               </h3>
             ) : (
-              <h3>Корзина пуста : (</h3>
+              <h3>Корзина пуста</h3>
             )}
             <button className="btn-cart-cart">Купить</button>
           </div>

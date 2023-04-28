@@ -16,6 +16,7 @@ module.exports = {
           model: 'Products',
           key: 'id',
         },
+        onDelete: 'CASCADE',
       },
       sizeId: {
         type: Sequelize.INTEGER,
@@ -25,7 +26,6 @@ module.exports = {
         },
       },
       avaliability: {
-        allowNull: false,
         type: Sequelize.INTEGER,
       },
       createdAt: {

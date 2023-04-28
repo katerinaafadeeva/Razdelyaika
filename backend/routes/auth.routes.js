@@ -1,10 +1,9 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const { User } = require('../db/models');
+const { User, Order } = require('../db/models');
 
 router.post('/signin', async (req, res) => {
   const { email, password } = req.body;
-  // console.log(Number(req.session.userId), '>>>>>>>>>>');
   try {
     if (email && password) {
       const user = await User.findOne({ where: { email } });
@@ -17,14 +16,13 @@ router.post('/signin', async (req, res) => {
           message: 'ok',
         });
       } else {
-        res.status(403).json({ message: 'Ваш email пароль не соответствуют' });
-        // console.log(message);
+        res.status(403).json({ message: 'Неправильный email или пароль' });
       }
     } else {
       res.status(403).json({ message: 'Заполните все поля' });
     }
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    // res.status(404).json({ message: error.message });
   }
 });
 
@@ -43,11 +41,16 @@ router.post('/signup', async (req, res) => {
             password: hash,
             password2,
           });
-          console.log('newUser', newUser);
+          await Order.create({
+            userId: newUser.id,
+            status: 'активен',
+          });
           req.session.userId = newUser.id;
           res.status(201).json(newUser);
         } else {
-          res.status(403).json({ message: 'Такой email уже существует' });
+          res
+            .status(403)
+            .json({ message: 'Пользователь с таким email уже существует' });
         }
       } else {
         res.status(403).json({ message: 'Пароли не совпадают' });
@@ -56,7 +59,7 @@ router.post('/signup', async (req, res) => {
       res.status(403).json({ message: 'Заполните все поля' });
     }
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    // res.status(404).json({ message: error.message });
   }
 });
 
@@ -69,7 +72,7 @@ router.get('/logout', async (req, res) => {
       res.clearCookie('user_sid').json({ message: 'Успешный выход' });
     });
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    // res.status(404).json({ message: error.message });
   }
 });
 
@@ -92,7 +95,7 @@ router.get('/checkUser', async (req, res) => {
       res.status(201).json(user);
     }
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    // res.status(404).json({ message: error.message });
   }
 });
 

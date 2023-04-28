@@ -9,12 +9,21 @@
   padding: 50px 15px;
   text-transform: uppercase;
 }
-
+.text__main_p1 {
+  padding-bottom: 100px;
+}
 .text__main_taxi:first-child {
-  color: #475dec;
+  color: #2f6099;
+  font-size: 45px;
+  font-family: 'Raleway', Arial, sans-serif;
+  line-height: 1;
+  font-weight: 700;
+  background-position: center center;
+  border-color: transparent;
+  border-style: solid;
 }
 
-.text__main_p {
+.text__main_p1 {
   font-size: 44px;
   /*top: 50vw;*/
   margin-left: 5vw;
@@ -102,4 +111,90 @@
   flex-direction: column;
   padding: 50px 15px;
   text-transform: uppercase;
+}
+/* .img-taxi {
+  background-color: aqua;
+} */
+.main-taxi-content-div {
+  display: flex;
+  flex-direction: row;
+}
+.calltaxi {
+  color: #2f9959;
+  font-size: 34px;
+  font-family: 'Raleway', Arial, sans-serif;
+  line-height: 1;
+  font-weight: 700;
+  background-position: center center;
+  border-color: transparent;
+  border-style: solid;
+}
+.taxi-info {
+  padding-left: 180px;
+  width: 680px;
+}
+.taxicall-info {
+  color: #2a2a27;
+  font-size: 16px;
+  font-family: 'Raleway', Arial, sans-serif;
+  line-height: 1.55;
+  font-weight: 400;
+  background-position: center center;
+  border-color: transparent;
+  border-style: solid;
+  padding-top: 50px;
+}
+
+/* CSS */
+.calltaxi-btn {
+  appearance: none;
+  background-color: #2ea44f;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, 'Segoe UI', Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji';
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  margin-top: 30px;
+}
+
+.calltaxi-btn:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.calltaxi-btn:hover {
+  background-color: #2c974b;
+}
+
+.calltaxi-btn:focus {
+  box-shadow: rgba(46, 164, 79, 0.4) 0 0 0 3px;
+  outline: none;
+}
+
+.calltaxi-btn:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: default;
+}
+
+.calltaxi-btn:active {
+  background-color: #298e46;
+  box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
 }

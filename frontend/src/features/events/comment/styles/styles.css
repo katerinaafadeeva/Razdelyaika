@@ -341,6 +341,5 @@ button {
 .scroll_div {
   overflow-y: scroll;
   max-height: 700px;
-
   overflow: auto;
 }

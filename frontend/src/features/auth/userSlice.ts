@@ -24,6 +24,7 @@ export const verificationUser2 = createAsyncThunk(
   (action: User) => {
     api.session2();
   },
+
 );
 
 export const logoutUser = createAsyncThunk('auth/logout', () => api.logout());
@@ -41,9 +42,9 @@ const authSlice = createSlice({
       .addCase(registrationUser.fulfilled, (state, action) => {
         state.user = action.payload;
       })
-      .addCase(registrationUser.rejected, (state, action) => {
-        state.error = action.error.message;
-      })
+      // .addCase(registrationUser.rejected, (state, action) => {
+      //   state.error = action.error.message;
+      // })
       .addCase(verificationUser.fulfilled, (state, action) => {
         console.log(action.payload, 'slice');
         state.user = action.payload ?? {};

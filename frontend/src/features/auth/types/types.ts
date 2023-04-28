@@ -1,15 +1,18 @@
 export type User = {
   id?: number | undefined;
+  [key: string]: any;
   userName?: string;
   email: string;
   password: string;
   password2?: string;
 };
+
 export type UserGoogle = {
   id?: string | undefined;
   displayName?: string | null;
   email?: [{ value: string; verified: boolean }] | undefined;
 };
+
 // export type UserLoga = {
 //   id?: number | undefined;
 //   userName?: string;
@@ -26,7 +29,7 @@ export type State = {
   error: undefined | string;
 };
 
-// export type UserId = User['id'];
+export type UserId = User['id'];
 
 // export type FetchAnsver = {
 //   user?: User;

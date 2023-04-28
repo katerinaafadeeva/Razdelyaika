@@ -1,4 +1,4 @@
-import { Imgs } from '../features/shop/types/Img';
+import { Imgs, ProdImgs } from '../features/shop/types/Img';
 import { Product, productId } from '../features/shop/types/Products';
 import {
   Event,
@@ -79,6 +79,9 @@ export const logout = async (): Promise<Message> => {
 export const getProducts = async (): Promise<Product[]> =>
   fetch('/api/shop').then((res) => res.json());
 
+export const getSizes = async (): Promise<string[]> =>
+  fetch('/api/sizes').then((res) => res.json());
+
 // Events
 export const getEvents = (): Promise<Event[]> =>
   fetch('/api/events').then((res) => res.json());
@@ -99,15 +102,6 @@ Promise<Event> => {
   };
   const res = await fetch('/api/events', params);
   return res.json();
-  // const res = await fetch('/api/events', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify(newEvent),
-  // });
-
-  // return res.json();
 };
 
 export const removeEvent = async (eventId: number): Promise<number> => {
@@ -165,11 +159,36 @@ export const removeComment = async (commentId: number): Promise<number> => {
 export const getEcoPoint = async (): Promise<EcoPoint[]> =>
   fetch('/api/ecoPoint').then((res) => res.json());
 
+export const addEcoPoint = async (newEcoPoint: {
+  pointName: string;
+  pointAddress: string;
+}): Promise<EcoPoint> => {
+  const res = await fetch('/api/ecoPoint', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newEcoPoint),
+  });
+  return res.json();
+};
+
+export const removeEcoPoint = async (poinId: number): Promise<number> => {
+  const res = await fetch(`/api/ecoPoint/${poinId}`, {
+    method: 'DELETE',
+  });
+  const date = await res.json();
+  return date;
+};
+
 export const getParamEvent = async (): Promise<Event> =>
   fetch('/api/events/:id').then((res) => res.json());
 
 export const getParamProducts = async (): Promise<Product> =>
   fetch('/api/shop/:id').then((res) => res.json());
+
+export const getProdImgs = async (productId: number): Promise<ProdImgs> =>
+  fetch(`/api/product/${productId}`).then((res) => res.json());
 
 // api add product :
 type RequestInit = {};
@@ -214,20 +233,21 @@ export const updatedProduct = async (updatedProduct: {
 export const getCartProducts = async (): Promise<Product[]> =>
   fetch('/cart').then((res) => res.json());
 
+export const removeCartItem = async (addedProdId: number): Promise<number> =>
+  fetch(`/cart/${addedProdId}`, { method: 'DELETE' }).then((res) => res.json());
+
 // add product to cart:
 
-// export const addProductToCart = async (productId: number): Promise<Product> =>
-//   fetch('/cart').then((res) => res.json());
-
 export const addProductToCart = async (
-  productSelected: Product,
+  productId: number
+  // productSelected: Product
 ): Promise<Product> => {
   const res = await fetch('/cart', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(productSelected),
+    body: JSON.stringify({ productId }),
   });
   return res.json();
 };

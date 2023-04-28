@@ -63,3 +63,10 @@ body {
 .swiper-slide swiper-slide-visible swiper-slide-active {
   width: 500px !important;
 }
+
+.min__w {
+  min-width: 500px !important;
+}
+.min__h {
+  min-height: 300px !important;
+}
