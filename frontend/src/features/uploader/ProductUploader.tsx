@@ -15,7 +15,6 @@ function ProductUploader(): JSX.Element {
   };
 
   function delAddedImg(e: React.MouseEvent<HTMLButtonElement>): void {
-    console.log('lastModified deleted file', e.currentTarget.name);
     dispatch(delProdImg(Number(e.currentTarget.name)));
   }
 

@@ -1,6 +1,11 @@
 import { Imgs, ProdImgs } from '../features/shop/types/Img';
 import { Product, productId } from '../features/shop/types/Products';
-import { Event, EventAdd, EventId, EventUpd } from '../features/events/types/Event';
+import {
+  Event,
+  EventAdd,
+  EventId,
+  EventUpd,
+} from '../features/events/types/Event';
 import { Message, User } from '../features/auth/types/types';
 import { Comment } from '../features/events/comment/types/Comment';
 import { EcoPoint } from '../features/mainPage/map/types/Map';
@@ -60,7 +65,8 @@ export const getSizes = async (): Promise<string[]> =>
   fetch('/api/sizes').then((res) => res.json());
 
 // Events
-export const getEvents = (): Promise<Event[]> => fetch('/api/events').then((res) => res.json());
+export const getEvents = (): Promise<Event[]> =>
+  fetch('/api/events').then((res) => res.json());
 
 export const addNewEvent = async (
   data: any
@@ -78,15 +84,6 @@ Promise<Event> => {
   };
   const res = await fetch('/api/events', params);
   return res.json();
-  // const res = await fetch('/api/events', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify(newEvent),
-  // });
-
-  // return res.json();
 };
 
 export const removeEvent = async (eventId: number): Promise<number> => {
@@ -159,13 +156,10 @@ export const addEcoPoint = async (newEcoPoint: {
 };
 
 export const removeEcoPoint = async (poinId: number): Promise<number> => {
-  console.log(poinId, '==========');
-
   const res = await fetch(`/api/ecoPoint/${poinId}`, {
     method: 'DELETE',
   });
   const date = await res.json();
-  console.log(date, '----');
   return date;
 };
 

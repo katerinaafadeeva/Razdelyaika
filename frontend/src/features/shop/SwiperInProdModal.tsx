@@ -12,7 +12,6 @@ SwiperCore.use([Virtual, Navigation, Pagination]);
 
 function SwiperInProdModal(): JSX.Element {
   const { prodImgs } = useSelector((store: RootState) => store.productsState);
-  console.log('prodImgs', prodImgs);
 
   return (
     <>

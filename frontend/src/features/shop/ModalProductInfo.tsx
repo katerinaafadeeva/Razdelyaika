@@ -26,7 +26,6 @@ function ModalProductInfo({
 
   const { user } = useSelector((store: RootState) => store.auth);
   const foo = product['ProductSizes.Size.sizeText'];
-  console.log('sizes in modal', foo);
 
   return (
     <div className="modal generalModal">
