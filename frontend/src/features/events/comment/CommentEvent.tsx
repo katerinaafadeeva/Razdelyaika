@@ -20,9 +20,6 @@ function CommentEvent({ comment }: { comment: Comment }): JSX.Element {
     setName(comment['User.userName']);
   }, [comment, name]);
 
-  console.log('user', user);
-  console.log('comment', comment);
-
   const dispatch = useAppDispatch();
   const onHandleClickDelete = (): void => {
     dispatch(removeComment(comment.id));

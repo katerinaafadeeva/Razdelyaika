@@ -36,7 +36,6 @@ function ProductCard({ product }: { product: Product }): JSX.Element {
   };
 
   const handleRemoveProduct = (): void => {
-    console.log(product);
     if (product.id) {
       dispatch(removeProduct(product.id));
     }

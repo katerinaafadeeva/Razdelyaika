@@ -14,7 +14,6 @@ function AddEvent(): JSX.Element {
   const onHandleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const data = new FormData(e.target as HTMLFormElement);
-    console.log('data', data);
     // const newEvent = { eventName, eventDescription, eventAddress, eventDate };
     // dispatch(addEvent(newEvent));
     dispatch(addEvent(data));

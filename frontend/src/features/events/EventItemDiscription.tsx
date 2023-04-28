@@ -11,7 +11,6 @@ function EventItemDiscription(): JSX.Element {
   const { user } = useSelector((store: RootState) => store.auth);
 
   const [event] = events?.filter((el) => el.id === Number(eventId));
-  console.log('event', [event]);
   //  const popUp = (): void => {
   //    Store.addNotification({
   //      title: 'Wonderful!',
