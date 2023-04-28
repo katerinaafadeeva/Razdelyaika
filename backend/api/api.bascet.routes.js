@@ -28,6 +28,13 @@ router.get('/cart', async (req, res) => {
         },
       ],
     });
+
+    // console.log(cards);
+    // const Prod = cards.filter(
+    //   (el) => el['AddedProducts.Order.userId'] === req.session.userId,
+    // );
+    // res.json(Prod);
+
     res.json(addedProducts);
   } catch (error) {
     res.json({ message: error.message });

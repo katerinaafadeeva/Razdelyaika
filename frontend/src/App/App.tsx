@@ -22,12 +22,17 @@ import { YMaps } from '@pbe/react-yandex-maps';
 import Cart from '../features/shop/cart/Cart';
 import ErrorPage from '../features/Error/ErrorPage';
 import { getEcoPoint } from '../features/mainPage/map/mapSlice';
+
+import { Mycontext } from '../features/auth/Context';
+
 import Footer from '../features/footer/Footer';
 import Error from '../features/Error/Error';
+
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const { user } = useSelector((store: RootState) => store.auth);
+
 
   useEffect(() => {
     dispatch(getEvent());
@@ -53,6 +58,10 @@ function App(): JSX.Element {
   useEffect(() => {
     dispatch(getEcoPoint());
   }, [dispatch]);
+
+  useEffect(() => {
+    // dispatch(getUser)
+  });
 
   // useEffect(() => {
   //   dispatch(addToCart());

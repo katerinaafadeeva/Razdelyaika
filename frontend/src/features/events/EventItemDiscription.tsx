@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import store, { RootState } from '../../store';
 import EventEdit from './EventEdit';
 import CommentList from './comment/CommentList';
@@ -630,6 +630,15 @@ function EventItemDiscription(): JSX.Element {
               </h2>
               <p className="text-body-color mb-8 text-base">
                 {event?.eventDescription}
+              </p>
+              <p className="text-body-color mb-8 text-base">
+                <Link
+                  to={event?.detailsLink}
+                  target="_blank"
+                  style={{ color: '#2f9959' }}
+                >
+                  {event?.detailsLink}
+                </Link>
               </p>
               <p className="text-body-color mb-12 text-base">
                 {event?.eventAddress}

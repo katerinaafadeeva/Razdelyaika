@@ -7,8 +7,8 @@ import { Imgs } from '../shop/types/Img';
 
 function ProductUploader(): JSX.Element {
   const { imgs } = useSelector((store: RootState) => store.productsState);
-  const dispatch = useAppDispatch();
   const { prodImgs } = useSelector((store: RootState) => store.productsState);
+  const dispatch = useAppDispatch();
 
   const addImgsToState = (e: React.ChangeEvent<HTMLInputElement>): void => {
     dispatch(addProdImg(e.target.files));
@@ -36,6 +36,38 @@ function ProductUploader(): JSX.Element {
             </button>
           </div>
         ))}
+      {/* {prodImgs.length > 0
+        && prodImgs.map((file: any) => (
+            <div key={uuidv4()}>
+              <h1>{file}</h1>
+              <button
+                type="button"
+                name={file.lastModified}
+                onClick={delAddedImg}
+                style={{
+                  fontSize: '1.8rem',
+                }}
+              >
+                &times;
+              </button>
+            </div>
+          ))
+        : Object.values(imgs).map((file: any) => (
+            <div key={uuidv4()}>
+              <h1>{file.name}</h1>
+              <button
+                type="button"
+                name={file.lastModified}
+                onClick={delAddedImg}
+                style={{
+                  fontSize: '1.8rem',
+                }}
+              >
+                &times;
+              </button>
+            </div>
+          ))
+          } */}
       <input
         type="file"
         name="file"

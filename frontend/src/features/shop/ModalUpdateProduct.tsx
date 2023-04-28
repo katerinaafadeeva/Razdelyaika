@@ -15,24 +15,44 @@ const ModalUpdateProduct = ({
   product: Product;
 }): JSX.Element => {
   const dispatch = useAppDispatch();
+  const { prodImgs } = useSelector((store: RootState) => store.productsState);
 
-  const { productId } = useParams();
+  console.log('prodImgs', prodImgs);
+  const productId = product.id;
+  // console.log('product', product);
   const [updproductName, setUpdProductName] = useState(product.productName);
-  const [updproductPrice, setUpdProductPrice] = useState(String(product.productPrice));
-  const [updproductDescript, setUpdproductDescript] = useState(product.productDescript);
+
+  const [updproductPrice, setUpdProductPrice] = useState(
+    String(Number(product.productPrice))
+  );
+  const [updproductDescript, setUpdproductDescript] = useState(
+    product.productDescript
+  );
+
   const { sizes } = useSelector((store: RootState) => store.productsState);
 
-  const handleUpdateProduct = (e: React.FormEvent<HTMLFormElement>): void => {
+  // const handleUpdateProduct = (e: React.FormEvent<HTMLFormElement>): void => {
+  //   e.preventDefault();
+  //   dispatch(
+  //     updateProduct({
+  //       id: Number(productId),
+  //       productName: updproductName,
+  //       productPrice: Number(updproductPrice),
+  //       productDescript: updproductDescript,
+  //     })
+  //   );
+  // };
+
+  const handleUpdateProduct: React.FormEventHandler<HTMLFormElement> = (
+    e
+  ): void => {
     e.preventDefault();
-    // dispatch(
-    //   updateProduct({
-    //     id: Number(productId),
-    //     productName: updproductName,
-    //     productPrice: updproductPrice,
-    //     productDescript: updproductDescript,
-    //   })
-    // );
+    const data = new FormData(e.target as HTMLFormElement);
+    console.log('data', data);
+    console.log('productId', productId);
+    dispatch(updateProduct({ data: data, productId: Number(productId) }));
   };
+
   return (
     <div className="modal generalModal">
       <div className="modal-dialog" tabIndex={-1}>
@@ -108,20 +128,22 @@ const ModalUpdateProduct = ({
                             />
                           </>
                         ))}
-                        {/* <input
+                        <input
                           style={{ display: 'none' }}
                           required
                           type="text"
                           className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD] raz"
-                          value={Object.values(imgs)
-                            .map((img) => img.name)
-                            .join()}
+                          value={prodImgs?.map((prodImg) => prodImg).join()}
                           name="imgs"
-                        /> */}
+                        />
                         <ProductUploader />
                         <button
                           type="submit"
-                          className="change_btn_admin bg-primary inline-flex items-center justify-center rounded-full py-4 px-5 text-center text-base font-normal text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
+
+                          className="change_btn_admin bg-primary inline-flex items-center justify-center rounded-full py-4 px-5 text-center text-base font-normal text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+                          onClick={showModalUpdate}
+                        >
+
                           Изменить
                         </button>
                       </form>

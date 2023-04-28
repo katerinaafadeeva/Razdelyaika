@@ -79,10 +79,17 @@ router.get('/logout', async (req, res) => {
 router.get('/checkUser', async (req, res) => {
   try {
     const userSession = req.session.userId;
-
+    const userSessionGoogle = req.session.passport.user.emails[0].value;
     if (userSession) {
       const user = await User.findOne({
-        where: { id: userSession },
+        where: { id: Number(userSession) },
+        attributes: { exclude: ['password'] },
+      });
+      res.status(201).json(user);
+    }
+    if (userSessionGoogle) {
+      const user = await User.findOne({
+        where: { email: userSessionGoogle },
         attributes: { exclude: ['password'] },
       });
       res.status(201).json(user);
@@ -91,18 +98,5 @@ router.get('/checkUser', async (req, res) => {
     // res.status(404).json({ message: error.message });
   }
 });
-
-// router.get('/verification', async (req, res) => {
-//   const userId = req.session.userId;
-//   if (userId) {
-//     const user = await User.findOne({
-//       where: { id: userId },
-//       attributes: { exclude: ['password'] },
-//     });
-//     res.status(200).json(user);
-//   } else {
-//     res.status(403).json({ message: 'no session' });
-//   }
-// });
 
 module.exports = router;
